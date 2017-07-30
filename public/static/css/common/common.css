@@ -1,0 +1,672 @@
+@charset "UTF-8";
+/*!
+站点通用样式
+==============================================
+ */
+@charset "utf-8";
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, button, textarea, p, blockquote, th, td {
+    margin: 0;
+    padding: 0;
+}
+
+fieldset, img {
+    border: 0;
+}
+
+/* remember to define focus styles! */
+:focus {
+    outline: 0;
+}
+
+address, caption, cite, code, dfn, em, strong, th, var, optgroup {
+    font-style: normal;
+    font-weight: normal;
+}
+
+abbr, acronym {
+    border: 0;
+    font-variant: normal;
+}
+
+input, button, textarea, select, optgroup, option {
+    font-family: inherit;
+    font-size: inherit;
+    font-style: inherit;
+    font-weight: inherit;
+}
+
+code, kbd, samp, tt {
+    font-size: 100%;
+}
+
+/*@purpose To enable resizing for IE */
+/*@branch For IE6-Win, IE7-Win */
+input, button, textarea, select {
+    *font-size: 100%;
+}
+
+body {
+    line-height: 1.5;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+caption, th {
+    text-align: left;
+    white-space: nowrap;
+}
+
+sup, sub {
+    font-size: 100%;
+    vertical-align: baseline;
+}
+
+/* remember to highlight anchors and inserts somehow! */
+:link, :visited, ins {
+    text-decoration: none;
+}
+
+blockquote, q {
+    quotes: none;
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+    content: '';
+    content: none;
+}
+
+button {
+    padding: 2px;
+    cursor: pointer;
+}
+
+b {
+    font-weight: normal;
+}
+
+/*
+站点基本样式定义
+======================================================
+ */
+html, body {
+    background: #fff;
+    line-height: 1.6;
+    font-size: 14px;
+    #font-family: "Microsoft Yahei", FreeSans, Arimo, "Droid Sans", Helvetica, Arial, sans-serif;
+    padding-bottom: 15%!important;
+}
+
+a {
+    color: #4a7cbc;
+    text-decoration: none;
+}
+
+
+
+table {
+    width: 100%;
+}
+
+@media screen and (min-width:360px) {
+
+    body{
+        font-size: 16px;
+    }
+
+}
+
+/*
+交互样式定义
+========================================================
+ */
+
+/*
+通用基本类定义
+=========================================================
+ */
+.ellipsis{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.none {
+    display: none !important;
+}
+
+.inline {
+    vertical-align: top;
+}
+
+.inline, .inline-list, .inline-list > li, .inline-list-1, .inline-list-1 > li {
+    display: inline-block;
+}
+
+.inline-list {
+    vertical-align: top;
+}
+
+.inline-list li {
+    float: left;
+}
+
+/*垂直对齐，水平对齐 */
+.f-left, .fl {
+    float: left;
+}
+
+.f-right, .fr {
+    float: right;
+}
+
+.v-top, .vt {
+    vertical-align: top;
+}
+
+.v-middle, .vm {
+    vertical-align: middle;
+}
+
+.vb {
+    vertical-align: bottom;
+}
+
+.hl {
+    text-align: left;
+}
+
+.h-center, .hc {
+    text-align: center;
+}
+
+.h-right, .hr {
+    text-align: right;
+}
+
+.clear{
+    clear: both;
+}
+.clear:after{
+    content: '';
+    display: block;
+    height: 1px;
+    overflow: hidden;
+    clear: both;
+}
+/* 强制一行显示 */
+.line {
+    white-space: nowrap;
+}
+
+.t-r {
+    text-align: right !important;
+    direction: rtl;
+}
+/*border background样式定义 */
+.br-1 {
+    border-right: solid 1px #e6e9ed;
+}
+
+.bg-1 {
+    background: #e7edf7;
+}
+
+
+body{
+    padding-bottom:4em;
+}
+@import url("include/class.scss__inline");
+/*
+字体样式定义
+=========================================================
+ */
+
+
+
+/*
+t    为前缀；
+-18  字体大小
+-0   字体样式   0 ： normal； 1： bold;
+-r1 字体颜色   r: red; b: blue; y: yellow; g: green; w: white; k: black; a: gray;
+*/
+.t-12-0-a0,
+.t-12-0-a1,
+.t-12-1-a2 {
+    font-size: 12px;
+}
+
+.t-12-0-a0 {
+    color: #aab2bd;
+}
+
+.t-12-0-a1,
+.t-14-0-a1, .t-14-1-a1,
+{
+    color: #898a8b;
+}
+
+.t-12-1-a2, .t-14-1-a2 {
+    color: #656d78;
+}
+
+.t-14-1-a2, .t-14-1-b0, .t-14-1-a3,
+.t-14-1-up, .t-14-1-md, .t-14-1-down,
+.t-14-0-k1, .t-14-1-k1,
+.t-14-0-a1, .t-14-1-a1,
+.t-14-0-y1, .t-14-1-y1,
+.t-14-0-r1, .t-14-1-r1, .t-14-0-up, .t-14-1-up {
+    font-size: 14px;
+}
+
+.t-14-0-y1, .t-14-1-y1
+.t-24-0-y1, .t-24-1-y1 {
+    color: #ff9915;
+}
+
+.t-14-1-md,
+.t-16-0-a3, .t-16-1-a3 {
+    color: #aab2bd;
+}
+
+.t-14-0-down,.t-14-1-down,
+.t-16-0-down, .t-16-1-down,
+.t-18-0-down, .t-18-1-down {
+    color: #37bc9b;
+}
+
+.t-14-0-k1, .t-14-1-k1,
+.t-16-0-k1, .t-16-1-k1,
+.t-18-0-k1, .t-18-1-k1,
+.t-24-0-k1, .t-24-1-k1 {
+    color: #434a54;
+}
+
+.t-14-1-b0 {
+    color: #5d9cec;
+}
+
+.t-14-1-a3 {
+    color: #434a54;
+}
+
+.t-14-0-b1, .t-14-1-b1,
+{
+    font-size: 14px;
+    color: #4a89dc;
+}
+.t-16-0-b6, .t-16-1-b6{
+    color:#3c6eb1;
+}
+.t-18-0-b4,.t-18-1-b4{
+    color: #4b88db;
+}
+.t-14-0-r1, .t-14-1-r1, .t-14-0-up, .t-14-1-up,
+.t-16-0-up, .t-16-1-up,
+.t-16-0-r1, .t-16-1-r1,
+.t-18-0-r1, .t-18-1-r1,
+.t-18-0-up, .t-18-1-up {
+    color: #da4453;
+}
+
+.t-24-0-a1, .t-24-1-a1 {
+    color: #8e959e;
+}
+.t-24-0-w, .t-24-1-w{
+    color:#fff;
+}
+.t-16-0-b4, .t-16-1-b4
+{
+    color: #494d80;
+}
+.fy-1,
+.t-12-1-a2, .t-14-1-a2, .t-14-1-a3,
+.t-14-1-g1, .t-14-1-b0,
+.t-14-1-r1, .t-14-1-b1, .t-14-1-g1, .t-14-1-a1, .t-14-1-up, .t-14-1-md, .t-14-1-down, .t-14-1-k1, .t-18-1-a1,
+.t-14-1-y1,
+.t-16-1-b1,
+.t-16-1-a3,
+.t-16-1-k1,
+.t-16-1-r1,
+.t-16-1-b4,
+.t-16-1-b6,
+.t-16-1-up, .t-16-1-down,
+.t-18-1-up, .t-18-1-down,
+.t-18-1-r1,
+.t-18-1-k1,
+.t-18-1-b1,
+.t-18-1-b4,
+.t-24-1-a1,
+.t-24-1-k1,
+.t-24-1-y1,
+.t-24-1-g1,
+.t-24-1-w
+{
+    font-weight: bold;
+}
+
+.t-16-0-up, .t-16-0-down, .t-16-1-up, .t-16-1-down,
+.t-16-0-a3, .t-16-1-a3,
+.t-16-0-k1, .t-16-1-k1,
+.t-16-0-r1, .t-16-1-r1,
+.t-16-0-b1, .t-16-1-b1,
+.t-16-0-b4, .t-16-1-b4,
+.t-16-0-b6, .t-16-1-b6
+{
+    font-size: 16px;
+}
+
+.fc-a1,
+.t-18-0-a1, .t-18-1-a1,
+.t-18-0-up, .t-18-1-up, .t-18-0-down, .t-18-1-down {
+    color: #656d78;
+}
+.t-18-0-r1, .t-18-1-r1,
+.t-18-0-b1, .t-18-1-b1,
+.t-18-0-b4, .t-18-1-b4,
+.t-18-0-k1, .t-18-1-k1,
+.t-18-0-a1, .t-18-1-a1, .t-18-0-up, .t-18-1-up, .t-18-0-down, .t-18-1-down {
+    font-size: 18px;
+}
+
+.t-24-0-w, .t-24-1-w,
+.t-24-0-g1, .t-24-1-g1,
+.t-24-0-a1, .t-24-1-a1,
+.t-24-0-y1, .t-24-1-y1,
+.t-24-0-k1, .t-24-1-k1 {
+    font-size: 24px;
+}
+
+.t-p2-1-a1{
+    font-size:2em;
+    color: #444444;
+    font-weight: bold;
+}
+
+
+/*定义字体颜色*/
+.fc-r1{
+    color: #fc6e51;
+}
+.fc-b1{
+    color: #549efd;
+}
+.fc-a2{
+    color: #7d7d7d;
+}
+.fc-k1{
+    color:#B5B5B5;
+}
+.fc-up{
+    color: #fc6e51;
+}
+.fc-down{
+    color: #0eb70a;
+}
+/*定义字体大小*/
+
+.fz-small {
+    font-size: 0.6em;
+}
+
+.fz-normal {
+    font-size: 1em;
+}
+
+.fz-large {
+    font-size: 1.4em;
+}
+.fz-d8{
+    font-size:0.8em;
+}
+.fz-1d2{
+    font-size: 1.2em;
+}
+.fz-1d4{
+    font-size: 1.4em;
+}
+.fz-1d5{
+    font-size: 1.5em;
+}
+.fz-p2{
+    font-size:2em;
+}
+.fz-2d4{
+    font-size: 2.4em;
+}
+.fz-p3{
+    font-size:3em;
+}
+.fz-p4{
+    font-size:4em;
+}
+
+
+
+/*
+组件样式定义
+=========================================================
+ */
+
+
+/*
+按钮样式定义
+============================================================
+ */
+
+.btn {
+    font-family: inherit;
+    vertical-align: middle;
+    display: inline-block;
+    padding: 0.3em 0.5em 0.2em 0.5em;
+    line-height: 1.6;
+    cursor: pointer;
+    border: none;
+    background: none;
+    border-radius: 0.2em;
+    transition: all .4s;
+    background: #656d78;
+    color:#fff;
+}
+
+.btn.active{
+    background: blue;
+}
+
+.btn-0, .btn-0-2, .btn-0-3 {
+    color: inherit;
+    background: transparent;
+    border: none;
+}
+
+.btn-0-2 {
+    color: #ff9915;
+}
+.btn-0-3{
+    border-bottom: solid 3px transparent;
+}
+
+.btn-0:hover, .btn-0-2:hover, .btn-0-2.active, .btn-0-3:hover,.btn-0-3:active {
+    color: #fff;
+    background: #ff9915;
+}
+.btn-0-3:hover, .btn-0-3.active{
+    color: #fff;
+    border-bottom-color:  #ce954b;
+    background: #ff9915;
+}
+.btn-0-1:hover {
+    color: #fff;
+    background: #1a1c39;
+}
+
+.btn-1, .btn-1-1, .btn-1-2 {
+    color: #fff;
+    background: #ff9915;
+    border-bottom: solid 2px #ce954b;
+}
+
+.btn-small {
+    font-size: 12px;
+}
+
+.btn-1-1 {
+    padding: 0.5em 2em;
+}
+
+.btn-1:hover, .btn-1-1:hover, .btn-1:active, .btn-1-1:active {
+    background: #e48913;
+}
+
+.btn-2 {
+    font-size: 12px;
+    color: #fff;
+    font-family: sans-serif;
+    background: #656d78;
+    border-bottom: solid 2px #1a1c39;
+}
+
+.btn-2:hover, .btn-2:active {
+    background: #4b5159;
+}
+
+.btn-3 {
+    background: #e6e9ed;
+    color: #cacfd7;
+}
+
+.btn-y1{
+    color:#fff;
+    padding: 0 1em;
+    line-height: 42px;
+    background: #ccd1d9;
+    border-bottom: solid 2px #aab2bd;
+}
+.btn-b1{
+    color: #fff;
+    background: #4fc1e9;
+    border-bottom: solid 2px #308db0;
+}
+
+.btn-label {
+    border-radius: 0;
+}
+
+.btn-tab-1{
+    color: #ff9915;
+    background: #fff;
+    border:solid 1px #ff9915;
+    padding:0.2em 1em;
+}
+.btn-tab-1:hover, .btn-tab-1.active{
+    color: #fff;
+    background-color: #ff9915;
+}
+.btn-tab-1.disabled{
+    color:#ccd1d9!important;
+    border:solid 1px #aab2bd!important;
+    background: #fff!important;
+}
+.btn-tab-g1{
+    color: #48cfad;
+    background: #fff;
+    border:solid 1px #48cfad;
+    padding:0.2em 1em;
+}
+.btn-tab-g1:hover, .btn-tab-g1.active{
+    @color: #fff;
+    @background: #48cfad;
+}
+.btn.disabled{
+    color:#fff;
+    background: #ccd1d9;
+    border-bottom:solid 3px #aab2bd;
+}
+.btn-md, .btn-md-1-1{
+    padding: 0 1.2em;
+    line-height:36px;
+}
+.btn-large{
+
+}
+.btn-md-1-1{
+    width:100%;
+    padding: 0;
+}
+/* 按钮组 */
+.btn-group, .btn-group-1 {
+    display: inline-block;
+}
+.btn-group .btn{
+    float:left;
+}
+.btn-group .btn {
+    border-radius: 0;
+}
+.btn-group .first{
+    border-radius:0.3em 0 0  0.3em;
+}
+.btn-group .last{
+    border-radius: 0 0.3em 0.3em 0;
+}
+.btn-group .last:after{
+    content: "";
+    display: inline-block;
+    clear:both;
+}
+
+/* */
+
+.btn.icon{
+    line-height: 1;
+    padding: 0;
+}
+
+/*
+其它
+===============================================================
+*/
+
+
+/*
+布局相关样式定义
+=====================================================
+ */
+
+#page-wrap {
+
+}
+
+.lh-p1{
+    line-height: 1;
+}
+
+.lh-1d5{
+    line-height: 1.5;
+}
+.lh-2{
+    line-height: 2;
+}
+.lh-2d2{
+    line-height: 2.2;
+}
+.m-r-p1{
+    margin-right:1em;
+}
+.m-l-p1{
+    margin-left:1em;
+}
+
+
+.p-r-p1{
+    padding-right:1em;
+}
+.p-l-p1{
+    padding-left:1em;
+}
