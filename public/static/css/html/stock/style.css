@@ -114,7 +114,7 @@ dt {
   font-size: 1.15em;
 }
 
-.active {
+.focus {
   background: #1865bb;
   color: #fff;
 }

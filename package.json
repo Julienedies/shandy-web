@@ -1,14 +1,16 @@
 {
-    "name": "gushenwei",
-    "version": "0.1.0",
-    "description": "",
-    "repository": "",
-    "main": "",
-    "dependencies": {
-    },
-    "devDependencies": {
-    },
-    "scripts": {
-        "init":"npm i -g fis && npm i -g fis-postpackager-simple && npm i -g fis-postprocessor-require-async && npm i -g fis-postpackager-autoload &&  npm i -g fis-preprocessor-smarty-fix && npm i -g fis-postpackager-jchm && npm i -g fis-parser-less && npm i -g fis-parser-sass && npm i -g zoo"
-    }
+  "name": "fis-command-server-script",
+  "description": "This is an simple fis server script.",
+  "version": "0.0.0",
+  "author": "FIS Team <fis@baidu.com>",
+  "homepage": "http://fis.baidu.com/",
+  "keywords": [
+    "fis"
+  ],
+  "main": "server.js",
+  "dependencies": {
+    "express": "4.10.1",
+    "serve-index": "1.5.0",
+    "yog-devtools": "0.0.4"
+  }
 }

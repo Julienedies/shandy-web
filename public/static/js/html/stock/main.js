@@ -29,7 +29,7 @@ brick.controllers.reg('mainCtrl', function (scope) {
     });
 
     scope.$elm.on('click', 'p, dt, li', function(e){
-        $(this).toggleClass('active');
+        $(this).toggleClass('focus');
     });
 
 });
