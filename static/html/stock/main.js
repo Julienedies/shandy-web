@@ -13,7 +13,7 @@ brick.controllers.reg('mainCtrl', function (scope) {
     var max = views.length - 1;
     var callback = _.debounce(function (e) {
         //正负值表示滚动方向
-        e.originalEvent.deltaY > 0 ? --index : ++index;
+        e.originalEvent.deltaY < 0 ? --index : ++index;
         if (index < 0) {
             index = max;
         }

@@ -110,8 +110,22 @@ h3 {
   font-size: 1.2em;
 }
 
+h4 {
+  font-size: 1.1em;
+}
+
 dt {
-  font-size: 1.15em;
+  margin: 10px 0 0 0;
+  font-size: 1.2em;
+}
+
+dd {
+  padding: 5px 1em;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+dd:empty {
+  display: none;
 }
 
 .focus {
@@ -121,7 +135,7 @@ dt {
 
 body > aside {
   position: fixed;
-  width: 10%;
+  width: 12%;
   top: 0;
   bottom: 0;
   z-index: 10000000;
@@ -150,12 +164,12 @@ body > aside ul li.active {
 
 [aic-view] {
   box-sizing: border-box;
-  padding: 15px 25px 15px 175px;
+  padding: 15px 25px 15px 205px;
 }
 
 [aic-view] > header {
   padding: 10px 0;
-  margin: 0 0 25px 0;
+  margin: 0 0 15px 0;
   border-bottom: solid 1px #ccc;
 }
 
