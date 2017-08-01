@@ -74,9 +74,15 @@ body > aside {
   }
 }
 
+[aic-view-stage]{
+  height: 100%;
+  overflow-y: scroll;
+}
+
 [aic-view] {
   box-sizing: border-box;
-  padding: 15px 25px 15px 205px;
+  min-height: 100%;
+  padding: 15px 25px 0 205px;
   > header {
     padding: 10px 0;
     margin: 0 0 15px 0;

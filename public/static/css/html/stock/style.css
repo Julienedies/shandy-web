@@ -162,9 +162,15 @@ body > aside ul li.active {
   background: #fff;
 }
 
+[aic-view-stage] {
+  height: 100%;
+  overflow-y: scroll;
+}
+
 [aic-view] {
   box-sizing: border-box;
-  padding: 15px 25px 15px 205px;
+  min-height: 100%;
+  padding: 15px 25px 0 205px;
 }
 
 [aic-view] > header {
