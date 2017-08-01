@@ -170,7 +170,7 @@ body > aside ul li.active {
 [aic-view] {
   box-sizing: border-box;
   min-height: 100%;
-  padding: 15px 25px 0 205px;
+  padding: 15px 25px 30px 205px;
 }
 
 [aic-view] > header {

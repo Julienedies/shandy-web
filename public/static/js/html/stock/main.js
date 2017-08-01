@@ -14,17 +14,23 @@ brick.controllers.reg('mainCtrl', function (scope) {
         return $(this).attr('aic-view-to');
     }).get();
 
-    var isConfirm = false;
+    var bounce = 0;
     var index = 0;
     var max = views.length - 1;
 
     var clientHeight = $elm.height();
+    var oldIsUp;
 
     var callback = _.debounce(function (e) {
-        console.log(e, $elm.scrollTop(), clientHeight, $elm[0].scrollHeight);
+        console.log($elm.scrollTop(), clientHeight, $elm[0].scrollHeight, bounce);
         //正负值表示滚动方向
         var isUp = e.originalEvent.deltaY < 0;
         var viewElem = $views.get(index);
+
+        if(isUp !== oldIsUp) {
+            bounce = 0;
+            oldIsUp = isUp;
+        }
         //判断当前视图是否有隐藏内容
         if (viewElem.scrollHeight > clientHeight) {
             //判断滚动方向
@@ -36,13 +42,13 @@ brick.controllers.reg('mainCtrl', function (scope) {
                 return;
             }
 
-            if(!isConfirm) {
-                isConfirm = true;
+            if(bounce < 2) {
+                bounce++;
                 return;
             }
         }
 
-        isConfirm = false;
+        bounce = 0;
 
         isUp ? --index : ++index;
         if (index < 0) {
