@@ -115,13 +115,16 @@ h4 {
 }
 
 dt {
-  margin: 10px 0 0 0;
+  margin: 5px 0 0 0;
   font-size: 1.2em;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 0 1em;
 }
 
 dd {
   padding: 5px 1em;
-  background: rgba(0, 0, 0, 0.05);
+  font-size: 0.95em;
+  color: #444;
 }
 
 dd:empty {
@@ -160,6 +163,7 @@ body > aside ul li {
 
 body > aside ul li.active {
   background: #fff;
+  font-weight: 800;
 }
 
 [aic-view-stage] {
@@ -170,13 +174,13 @@ body > aside ul li.active {
 [aic-view] {
   box-sizing: border-box;
   min-height: 100%;
-  padding: 15px 25px 30px 205px;
+  padding: 10px 25px 10px 205px;
 }
 
 [aic-view] > header {
   padding: 10px 0;
   margin: 0 0 15px 0;
-  border-bottom: solid 1px #ccc;
+  border-bottom: solid 1px #e2e2e2;
 }
 
 [aic-view] > section ol, [aic-view] > section ul {

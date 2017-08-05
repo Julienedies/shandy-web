@@ -38,7 +38,7 @@ brick.controllers.reg('mainCtrl', function (scope) {
                 return;
             }
 
-            if (!isUp && $elm.scrollTop() + clientHeight < $elm[0].scrollHeight) {
+            if (!isUp && $elm.scrollTop() + clientHeight + 5 < $elm[0].scrollHeight) {
                 return;
             }
 
@@ -59,7 +59,7 @@ brick.controllers.reg('mainCtrl', function (scope) {
         }
         $nav.eq(index).click();
         //brick.view.to(views[index]);
-    }, 100);
+    }, 150);
 
     $body.on('mousewheel', callback);
 
@@ -67,7 +67,7 @@ brick.controllers.reg('mainCtrl', function (scope) {
         //console.log('scroll', e);
         //$body.off('mousewheel', callback);
     }).on('click', 'p, dt, li', function (e) {
-        $(this).toggleClass('focus');
+        //$(this).toggleClass('focus');
     });
 
 });
