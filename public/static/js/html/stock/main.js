@@ -2,6 +2,7 @@
  * Created by j on 17/7/23.
  */
 
+brick.set('bootstrap.auto', 1);
 brick.set('view.aniId', 26);
 
 brick.controllers.reg('mainCtrl', function (scope) {

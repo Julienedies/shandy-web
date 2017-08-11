@@ -96,7 +96,7 @@ p, blockquote {
   margin: 0;
 }
 
-h2, h3, h4, dt {
+h2, h3, h4, dt, .key {
   font-size: 1.5em;
   font-weight: bold;
   line-height: 2;
@@ -131,9 +131,39 @@ dd:empty {
   display: none;
 }
 
+@-webkit-keyframes twinkling {
+  /*透明度由0到1*/
+  0% {
+    opacity: 0;
+    /*透明度为0*/
+  }
+  50% {
+    opacity: 0.5;
+    /*透明度为0*/
+  }
+  100% {
+    opacity: 1;
+    /*透明度为1*/
+  }
+}
+
+.twinkling {
+  -webkit-animation: twinkling 1.5s infinite ease-in-out;
+}
+
 .focus {
   background: #1865bb;
   color: #fff;
+}
+
+.small {
+  font-size: 0.8em;
+  font-weight: 400;
+}
+
+h2 .small {
+  vertical-align: 10%;
+  margin: 0 7px;
 }
 
 body > aside {
