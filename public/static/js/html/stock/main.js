@@ -32,8 +32,9 @@ brick.controllers.reg('mainCtrl', function (scope) {
             bounce = 0;
             oldIsUp = isUp;
         }
+
         //判断当前视图是否有隐藏内容
-        if (viewElem.scrollHeight > clientHeight) {
+       /* if (viewElem.scrollHeight > clientHeight) {
             //判断滚动方向
             if (isUp && $elm.scrollTop() > 0) {
                 return;
@@ -47,7 +48,7 @@ brick.controllers.reg('mainCtrl', function (scope) {
                 bounce++;
                 return;
             }
-        }
+        }*/
 
         bounce = 0;
 

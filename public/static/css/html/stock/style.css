@@ -194,6 +194,7 @@ body > aside ul li {
 body > aside ul li.active {
   background: #fff;
   font-weight: 800;
+  font-size: 1.5em;
 }
 
 [aic-view-stage] {
