@@ -12,16 +12,17 @@
 </head>
 <body>
 <aside>
-    <ul ic-tabs="nav" ic-tab-select="li" ic-tab-active="4" ic-con-select=">div">
+    <ul ic-tabs="nav" ic-tab-select="li" ic-tab-active="2" ic-con-select=">div">
         <li aic-view-to="market">市场</li>
         <li aic-view-to="think">思考</li>
+        <li aic-view-to="logic">逻辑</li>
         <li aic-view-to="discipline">纪律</li>
         <li aic-view-to="pattern">模式</li>
         <li aic-view-to="stock_pick">选股</li>
         <li aic-view-to="trade">操作</li>
         <li aic-view-to="plan">预案</li>
         <li aic-view-to="mistake">错误</li>
-        <li aic-view-to="logic">逻辑</li>
+        <li aic-view-to="links">链接</li>
     </ul>
 </aside>
 
@@ -30,6 +31,8 @@
     <link rel="import" href="include/market.html?__inline">
 
     <link rel="import" href="include/think.html?__inline">
+
+    <link rel="import" href="include/logic.html?__inline">
 
     <link rel="import" href="include/discipline.html?__inline">
 
@@ -43,7 +46,22 @@
 
     <link rel="import" href="include/mistake.html?__inline">
 
-    <link rel="import" href="include/logic.html?__inline">
+    <div aic-view="mistake">
+        <header>
+            <h2>链接</h2>
+        </header>
+        <section>
+            <ul>
+                <li><a href="<<<uri: system/index.html >>>">交易系统建立</a></li>
+                <li><a href="<<<uri: check/index.html >>>">check</a> </li>
+                <li><a href="<<<uri: plan/index.html >>>">计划</a></li>
+            </ul>
+            <h2>复盘与交易计划</h2>
+            <ol>
+                <li><a href="<<<uri: record/17-12-25-1.html >>>">17-12-25-周一</a> </li>
+            </ol>
+        </section>
+    </div>
 
 </div>
 

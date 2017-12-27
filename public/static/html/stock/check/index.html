@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <base target=”_blank”>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <title>建仓检查</title>
+    <!--<link rel="stylesheet" href="../../../css/basic/0.7/basic.scss">-->
+    <link rel="stylesheet" href="/public/static/css/vendor/effeckt/animations.css"/>
+    <link rel="stylesheet" href="/public/static/css/js/brick/0.7/brick.mobile.css">
+    <link rel="stylesheet" href="/public/static/css/html/stock/check/style.css"/>
+</head>
+<body>
+
+<div ic-view-stage ic-ctrl="mainCtrl">
+
+    <div ic-view="1" ic-active ic-view-ani-id="13">
+        <header>
+            <h2>建仓步骤</h2>
+        </header>
+        <section>
+            <ul>
+                <li>是否临时交易？</li>
+                <li>行情模式？</li>
+                <li></li>
+                <li>止损位置靠近最低位置</li>
+                <li>调低止损，正确的头寸通常不需要大的止损。</li>
+                <li>预测顶部，不敢建仓</li>
+                <li>不要在第一次巨量附近建仓，对应的通常是顶。观察后续量能。</li>
+            </ul>
+            <button ic-view-to="2">继续check建仓节点</button>
+        </section>
+    </div>
+
+    <div ic-view="2">
+        <header>
+            <h2>建仓节点</h2>
+        </header>
+        <section>
+            <ul>
+                <li>情绪失控，随意操作</li>
+                <li>如果确定头寸错误，尽快止损。要果断，不要臆想！</li>
+                <li>囿于小利，优柔寡断，成本是必须的</li>
+                <li>止损位置靠近最低位置</li>
+                <li>调低止损，正确的头寸通常不需要大的止损。</li>
+                <li>预测顶部，不敢建仓</li>
+                <li>不要在第一次巨量附近建仓，对应的通常是顶。观察后续量能。</li>
+            </ul>
+            <button ic-view-to="3">确定</button>
+        </section>
+    </div>
+
+    <div ic-view="3">
+        <header>
+            <h2>3</h2>
+        </header>
+        <section>
+            <ul>
+                <li>情绪失控，随意操作</li>
+                <li>如果确定头寸错误，尽快止损。要果断，不要臆想！</li>
+                <li>囿于小利，优柔寡断，成本是必须的</li>
+                <li>止损位置靠近最低位置</li>
+                <li>调低止损，正确的头寸通常不需要大的止损。</li>
+                <li>预测顶部，不敢建仓</li>
+                <li>不要在第一次巨量附近建仓，对应的通常是顶。观察后续量能。</li>
+            </ul>
+        </section>
+    </div>
+
+</div>
+
+<script src="/public/static/js/vendor/underscore-1.8.2.js"></script>
+<script src="/public/static/js/vendor/jquery-2.1.3.js"></script>
+<script src="/public/static/js/brick/0.7/brick.mobile.js"></script>
+<script src="/public/static/js/html/stock/check/main.js"></script>
+
+</body>
+</html>

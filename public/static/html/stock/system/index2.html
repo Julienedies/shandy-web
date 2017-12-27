@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>交易系统</title>
+    <link rel="stylesheet" href="../../../css/basic/0.7/basic.scss">
+    <link rel="stylesheet" href="../../../js/brick/0.7/brick.mobile.css">
+    <link rel="stylesheet" href="style.scss">
+</head>
+<body>
+
+<aside>
+    <ul ic-tabs="nav" ic-tab-select="li" ic-tab-active="0" ic-con-select=">section">
+        <li aic-view-to="logic">逻辑</li>
+        <li aic-view-to="discipline">纪律</li>
+        <li aic-view-to="stock_pick">选股</li>
+        <li aic-view-to="trade">操作</li>
+    </ul>
+</aside>
+
+<div ic-role-tabc="nav" ic-ctrl="mainCtrl">
+    <link rel="import" href="include/logic.html?__inline">
+
+    <link rel="import" href="include/stock_pick.html?__inline">
+
+    <link rel="import" href="include/trade.html?__inline">
+
+    <link rel="import" href="include/work_flow.html?__inline">
+</div>
+
+
+</body>
+
+<script src="../../../js/vendor/underscore-1.8.2.js"></script>
+<script src="../../../js/vendor/jquery-2.1.3.js"></script>
+<script src="../../../js/brick/0.7/brick.mobile.js"></script>
+<script src="main.js"></script>
+</html>

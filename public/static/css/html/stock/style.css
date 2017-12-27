@@ -90,6 +90,8 @@ html, body {
 
 a {
   color: inherit;
+  color: blue;
+  text-decoration: underline;
 }
 
 p, blockquote {
@@ -205,7 +207,7 @@ body > aside ul li.active {
 [aic-view] {
   box-sizing: border-box;
   min-height: 100%;
-  padding: 10px 25px 10px 205px;
+  padding: 10px 25px 10px 14%;
 }
 
 [aic-view] > header {

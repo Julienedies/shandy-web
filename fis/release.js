@@ -22,7 +22,10 @@ fis.config.merge({
 
 //部署设置
 fis.config.set('roadmap.path', [
-
+    {
+        reg: /\/include\/.*$/i,
+        release: false
+    },
     {
         reg: /.+\.(?:cmd|bat|json)$/i,
         release: false
