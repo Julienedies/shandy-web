@@ -53,7 +53,7 @@
   justify-content: space-between;
 }
 
-.flex-right, .flex-mr {
+.flex-right, .flex-mr, dt {
   -webkit-box-pack: end;
   -webkit-justify-content: flex-end;
   justify-content: flex-end;
@@ -78,7 +78,7 @@
 /*    define extend
 ==========================================================*/
 body {
-  padding: 20px;
+  padding: 10px 25px;
   font-size: 1.4em;
   line-height: 1.8;
 }
@@ -90,12 +90,28 @@ a {
 }
 
 aside {
-  display: none;
+  position: fixed;
+  right: 0;
+  top: 15px;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+aside ul {
+  display: flex;
+}
+
+aside li {
+  padding: 3px 15px;
+}
+
+aside li.active {
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 h2 {
-  font-size: 1.6em;
-  padding-bottom: 10px;
+  font-size: 1.4em;
+  padding-bottom: 5px;
 }
 
 section {
@@ -106,6 +122,7 @@ dl {
   display: flex;
   flex-wrap: wrap;
   border-top: solid 1px #bdbdbe;
+  margin: 15px 0 0 0;
 }
 
 dt, dd {
@@ -113,6 +130,16 @@ dt, dd {
   border: solid 1px #bdbdbe;
   border-top: none;
   padding: 10px;
+}
+
+dt {
+  font-weight: bold !important;
+  /* color:#fff;
+  background:#0a3ebe;*/
+}
+
+dt * {
+  font-weight: bold;
 }
 
 dd {

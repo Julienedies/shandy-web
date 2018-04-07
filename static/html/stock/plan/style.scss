@@ -1,48 +1,23 @@
 @import "../../../css/base/include/import";
 
 body{
-  padding: 10px 25px;
+  padding: 20px;
   font-size:1.4em;
   line-height: 1.8;
 }
 
-a{
-  padding:0 5px;
-  color:blue;
-  text-decoration: underline;
-}
-
-aside{
-  position: fixed;
-  right:0;
-  top:15px;
-  background-color: rgba(0,0,0,0.1);
-  ul{
-    display: flex;
-  }
-  li{
-    padding:3px 15px;
-    &.active{
-      color:#fff;
-      background-color: rgba(0,0,0,0.7);
-    }
-  }
-}
-
 h2{
-  font-size:1.4em;
-  padding-bottom: 5px;
+  font-size:1.6em;
 }
 
 section {
-   margin-bottom: 20px;
+  padding: 20px;
 }
 
 dl {
   display: flex;
   flex-wrap: wrap;
   border-top: solid 1px #bdbdbe;
-  margin: 15px 0 0 0;
 }
 
 dt, dd {
@@ -53,13 +28,7 @@ dt, dd {
 }
 
 dt{
-  @extend .flex-mr;
-  font-weight: bold!important;
-  *{
-    font-weight: bold;
-  }
- /* color:#fff;
-  background:#0a3ebe;*/
+  @extend .flex-middle;
 }
 
 dd {
