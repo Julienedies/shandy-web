@@ -78,13 +78,14 @@
 /*    define extend
 ==========================================================*/
 body {
-  padding: 20px;
+  padding: 10px 20px;
   font-size: 1.4em;
   line-height: 1.8;
 }
 
 h2 {
   font-size: 1.6em;
+  margin-bottom: 15px;
 }
 
 section {
@@ -107,6 +108,7 @@ dt, dd {
 dd {
   flex: 1 1 85%;
   border-left: none;
+  white-space: pre-line;
 }
 
 .focus {
