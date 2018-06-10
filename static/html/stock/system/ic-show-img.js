@@ -2,7 +2,7 @@
  * Created by j on 18/2/16.
  */
 
-brick.directives.reg('aic-show-img', function($elm){
+brick.directives.reg('ic-show-img', function($elm){
 
     var html = '<div style="position: fixed;width:100%;height:100%;left:0;top:0;z-index: 999;background-color: rgba(0,0,0,0.4);display:none;"><div id="ic-show-img-box"></div><div id="ic-show-img-box-close" style="position:absolute;top:0;right:0;padding:20px;background-color: rgba(0,0,0,0.0);color:#fff;line-height:1;"></div></div>';
 
