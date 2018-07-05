@@ -2,14 +2,53 @@
 站点通用样式
 ==============================================
  */
-
-@import url('include/reset.css?__inline');
+/*@import url('include/reset.css?__inline');
 @import url('include/base.css?__inline');
 @import url('include/class.scss__inline');
 @import url('include/font.css?__inline');
 @import url('include/components.css?__inline');
 @import url('include/icon.css?__inline');
-@import url('include/layout.css?__inline');
+@import url('include/layout.css?__inline');*/
+
+@import "../base/include/import";
+
+body{
+  padding:20px 15px 0 15px;
+  font-size:1.4em;
+  line-height: 1.8;
+  font: 20px/1.7 "Helvetica Neue",Helvetica,Arial,"Microsoft Yahei","Hiragino Sans GB","Heiti SC","WenQuanYi Micro Hei",sans-serif;
+}
+
+dl.table_1 {
+  display: flex;
+  flex-wrap: wrap;
+  border-top: solid 1px #bdbdbe;
+  margin: 20px 0;
+  font-size: 1.2em;
+  dt, dd {
+    flex: 1 1 16%;
+    border: solid 1px #bdbdbe;
+    border-top: none;
+    padding: 10px;
+  }
+
+  dt {
+    @extend .flex-mr;
+    white-space: nowrap;
+    font-weight: bold !important;
+    * {
+      font-weight: bold;
+    }
+  }
+
+  dd {
+    flex: 1 1 84%;
+    border-left: none;
+    li{
+      padding:2px 0;
+    }
+  }
+}
 
 
 

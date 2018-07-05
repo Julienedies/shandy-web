@@ -84,6 +84,15 @@ fis.config.set('roadmap.path', [
         useHash: true
     },
 
+    // 首页html
+    {
+        reg: /^\/?index\.html$/i,
+        release: '$&',
+        url: '/static$&',
+        useDomain: true,
+        useHash: false
+    },
+
     //模板html
     {
         reg: /^\/html\/(.+\.tpl\.html)$/i,
@@ -136,7 +145,7 @@ fis.config.set('roadmap.path', [
         useDomain: true,
         useHash: true
     },
-
+    //other
     //other
     {
         reg: /.+$/i,
@@ -149,7 +158,7 @@ fis.config.set('roadmap.path', [
 fis.config.merge({
     deploy: {
         local: {
-            to: '../public/static',
+            to: '../app/static',
             exclude: /(?:\/(?:demo|example|data|test)\/.+\.(?:html|js|css))|(?:\/_[-_\w\d]+\.html)|(?:\/.+\.md)/i
         }
     }

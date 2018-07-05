@@ -1369,7 +1369,7 @@ dialog
   z-index: 100;
 }
 
-.view > header, .view > header, .view > .view-header, .view > footer, .view > footer, .view > .view-footer, .ic-view > header, .view.ic-view > header, .ic-view > header, .ic-view > .view-header, [ic-view].ic-view > header, .ic-view > footer, .view.ic-view > footer, .ic-view > footer, .ic-view > .view-footer, [ic-view].ic-view > footer, [ic-view] > header, .view[ic-view] > header, .ic-view[ic-view] > header, [ic-view] > header, [ic-view] > .view-header, [ic-view] > footer, .view[ic-view] > footer, .ic-view[ic-view] > footer, [ic-view] > footer, [ic-view] > .view-footer {
+.view > header, .view > header, .view > .view-header, .view > footer, .view > footer, .view > .view-footer, .ic-view > header, .ic-view > header, .ic-view > .view-header, .ic-view > footer, .ic-view > footer, .ic-view > .view-footer, [ic-view] > header, [ic-view] > header, [ic-view] > .view-header, [ic-view] > footer, [ic-view] > footer, [ic-view] > .view-footer {
   position: absolute;
   left: 0;
   right: 0;
@@ -1377,7 +1377,7 @@ dialog
   z-index: 1000;
 }
 
-.view > header, .view > header, .view > .view-header, .ic-view > header, .view.ic-view > header, .ic-view > header, .ic-view > .view-header, [ic-view].ic-view > header, [ic-view] > header, .view[ic-view] > header, .ic-view[ic-view] > header, [ic-view] > header, [ic-view] > .view-header {
+.view > header, .view > header, .view > .view-header, .ic-view > header, .ic-view > header, .ic-view > .view-header, [ic-view] > header, [ic-view] > header, [ic-view] > .view-header {
   top: 0;
 }
 
@@ -1409,7 +1409,7 @@ dialog
   padding-top: 44px;
 }
 
-.view > footer, .view > footer, .view > .view-footer, .ic-view > footer, .view.ic-view > footer, .ic-view > footer, .ic-view > .view-footer, [ic-view].ic-view > footer, [ic-view] > footer, .view[ic-view] > footer, .ic-view[ic-view] > footer, [ic-view] > footer, [ic-view] > .view-footer {
+.view > footer, .view > footer, .view > .view-footer, .ic-view > footer, .ic-view > footer, .ic-view > .view-footer, [ic-view] > footer, [ic-view] > footer, [ic-view] > .view-footer {
   top: 100%;
   margin-top: -44px;
 }
