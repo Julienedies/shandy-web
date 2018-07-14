@@ -2,18 +2,266 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>复盘和预案</title>
-    <link rel="stylesheet" href="../../../../css/basic/0.7/basic.scss">
-    <link rel="stylesheet" href="../../../../js/vendor/brick/0.8/brick.mobile.css">
-    <link rel="stylesheet" href="../../../../css/vendor/bulma/bulma.css"/>
+    <title>新建交易计划</title>
+    <link rel="import" href="../../include/head.html?__inline" />
     <link rel="stylesheet" href="style.scss">
 </head>
-<body>
+<body style="padding-top:0;">
+<div class="container" ic-ctrl="main_ctrl">
 
-    <div class="container" style="padding-top:1.5rem;">
-
-
+    <div class="tabs is-right is-large" ic-tabs="a" ic-tab-select="li" ic-tabc-select="section" ic-tab-cla="is-active">
+        <ul>
+            <li><a>复盘</a></li>
+            <li><a>建仓</a></li>
+            <li><a>平仓</a></li>
+        </ul>
     </div>
+
+
+    <div ic-tabc="a">
+        <section>
+            <div ic-form="a" ic-tpl="a">
+
+                <div class="field is-horizontal is-medium">
+                    <div class="field-label">
+                        <label class="label">大盘状态</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field is-narrow">
+                            <div class="control">
+                                <label class="radio" ic-for="i,v in ['放量上涨','调整','缩量观望','放量下跌','反弹']">
+                                    <input type="radio" name="大盘状态" value="{{v}}" ic-checked="model['大盘状态']==v" ic-form-field>
+                                    {{v}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="field is-horizontal is-medium">
+                    <div class="field-label">
+                        <label class="label">市场情绪</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field is-narrow">
+                            <div class="control">
+                                <label class="radio" ic-for="i,v in ['谨慎', '酝酿', '开展', '蔓延', '高涨', '高潮', '分歧', '臆想', '失望', '恐慌']">
+                                    <input type="radio" name="市场情绪" value="{{v}}" ic-checked="model['市场情绪']==v" ic-form-field>
+                                    {{v}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="field is-horizontal is-medium">
+                    <div class="field-label">
+                        <label class="label">K线预判</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field is-narrow">
+                            <div class="control">
+                                <label class="radio" ic-for="i,v in ['上涨','上冲回落','震荡向上','平衡','下探','震荡向下','下跌']">
+                                    <input type="radio" name="K线预判" value="{{v}}" ic-checked="model['K线预判']==v" ic-form-field>
+                                    {{v}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="field is-horizontal is-medium none">
+                    <div class="field-label">
+                        <label class="label">波浪理论</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field is-narrow">
+                            <div class="control">
+                                <label class="radio">
+                                    <input type="radio" name="波浪理论" value="主升1浪" ic-form-field>
+                                    主升1浪
+                                </label>
+                                <label class="radio">
+                                    <input type="radio" name="波浪理论" value="主升2浪">
+                                    主升2浪
+                                </label>
+                                <label class="radio">
+                                    <input type="radio" name="波浪理论" value="主升3浪">
+                                    主升3浪
+                                </label>
+                                <label class="radio">
+                                    <input type="radio" name="波浪理论" value="下跌1浪">
+                                    下跌1浪
+                                </label>
+                                <label class="radio">
+                                    <input type="radio" name="波浪理论" value="下跌2浪">
+                                    下跌2浪
+                                </label>
+                                <label class="radio">
+                                    <input type="radio" name="波浪理论" value="下跌3浪">
+                                    下跌3浪
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="field is-horizontal">
+                    <div class="field-label is-normal">
+                        <label class="label">建仓方式</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field is-narrow">
+                            <div class="control">
+                                <div class="select is-fullwidth">
+                                    <select ic-form-field="建仓方式">
+                                        <option></option>
+                                        <option value="尾盘一次性建仓" ic-selected="model['建仓方式']=='尾盘一次性建仓'">尾盘一次性建仓</option>
+                                        <option value="盘中小仓位建仓" ic-selected="model['建仓方式']=='盘中小仓位建仓'">盘中小仓位循序建仓</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field is-horizontal none">
+                    <div class="field-label is-normal">
+                        <label class="label">仓位控制</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field is-narrow">
+                            <div class="control">
+                                <div class="select is-fullwidth">
+                                    <select ic-form-field="仓位控制">
+                                        <option></option>
+                                        <option value="大盘向上,90%仓位" ic-selected="model['仓位控制']=='大盘向上,90%仓位'">大盘向上, 90%仓位</option>
+                                        <option value="大盘平衡,70%仓位" ic-selected="model['仓位控制']=='大盘平衡,70%仓位'">大盘平衡,70%仓位</option>
+                                        <option value="大盘有风险,10%仓位" ic-selected="model['仓位控制']=='大盘有风险,10%仓位'">大盘有风险, 10%仓位</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field is-horizontal is-medium none">
+                    <div class="field-label">
+                        <label class="label">目标行情</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field is-narrow">
+                            <div class="control">
+                                <label class="radio" ic-for="i,v in ['打板','次新','板块','趋势']">
+                                    <input type="radio" name="目标行情" value="{{v}}" ic-checked="model['目标行情']==v" ic-form-field>
+                                    {{v}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="field is-horizontal">
+                    <div class="field-label is-medium">
+                        <label class="label">主线/方向/焦点/风口</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                <input class="input is-medium" type="text" value="{{model['主线']}}" ic-form-field="主线">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="field is-horizontal">
+                    <div class="field-label is-medium">
+                        <label class="label">打板行情</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                <input class="input is-medium" type="text" name="打板行情" value="{{model['打板行情']}}" ic-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field is-horizontal">
+                    <div class="field-label is-medium">
+                        <label class="label">次新行情</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                <input class="input is-medium" type="text" name="次新行情" value="{{model['次新行情']}}" ic-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field is-horizontal">
+                    <div class="field-label is-medium">
+                        <label class="label">趋势行情</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                <input class="input is-medium" type="text" name="趋势行情" value="{{model['趋势行情']}}" ic-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="field is-horizontal">
+                    <div class="field-label is-normal">
+                        <label class="label">交易备注</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                <textarea class="textarea" ic-form-field="交易备注">{{model['交易备注']}}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field is-horizontal">
+                    <div class="field-label">
+                        <!-- Left empty for spacing -->
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                <button class="button is-primary"
+                                        ic-form-submit="a"
+                                        ic-submit-before="submit"
+                                        ic-submit-action="/stock/plan">
+                                    保存
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+    <button class="button"
+            ic-ajax
+            ic-submit-method="get"
+            ic-submit-action="/stock/plan"
+            ic-submit-on-done="done">交易计划</button>
+
+</div>
 
 
 <script src="../../../../js/vendor/underscore.js"></script>

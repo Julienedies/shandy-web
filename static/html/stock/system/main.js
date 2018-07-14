@@ -28,7 +28,7 @@ brick.controllers.reg('mainCtrl', function (scope) {
     var oldIsUp;
 
     var callback = _.debounce(function (e) {
-        console.log($elm.scrollTop(), clientHeight, $elm[0].scrollHeight, bounce);
+        console.log(e.originalEvent.deltaY);
         //正负值表示滚动方向
         var isUp = e.originalEvent.deltaY < 0;
 
@@ -67,7 +67,7 @@ brick.controllers.reg('mainCtrl', function (scope) {
         //brick.view.to(views[index]);
     }, 150);
 
-    $body.on('mousewheel', callback);
+    $(window).on('mousewheel', callback);
 
     $elm.on('ic-show-img.show', function(e){
         $body.off('mousewheel', callback);

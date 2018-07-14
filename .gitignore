@@ -14,4 +14,8 @@ node_modules/
 #其它
 *.log
 
+#开发用
+/server.js
+
 app/
+data/

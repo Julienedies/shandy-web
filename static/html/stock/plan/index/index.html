@@ -2,277 +2,30 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>复盘和预案</title>
-    <link rel="stylesheet" href="../../../../css/basic/0.7/basic.scss">
-    <link rel="stylesheet" href="../../../../js/vendor/brick/0.8/brick.mobile.css">
-    <link rel="stylesheet" href="../../../../css/vendor/bulma/bulma.css"/>
+    <title>当前交易计划</title>
+    <link rel="import" href="../../include/head.html?__inline" />
     <link rel="stylesheet" href="style.scss">
 </head>
 <body>
 
-    <div class="container" style="padding-top:1.5rem;">
+<div class="container">
 
-        <section ic-ctrl="main_ctrl">
-                <div ic-form="a">
+    <section ic-ctrl="planCtrl">
+        <button class="button"
+                ic-ajax
+                ic-submit-method="get"
+                ic-submit-action="/stock/plan"
+                ic-submit-on-done="done">交易计划</button>
 
-                    <div class="field is-horizontal is-medium">
-                        <div class="field-label">
-                            <label class="label">大盘状态</label>
-                        </div>
-                        <div class="field-body">
-                            <div class="field is-narrow">
-                                <div class="control">
-                                    <label class="radio">
-                                        <input type="radio" name="market_state" value="主升1浪" ic-form-field>
-                                        主升1浪
-                                    </label>
-                                    <label class="radio">
-                                        <input type="radio" name="market_state" value="主升2浪">
-                                        主升2浪
-                                    </label>
-                                    <label class="radio">
-                                        <input type="radio" name="market_state" value="主升3浪">
-                                        主升3浪
-                                    </label>
-                                    <label class="radio">
-                                        <input type="radio" name="market_state" value="调整">
-                                        调整
-                                    </label>
-                                    <label class="radio">
-                                        <input type="radio" name="market_state" value="缩量观望">
-                                        缩量观望
-                                    </label>
-                                    <label class="radio">
-                                        <input type="radio" name="market_state" value="下跌1浪">
-                                        下跌1浪
-                                    </label>
-                                    <label class="radio">
-                                        <input type="radio" name="market_state" value="下跌2浪">
-                                        下跌2浪
-                                    </label>
-                                    <label class="radio">
-                                        <input type="radio" name="market_state" value="下跌3浪">
-                                        下跌3浪
-                                    </label>
-                                    <label class="radio">
-                                        <input type="radio" name="market_state" value="反弹">
-                                        反弹
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        <ul ic-tpl="a">
+            <li ic-for="i,v in model" ic-if="v">
+                {{i}} : {{v}}
+            </li>
+        </ul>
 
-                    <div class="field is-horizontal is-medium">
-                        <div class="field-label">
-                            <label class="label">目标行情</label>
-                        </div>
-                        <div class="field-body">
-                            <div class="field is-narrow">
-                                <div class="control">
-                                    <label class="radio">
-                                        <input type="radio" name="quotation" value="大盘行情" ic-form-field>
-                                        大盘行情
-                                    </label>
-                                    <label class="radio">
-                                        <input type="radio" name="quotation" value="板块行情">
-                                        板块行情
-                                    </label>
-                                    <label class="radio">
-                                        <input type="radio" name="quotation" value="趋势行情">
-                                        趋势行情
-                                    </label>
-                                    <label class="radio">
-                                        <input type="radio" name="quotation" value="投机行情">
-                                        投机行情
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    </section>
 
-                    <div class="field is-horizontal is-medium">
-                        <div class="field-label">
-                            <label class="label">市场强度</label>
-                        </div>
-                        <div class="field-body">
-                            <div class="field is-narrow">
-                                <div class="control">
-                                    <label class="radio">
-                                        <input type="radio" name="s" value="强" ic-form-field>
-                                        强
-                                    </label>
-                                    <label class="radio">
-                                        <input type="radio" name="s" value="弱">
-                                        弱
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="field is-horizontal is-medium">
-                        <div class="field-label">
-                            <label class="label">K线预判</label>
-                        </div>
-                        <div class="field-body">
-                            <div class="field is-narrow">
-                                <div class="control">
-                                    <label class="radio">
-                                        <input type="radio" name="k" value="上涨" ic-form-field>
-                                        上涨
-                                    </label>
-                                    <label class="radio">
-                                        <input type="radio" name="k" value="上冲">
-                                        上冲
-                                    </label>
-                                    <label class="radio">
-                                        <input type="radio" name="k" value="震荡">
-                                        震荡
-                                    </label>
-                                    <label class="radio">
-                                        <input type="radio" name="k" value="平衡">
-                                        平衡
-                                    </label>
-                                    <label class="radio">
-                                        <input type="radio" name="k" value="下探">
-                                        下探
-                                    </label>
-                                    <label class="radio">
-                                        <input type="radio" name="k" value="下跌">
-                                        下跌
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="field is-horizontal">
-                        <div class="field-label is-medium">
-                            <label class="label">主线</label>
-                        </div>
-                        <div class="field-body">
-                            <div class="field">
-                                <div class="control">
-                                    <input class="input is-medium" type="text" placeholder="">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="field is-horizontal">
-                        <div class="field-label is-normal">
-                            <label class="label">操作</label>
-                        </div>
-                        <div class="field-body">
-                            <div class="field is-narrow">
-                                <div class="control">
-                                    <div class="select is-fullwidth">
-                                        <select>
-                                            <option>Business development</option>
-                                            <option>Marketing</option>
-                                            <option>Sales</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="field is-horizontal">
-                        <div class="field-label is-normal">
-                            <label class="label">仓位</label>
-                        </div>
-                        <div class="field-body">
-                            <div class="field is-narrow">
-                                <div class="control">
-                                    <div class="select is-fullwidth">
-                                        <select>
-                                            <option>Business development</option>
-                                            <option>Marketing</option>
-                                            <option>Sales</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="field is-horizontal">
-                        <div class="field-label is-normal">
-                            <label class="label">备注</label>
-                        </div>
-                        <div class="field-body">
-                            <div class="field">
-                                <div class="control">
-                                    <textarea class="textarea" ic-form-field="note"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="field is-horizontal">
-                        <div class="field-label">
-                            <!-- Left empty for spacing -->
-                        </div>
-                        <div class="field-body">
-                            <div class="field">
-                                <div class="control">
-                                    <button class="button is-primary"
-                                            ic-form-submit="a"
-                                            ic-submit-action="/stock/plan">
-                                        保存
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-        <!--
-
-
-                     <div class="field is-horizontal">
-                        <div class="field-label is-normal">
-                            <label class="label">Subject</label>
-                        </div>
-                        <div class="field-body">
-                            <div class="field">
-                                <div class="control">
-                                    <input class="input" type="text" placeholder="e.g. Partnership opportunity">
-                                </div>
-                                <p class="help">
-                                    This field is required
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="field">
-                        <div class="control is-expanded">
-                            <textarea class="textarea is-hovered" type="text" placeholder=""></textarea>
-                        </div>
-                    </div>
-
-                    <div class="control">
-                        <label class="radio">
-                            <input type="radio" name="rsvp">
-                            Going
-                        </label>
-                        <label class="radio">
-                            <input type="radio" name="rsvp">
-                            Not going
-                        </label>
-                        <label class="radio" disabled>
-                            <input type="radio" name="rsvp" disabled>
-                            Maybe
-                        </label>
-                    </div>-->
-
-                </div>
-        </section>
-
-    </div>
+</div>
 
 
 <script src="../../../../js/vendor/underscore.js"></script>

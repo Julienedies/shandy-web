@@ -16,7 +16,9 @@ body{
   padding:20px 15px 0 15px;
   font-size:1.4em;
   line-height: 1.8;
-  font: 20px/1.7 "Helvetica Neue",Helvetica,Arial,"Microsoft Yahei","Hiragino Sans GB","Heiti SC","WenQuanYi Micro Hei",sans-serif;
+  font: 18px/1.6 "Helvetica Neue",Helvetica,Arial,"Microsoft Yahei","Hiragino Sans GB","Heiti SC","WenQuanYi Micro Hei",sans-serif;
+  @media screen and (max-width: 800px) {
+  }
 }
 
 dl.table_1 {
@@ -26,7 +28,6 @@ dl.table_1 {
   margin: 20px 0;
   font-size: 1.2em;
   dt, dd {
-    flex: 1 1 16%;
     border: solid 1px #bdbdbe;
     border-top: none;
     padding: 10px;
@@ -34,6 +35,7 @@ dl.table_1 {
 
   dt {
     @extend .flex-mr;
+    flex: 1 1 20%;
     white-space: nowrap;
     font-weight: bold !important;
     * {
@@ -42,7 +44,7 @@ dl.table_1 {
   }
 
   dd {
-    flex: 1 1 84%;
+    flex: 1 1 80%;
     border-left: none;
     li{
       padding:2px 0;
@@ -51,4 +53,6 @@ dl.table_1 {
 }
 
 
-
+.none{
+  display: none!important;
+}

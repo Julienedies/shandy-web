@@ -1,7 +1,7 @@
 /**
- * Created by julien.zhang on 2015/2/6.
+ * Created by julien.zhang on 2017/2/6.
+ * 部署到线上服务器
  */
-
 
 //fis.config.set('project.include', /^\/(?:html|js|css|img)\/.*\.(?:html|js|css|swf|mp4|jpg|png|gif|ico|cur|otf|eot|svg|ttf|woff|woff2)$/i);
 //fis.config.set('project.include', /^\/(?:html|js|css|img)\/.*$/img);
@@ -16,18 +16,23 @@ fis.config.set('roadmap.ext.sass', 'css');
 //静态资源文件域名设置
 fis.config.merge({
     roadmap: {
-        domain:''
+        domain: ''
     }
 });
 
 //部署设置
 fis.config.set('roadmap.path', [
     {
+        reg: /^\/html\/stock\/include\/.*$/i,
+        release: '$&',
+        url: '/public/static$&'
+    },
+    {
         reg: /\/include\/.*$/i,
         release: false
     },
     {
-        reg: /.+\.(?:cmd|bat|json)$/i,
+        reg: /.+\.(?:cmd|bat|json|md)$/i,
         release: false
     },
     {
@@ -38,20 +43,32 @@ fis.config.set('roadmap.path', [
         reg: /\/(?:html|js|css)\/.*(?:[-_]tpl\.html)$/i,
         release: false
     },
-    {
-        reg: /\/css\/.*\/include\/.*\.(?:css|scss|less)$/i,
-        release: false
-    },
 
     //所有已_开头的文件，不发布
     {
-        reg: /.*?\/_[-_\w]+\.(?:html|js|less|scss|css|png|gif|jpg)$/i,
+        reg: /.*?\/_[-_\w]+\.(?:html|js|sass|scss|css|png|gif|jpg)$/i,
+        release: false
+    },
+
+    // bulma 导出文件
+    {
+        reg: /^\/css\/vendor\/bulma\/bulma.sass$/i,
+        release: false,
+        url: '/public/static$&',
+        useDomain: true,
+        useSprite: true,
+        useHash: true
+    },
+
+    // bulma sass源文件不发布
+    {
+        reg: /^\/css\/vendor\/bulma\/sass\/.+$/i,
         release: false
     },
 
     //css目录下css文件
     {
-        reg: /^\/css\/.+\.(?:css|scss)$/i,
+        reg: /^\/css\/.+\.(?:css|scss|sass)$/i,
         release: '$&',
         url: '/public/static$&',
         useDomain: true,

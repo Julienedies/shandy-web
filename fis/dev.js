@@ -1,7 +1,7 @@
 /**
- * Created by julien.zhang on 2015/2/6.
+ * Created by julien.zhang on 2017/2/6.
+ * 本地开发部署
  */
-
 
 //fis.config.set('project.include', /^\/(?:html|js|css|img)\/.*\.(?:html|js|css|swf|mp4|jpg|png|gif|ico|cur|otf|eot|svg|ttf|woff|woff2)$/i);
 //fis.config.set('project.include', /^\/(?:html|js|css|img)\/.*$/img);
@@ -16,15 +16,23 @@ fis.config.set('roadmap.ext.sass', 'css');
 //静态资源文件域名设置
 fis.config.merge({
     roadmap: {
-        domain:''
+        domain: ''
     }
 });
 
 //部署设置
 fis.config.set('roadmap.path', [
-
     {
-        reg: /.+\.(?:cmd|bat|json)$/i,
+        reg: /^\/html\/stock\/include\/.*$/i,
+        release: '$&',
+        url: '/public/static$&'
+    },
+    {
+        reg: /\/include\/.*$/i,
+        release: false
+    },
+    {
+        reg: /.+\.(?:cmd|bat|json|md)$/i,
         release: false
     },
     {
@@ -35,22 +43,34 @@ fis.config.set('roadmap.path', [
         reg: /\/(?:html|js|css)\/.*(?:[-_]tpl\.html)$/i,
         release: false
     },
-    {
-        reg: /\/css\/.*\/include\/.*\.(?:css|scss|less)$/i,
-        release: false
-    },
 
     //所有已_开头的文件，不发布
     {
-        reg: /.*?\/_[-_\w]+\.(?:html|js|less|scss|css|png|gif|jpg)$/i,
+        reg: /.*?\/_[-_\w]+\.(?:html|js|sass|scss|css|png|gif|jpg)$/i,
+        release: false
+    },
+
+    // bulma 导出文件
+    {
+        reg: /^\/css\/vendor\/bulma\/bulma.sass$/i,
+        release: false,
+        url: '/public/static$&',
+        useDomain: true,
+        useSprite: true,
+        useHash: true
+    },
+
+    // bulma sass源文件不发布
+    {
+        reg: /^\/css\/vendor\/bulma\/sass\/.+$/i,
         release: false
     },
 
     //css目录下css文件
     {
-        reg: /^\/css\/.+\.(?:css|scss)$/i,
+        reg: /^\/css\/.+\.(?:css|scss|sass)$/i,
         release: '$&',
-        url: '/static$&',
+        url: '/public/static$&',
         useDomain: true,
         useSprite: true,
         useHash: true
@@ -59,7 +79,7 @@ fis.config.set('roadmap.path', [
     {
         reg: /.*\/(.+\.(?:css|scss))/i,
         release: '/css$&',
-        url: '/static/css$&',
+        url: '/public/static/css$&',
         useDomain: true,
         useSprite: true,
         isCssLike: true,
@@ -69,7 +89,7 @@ fis.config.set('roadmap.path', [
     {
         reg: /^\/js\/.+\.js/i,
         release: '$&',
-        url: '/static$&',
+        url: '/public/static$&',
         useDomain: true,
         isJsLike: true,
         useHash: true
@@ -78,19 +98,10 @@ fis.config.set('roadmap.path', [
     {
         reg: '**.js',
         release: '/js$&',
-        url: '/static/js$&',
+        url: '/public/static/js$&',
         useDomain: true,
         isJsLike: true,
         useHash: true
-    },
-
-    // 首页html
-    {
-        reg: /^\/?index\.html$/i,
-        release: '$&',
-        url: '/static$&',
-        useDomain: true,
-        useHash: false
     },
 
     //模板html
@@ -102,11 +113,20 @@ fis.config.set('roadmap.path', [
         useHash: false
     },
 
+    // 首页html
+    {
+        reg: /^\/?index\.html$/i,
+        release: '$&',
+        url: '/',
+        useDomain: true,
+        useHash: false
+    },
+
     //静态html
     {
         reg: /^\/html\/.+\.html$/i,
         release: '$&',
-        url: '/static$&',
+        url: '/public/static$&',
         useDomain: true,
         useHash: false
     },
@@ -115,7 +135,7 @@ fis.config.set('roadmap.path', [
     {
         reg: /.*\/((?:[\w_-]+\/)*(?:pic[-_]\w+|\w+[-_]pic[-_\w]*)\.(?:jpg|png|gif))$/i,
         release: 'img/$1',
-        url: '/static/img/$1',
+        url: '/public/static/img/$1',
         useDomain: true,
         useHash: false
     },
@@ -123,7 +143,7 @@ fis.config.set('roadmap.path', [
     {
         reg: /.*\/((?:[\w_-]+\/)*(?:css[-_]\w+|\w+[-_]css[-_\w]*)\.(?:jpg|png|gif))$/i,
         release: 'img/$1',
-        url: '/static/img/$1',
+        url: '/public/static/img/$1',
         useDomain: false,
         useHash: false
     },
@@ -132,7 +152,7 @@ fis.config.set('roadmap.path', [
     {
         reg: /^\/img\/.+/i,
         release: '$&',
-        url: '/static$&',
+        url: '/public/static$&',
         useDomain: false,
         useHash: true
     },
@@ -141,11 +161,11 @@ fis.config.set('roadmap.path', [
     {
         reg: /.*\/(.+\.(?:jpg|png|gif))/i,
         release: 'img$&',
-        url: '/static/img$&',
+        url: '/public/static/img$&',
         useDomain: true,
         useHash: true
     },
-    //other
+
     //other
     {
         reg: /.+$/i,
