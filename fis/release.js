@@ -178,7 +178,7 @@ fis.config.set('roadmap.path', [
 fis.config.merge({
     deploy: {
         local: {
-            to: '../app/static',
+            to: '../public/static',
             exclude: /(?:\/(?:demo|example|data|test)\/.+\.(?:html|js|css))|(?:\/_[-_\w\d]+\.html)|(?:\/.+\.md)/i
         }
     }

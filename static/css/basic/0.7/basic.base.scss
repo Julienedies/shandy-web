@@ -157,10 +157,16 @@ $xem: 0.0625rem;
 }
 
 .flex-end{
+   @extend .__flex;
+   -webkit-box-align:end;
+   -webkit-align-items:flex-end;
+   align-items:flex-end;
+ }
+.flex-start{
   @extend .__flex;
-  -webkit-box-align:end;
-  -webkit-align-items:flex-end;
-  align-items:flex-end;
+  -webkit-box-align:start;
+  -webkit-align-items:flex-start;
+  align-items:flex-start;
 }
 
 .flex-mc{

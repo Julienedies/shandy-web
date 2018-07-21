@@ -12,21 +12,35 @@
 
 @import "../base/include/import";
 
-body{
-  padding:20px 15px 0 15px;
-  font-size:1.4em;
-  line-height: 1.8;
-  font: 18px/1.6 "Helvetica Neue",Helvetica,Arial,"Microsoft Yahei","Hiragino Sans GB","Heiti SC","WenQuanYi Micro Hei",sans-serif;
-  @media screen and (max-width: 800px) {
+
+#nav-tabs{
+  font-size:1.2em;
+  .is-active{
+    color: #333333;
+    font-weight: bolder;
+    a{
+      color:inherit;
+    }
   }
 }
 
-dl.table_1 {
+
+body{
+  padding:10px 15px 0 15px;
+  font-size:1.4em;
+  line-height: 1.8;
+  color: #202020;
+  font: 18px/1.8 "Helvetica Neue",Helvetica,Arial,"Microsoft Yahei","Hiragino Sans GB","Heiti SC","WenQuanYi Micro Hei",sans-serif;
+  @media screen and (max-width: 800px) {
+    font-size:22px;
+  }
+}
+
+.table_1 {
   display: flex;
   flex-wrap: wrap;
   border-top: solid 1px #bdbdbe;
   margin: 20px 0;
-  font-size: 1.2em;
   dt, dd {
     border: solid 1px #bdbdbe;
     border-top: none;
@@ -34,8 +48,8 @@ dl.table_1 {
   }
 
   dt {
-    @extend .flex-mr;
-    flex: 1 1 20%;
+    @extend .flex-mc;
+    flex: 1 1 15%;
     white-space: nowrap;
     font-weight: bold !important;
     * {
@@ -44,12 +58,34 @@ dl.table_1 {
   }
 
   dd {
-    flex: 1 1 80%;
+    flex: 1 1 85%;
     border-left: none;
     li{
       padding:2px 0;
     }
   }
+}
+
+.table_2{
+  @extend .table_1;
+  &,dt,dd{
+    border:none;
+  }
+  dt,dd{
+    padding-bottom:20px;
+  }
+  dt{
+    @extend .flex-start;
+  }
+}
+
+dl.table_1.no-border{
+  &,dt,dd{
+    border:none;
+  }
+}
+dl.table_1.v-top{
+
 }
 
 
