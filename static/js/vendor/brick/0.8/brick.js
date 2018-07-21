@@ -1,16 +1,16 @@
 /*!
  * https://github.com/julienedies/brick.git
  * https://github.com/Julienedies/brick/wiki
- * "7/10/2018, 5:17:33 PM"
+ * "2018-7-21 10:52:24"
  * "V 0.8"
  */
 ;
 (function (root, undefined) {
 
-    // __inline是fis语法，用于嵌入代码片段，经过编译后会替换成对应的js文件内容；
+// __inline是fis语法，用于嵌入代码片段，经过编译后会替换成对应的js文件内容；
 
-    // core架构 必选
-    /**
+// core架构 必选
+/**
  * Created by julien.zhang on 2014/9/16.
  * 用于管理配置
  */
@@ -76,7 +76,7 @@ var config = (function () {
 
 
 })();
-    /**
+/**
  * Created by julien.zhang on 2014/9/15.
  * 事件管理器
  */
@@ -94,7 +94,7 @@ var eventManager = (function () {
          * @param f {Function} 回调函数
          * @param context {Object} 调用watch方法的scope
          */
-        bind: function (e, f, context) {
+        on: function (e, f, context) {
             e = e.split(/[,\s]+/g);
             for (var i in e) {
                 this._bind(e[i], f, context);
@@ -120,7 +120,7 @@ var eventManager = (function () {
          * @param e {String} 事件名
          * @param f {Function} 回调函数，可选，如果没有传递，则取消该事件下的所有监听
          */
-        unbind: function (e, f) {
+        off: function (e, f) {
             e = e.split(/[,\s]+/g);
             for (var i in e) {
                 this._unbind(e[i], f);
@@ -158,7 +158,7 @@ var eventManager = (function () {
          * @example
          * e = 'a.b.c';   会触发 ["a.b.c", "a.*.c", "a.*", "a.b.*"]
          */
-        fire: function (e, msg, that) {
+        emit: function (e, msg, that) {
 
             var namespace = e.split(/\.|\:/);
 
@@ -254,290 +254,180 @@ var eventManager = (function () {
     };
 
 })();
-    /**
+/**
  * Created by julien.zhang on 2014/9/15.
- *
  * 控制器管理器
  */
 
 
-var controllers = (function (){
+var controllers = (function () {
 
     // 存储控制器
     var _ctrls = {};
-    var _bind = {};
 
-    function extend(dist, o){
-        for(var i in o){
-            dist[i] = o[i];
+    function extend(dist, o) {
+        if(typeof o == 'object') {
+            for (var i in o) {
+                dist[i] = o[i];
+            }
         }
         return dist;
     }
 
     // scope原型对象
-    function _F(){}
+    function _F() {
+    }
 
     extend(_F.prototype, {
 
-        set: function(key, val){
+        set: function (key, val) {
             this[key] = val;
             this.render();
         },
 
-        get: function(key){
+        get: function (key) {
             return this[key];
         },
-
-        _bind: function(name){
-            if(typeof name === 'string'){
-                name = [name];
-            }
-
-            for(var arr, i = 0, l = name.length; i < l; i++){
-                arr = _bind[name[i]] = _bind[name[i]] || [];
-                arr.push(this._name);
-            }
-        },
-        _cancel: function(name){
-            if(!name) {
-                delete _bind[this._name];
-                return;
-            }
-            if(typeof name === 'string'){
-                name = [name];
-            }
-
-            var arr = _bind[this._name];
-
-            if(arr && arr.shift){
-
-                for(var v; v = name.shift(); ){
-                    for(var i = 0, l = arr.length; i < l; i++){
-                        if(arr[i] === v){
-                            arr.splice(i, 1);
-                        }
-                    }
-                }
-
-            }
-        },
-        _fire: function(e){
-            var selfName = this._name;
-            var arr = ( _bind[selfName] || [] ).slice();
-
-            for(var i; i = arr.shift(); ){
-
-                _ctrls[i].scope._watch( extend( {source:this}, e || {} ) );
-
-            }
-        },
-        _watch: function(e){
-
-        },
-
+        // 用于存储数据模型
+        _model : {},
         /**
          * 用于触发事件
          * @param e {String} 事件名
          * @param msg {*}    任意要传递的数据
          */
-        fire: function(e, msg){
+        fire: function (e, msg) {
             var that = this;
             eventManager.fire(e, msg, that);
         },
-
         /**
          * 用于订阅事件
          * @param e  {String}   事件名
          * @param f  {Function} 回调函数，接受两个参数e(事件对象，由框架封装提供），msg(用户自定义数据)
          */
-        watch: function(e, f){
+        on: function (e, f) {
             var that = this;
             eventManager.bind(e, f, that);
         },
-
         /**
          * 取消事件监听
          * @param e {String}   事件名
          * @param f {Function} 回调函数
          */
-        unbind: function(e, f){
+        off: function (e, f) {
             eventManager.unbind(e, f);
         },
-
-        tmplFn: function(){
-
-        },
-        /**
-         * 比较htmlList，生成dom补丁对象，用于更新dom
-         */
-        diff: function(){
-
-        },
-
-        htmlList: null,
-
-        updateDom: function(patch){
-
-        },
-        render: function(tplName, model, call){
+        render: function (tplName, model, call) {
             var that = this;
-            setTimeout(function(){
-                var tple = that._render_(tplName, model);
-                call && tple && call.apply(tple, []);
-            },30);
-        },
-        _render_: function(tplName, model){
-            var $elm = this.$elm;
-            var tplf = brick.getTpl(tplName);  //模板函数
-            var tple; //dom元素
-            var html;
-            if($elm && tplf){
-                tple = $elm.filter('[ic-tpl=?]'.replace('?', tplName));
-                tple = tple.length ? tple : $elm.find('[ic-tpl=?]'.replace('?', tplName));
-                html = tplf(model ? {model:model} : this);
-                //console.log(html)
-                if(tple.length){
-                    tple.show();
-                    tple.removeAttr('ic-tpl');
-                    return tple.html(html);
+            if (typeof tplName == 'function') {
+                call = tplName;
+                tplName = that._name;
+                model = that;
+            }
+            if (typeof tplName == 'object') {
+                model = tplName;
+                tplName = that._name;
+                call = model;
+            }
+            setTimeout(function () {
+                var $tpl_dom = that._render(tplName, model);
+                if($tpl_dom){
+                    brick.compile($tpl_dom);
+                    call && call.apply($tpl_dom, []);
                 }
-            }
+            }, 30);
         },
-
-        _render: function(){
-            var html = this.tmplFn({data: this});
-
-            if(this.htmlList){
-                var patch = this.diff(html);
-                if(!patch) return;
-                this.htmlList = html;
-                return this.updateDom(patch);
-            }
-
-            //this.htmlList = html;
-            this.domNode && this.domNode.html(html);
+        _render: function (tplName, model) {
+            var $elm = this.$elm;
+            var tpl_fn = brick.getTpl(tplName);  //模板函数
+            var selector = '[ic-tpl=?]'.replace('?', tplName);
+            var $tpl_dom; // 有ic-tpl属性的dom元素
+            var html;
+            // 如果数据模型不是对象类型,则对其包装
+            /*if(typeof model != 'object' || Array.isArray(model)){
+                model = {model : model};
+            }*/
+            $tpl_dom = $elm.filter(selector);  // <div ic-ctrl="a" ic-tpl="a"></div>
+            $tpl_dom = $tpl_dom.length ? $tpl_dom : $elm.find(selector);
+            html = tpl_fn({model : model});
+            $tpl_dom.show();
+            $tpl_dom.removeAttr('ic-tpl');
+            return $tpl_dom.html(html);
         }
 
     });
 
-
-    function f(name, o){
-        function F(){ this._name = name;}
-        F.prototype = new _F();
-        extend(F.prototype, o || {});
-        return new F;
+    // scope对象
+    function F(name) {
+        this._name = name;
+    }
+    function f(name, o) {
+        F.prototype = new _F();  // 继承scope原型对象
+        extend(F.prototype, o);  // 继承parent scope
+        return new F(name);
     }
 
 
     return {
-
         /**
-         * 旧的事件接口，废弃
-         */
-        bind: _bind,
-
-        /**
-         * 获取一个控制器的对外接口对象
+         * 获取一个控制器的scope对象
          * @param name {String} 控制器ID
          */
-        get: function(name){
-            return _ctrls[name] && _ctrls[name].scope;
+        get: function (name) {
+            return name && _ctrls[name] && _ctrls[name].scope;
         },
-
         /**
          * 注册控制器
          * @param name {String}   控制器ID
          * @param ctrl {Function} 控制器的工厂函数
          * @param conf {Object}   可选，控制器config (可以定义依赖，是否注册为global变量，是否做为service)
          */
-        add: function(name, ctrl, conf){
-            conf = conf || {};
-            var parent = conf.parent;
-            var depend = conf.depend || [];
-            var scope;
-            scope = parent ? f(name, _ctrls[parent]) : f(name);
-            if(conf.global){
-                window[name] = scope;
-            }
-            _ctrls[name] = {fn:ctrl, scope:scope, depend:depend, service:conf.service, conf:conf};
-        },
-
-        /**
-         * 注册控制器
-         * @param name {String}   控制器ID
-         * @param ctrl {Function} 控制器的工厂函数
-         * @param conf {Object}   可选，控制器config (可以定义依赖，是否注册为global变量，是否做为service)
-         */
-        reg: function(name, ctrl, conf){
+        reg: function (name, ctrl, conf) {
             conf = conf || {};
             var depend = conf.depend || [];
-            _ctrls[name] = {fn:ctrl, conf: conf, depend:depend, service:conf.service, scope:[]};
+            _ctrls[name] = {fn: ctrl, depend: depend, service: conf.service, conf: conf};
         },
 
         /**
          * 运行控制器
          * @param name
+         * @param parent {scope} 父scope对象
+         * @param $elm  {jQuery} 绑定scope对象的dom
          */
-        exec: function(name, parent, $elm){
-            var ctrl = _ctrls[name];
+        exec: function (name, parent, $elm) {
 
+            var ctrl = _ctrls[name];
             if (!ctrl) return console.log('not find controller ' + name);
 
             var conf = ctrl.conf;
             var scope;
-            var depend = conf.depend || [];
+            var depend = ctrl.depend;
 
             scope = parent ? f(name, parent) : f(name);
             scope._parent = parent && parent._name;
             scope.$elm = $elm;
-            ctrl.scope = scope; //如果有多个控制器实例，则改名下控制器的作用域对象引用的会是最后一个实例化控制器的作用域对象
-            $elm.data('ic-ctrl-scope', scope);
+            ctrl.scope = scope; // 如果有多个控制器实例，则该名下控制器的作用域对象引用的会是最后一个实例化控制器的作用域对象
+            //$elm.data('ic-ctrl-scope', scope);
 
             depend = services.get(depend) || [];
             depend = depend.constructor !== Array ? [depend] : depend;
             depend.unshift(scope);
 
-            ctrl.fn.apply(scope, depend);
-            //ctrl.fn = function(){};
-            ctrl.exec = (ctrl.exec || 0) + 1;
+            console.log('exec controller factory: ', name );
+            ctrl.fn.apply(scope, depend);  // 注入scope和依赖,执行factory
+
+            //ctrl.exec = (ctrl.exec || 0) + 1;
 
             //if(conf.global) window[name] = scope;
             return scope;
         },
 
-        /**
-         * 初始化控制器
-         */
-        init: function(name){
-            var ctrls = _ctrls;
-            var ctrl;
-            var depend;
-            var service;
-            for(var i in ctrls){
-                ctrl = ctrls[i];
-                if(ctrl.exec) continue;
-                depend = services.get(ctrl.depend) || [];
-                if(depend.constructor !== Array){
-                    depend = [depend];
-                }
-                depend.unshift(ctrl.scope);
-                service = ctrl.fn.apply(ctrl.scope, depend);
-                ctrl.fn = function(){};
-
-                if(ctrl.service){
-                    services.fill(i, service);
-                }
-
-            }
-        },
-
-        _look: function(){
+        _look: function () {
             return _ctrls;
         }
     };
 
 })();
-    /**
+/**
  * Created by julien.zhang on 2014/9/15.
  *
  * 服务管理器 （任意类型的数据，模型对象，UI组件都可以做为服务存在；通常是单例对象）
@@ -622,7 +512,7 @@ var services = (function() {
     };
 
 })();
-    /**
+/**
  * Created by julien.zhang on 2014/9/17.
  */
 
@@ -681,7 +571,7 @@ var directives = {
 };
 
 
-    /**
+/**
  * Created by julien.zhang on 2014/9/12.
  * 主要用于解析一个dom节点上绑定的tpl指令
  */
@@ -833,11 +723,9 @@ function parser(node) {
 
 
 }
-    /**
+/**
  * Created by julien.zhang on 2014/9/15.
- *
  * 遍历dom节点，根据指令生成一个编译过的模板渲染函数
- *
  */
 
 function createRender(root) {
@@ -862,26 +750,35 @@ function createRender(root) {
     var _tpl = $(root).html()
         .replace(/&lt;/g, '<')
         .replace(/&gt;/g, '>')
-        .replace(/\b(ic-)(?=href|src|style|class|data|value)/g,'')
+        .replace(/\b(ic-)(?=href|src|style|class|data|value)/g, '')
         //早期判断是否输出属性的实现，建议使用ic-has-[prop]指令取代
-        .replace(/\bic-(\w+-)?(checked|disabled|selected|enabled)\s*=\s*"\s*((?:[^"]|\\")+)["]/g,function(m, $1, $2, $3){
-            if($1 == 'has-') return m;
-            $1 = $1 ? 'ic-'+ $1 : '';
+        .replace(/\bic-(\w+-)?(checked|disabled|selected|enabled)\s*=\s*"\s*((?:[^"]|\\")+)["]/g, function (m, $1, $2, $3) {
+            if ($1 == 'has-') return m;
+            $1 = $1 ? 'ic-' + $1 : '';  //处理自定义指令  ic-tab-checked
             //$3 = $3.replace(/^(?:"|')|(?:"|')$/g,'');
-            return ' <% if(?3){ %> ?2 <% } %> '.replace('?3',$3).replace('?2',$1 + $2);
+            return ' <% if(?3){ %> ?2 <% } %> '.replace('?3', $3).replace('?2', $1 + $2);
         })
-        //实现ic-has-[prop]指令
-        .replace(/\bic-has-([-_\w]+)\s*=\s*(['"]?)((?:[^\2]|\\\2)+)\2/img, function(m, $1, $2, $3){
-            return ' <% if(?3){ %> ?2 <% } %> '.replace('?3',$3).replace('?2',$1 + '=' + ('"<%= ? %>"'.replace('?', $3)));
+        //实现ic-has-[prop]指令   处理两种情况=>  1: ic-has-checked  2: ic-has-tab-checked
+        .replace(/\bic-has-([-_\w]+)\s*=\s*(["])((?:[^"]|\\["])+)\2/img, function (m, $1, $2, $3) {
+            //$1 => 属性名   $3 => 表达式值
+            console.log($1);
+            console.log($3);
+            $1 = /^checked|disabled|selected|enabled$/.test($1) ? $1 : 'ic-'+$1; //处理两种情况=>  1: ic-has-checked  2: ic-has-tab-checked
+            return ' <% if(?3){ %> ?1 <% } %> '
+                .replace('?3', $3)
+                .replace('?1', $1);
+            //.replace('?1',$1 + '=' + ('"<%= ? %>"'.replace('?', $3)));
         })
-        .replace(/&amp;&amp;/g,'&&');
+        .replace(/&amp;&amp;/g, '&&');
 
-    var tpl = _.template(_tpl);
-    tpl._tpl_ = _tpl;
-    return tpl;
+    //console.log(_tpl);
+
+    var tpl_fn = _.template(_tpl);
+    tpl_fn._tpl_ = _tpl;
+    return tpl_fn;
 
 }
-    /**
+/**
  * Created by julien.zhang on 2014/12/9.
  */
 
@@ -954,7 +851,61 @@ function __compile(node){
 }
 
 
-    /**
+/**
+ * Created by j on 18/6/19.
+ * @todo 控制console是否输出
+ * @example
+ * brick.cm('info','log');  // console.log and console.info 调用后不会有输出
+ * brick.cm(true, 'info', 'log');  console.log and console.info 调用继续输出
+ */
+
+var cc = (function () {
+
+    const _console = console;
+
+    const _bak = {};
+
+    const _methods = [];
+
+    for (var i in _console) {
+        if (typeof _console[i] == 'function') {
+            _methods.push(i);
+            _bak[i] = console[i];
+
+        }
+    }
+
+    /*
+     * @todo 管理console的行为,
+     * @param bool {Boolean} [可选] console方法调用后是否输出
+     * @param methods  {String}  [可选]  console方法名
+     */
+    function _export(bool, methods) {
+        var arr = [].slice.call(arguments);
+        bool = arr.shift();
+        methods = arr;
+        if (typeof bool == 'undefined') {
+            bool = false;
+            methods = _methods;
+        }
+        else if (typeof bool == 'boolean') {
+            methods = methods.length ? methods : _methods;
+        }
+        else if (typeof bool == 'string') {
+            methods.unshift(bool);
+            bool = false;
+        }
+        methods.forEach(function (method) {
+            console[method] = bool ? _bak[method] : function () {
+            };
+        });
+    }
+
+    return _export;
+
+})();
+
+/**
  * Created by julien.zhang on 2014/9/15.
  */
 
@@ -968,6 +919,7 @@ var brick = root.brick = {
     createRender:createRender,
     eventManager: eventManager,
     __tpl: {},
+    debug: cc,
     set: function(k, v){
         return this.config.set(k, v);
     },
@@ -975,19 +927,15 @@ var brick = root.brick = {
       return this.config.get(k);
     },
     on: function (e, fn) {
-        this.eventManager.bind(e, fn);
+        this.eventManager.on(e, fn);
         return this;
     },
     off: function (e, fn) {
-        this.eventManager.unbind(e, fn);
+        this.eventManager.off(e, fn);
         return this;
     },
-    broadcast: function (e, msg) {
-        this.eventManager.fire(e, msg);
-        return this;
-    },
-    fire: function (e, msg) {
-        this.eventManager.fire(e, msg);
+    emit: function (e, msg) {
+        this.eventManager.emit(e, msg);
         return this;
     },
     getTpl: function (name) {
@@ -1017,28 +965,28 @@ var brick = root.brick = {
 
 
 
-    // core指令 必选
-    /**
+// core指令 必选
+/**
  * Created by julien.zhang on 2014/12/9.
  */
 
-directives.add('ic-ctrl', function ($elm, attrs) {
+directives.reg('ic-ctrl', function ($elm, attrs) {
 
     var ctrlName = $elm.attr('ic-ctrl');
 
     if(ctrlName){
         var $parent = $elm.parent().closest('[ic-ctrl]');
-        //var parentName = $parent.size() ? $parent.attr('ic-ctrl') : '';
-        controllers.exec(ctrlName, $parent.data('ic-ctrl-scope'), $elm);
-        //controllers.exec(ctrlName, controllers.get(parentName), $elm);
+        var parentName = $parent.size() ? $parent.attr('ic-ctrl') : '';
+        controllers.exec(ctrlName, controllers.get(parentName), $elm);
+        //controllers.exec(ctrlName, $parent.data('ic-ctrl-scope'), $elm);
     }
 
 });
-    /**
+/**
  * Created by julien.zhang on 2014/10/11.
  */
 
-directives.add('ic-event', {
+directives.reg('ic-event', {
     selfExec: true,
     once: true,
     fn: function () {
@@ -1069,20 +1017,19 @@ directives.add('ic-event', {
             var type = e.type;
             var fn = th.attr('ic-' + type);
             fn = th.icParseProperty(fn);
-
             return fn.apply(this, [e]);
         }
 
     }
 });
 
-    /**
+/**
  * Created by julien.zhang on 2014/10/11.
  */
 
 directives.reg('ic-tpl', {
     selfExec: true,
-    once: true,
+    //once: true,
     fn: function ($elm) {
 
         var __tpl = brick.__tpl = brick.__tpl || {};
@@ -1091,6 +1038,13 @@ directives.reg('ic-tpl', {
 
             var $th = $(this);
             var name = $th.attr('ic-tpl');
+
+            var $parent;
+
+            if(!name){
+                $parent = $th.closest('[ic-ctrl]');
+                name = $parent.attr('ic-ctrl');
+            }
 
             $th.attr('ic-tpl-name', name);
             __tpl[name] = createRender(this);
@@ -1102,8 +1056,8 @@ directives.reg('ic-tpl', {
 });
 
 
-    // jQuery扩展 必选
-    /**
+// jQuery扩展 必选
+/**
  * Created by julien.zhang on 2014/10/30.
  * 扩展 jquery
  */
@@ -1111,19 +1065,24 @@ directives.reg('ic-tpl', {
 ;
 (function ($) {
 
-    $.fn.icRender = function(tpl, model, callback){
-        if(typeof tpl == 'object'){
+    $.fn.icRender = function (tpl, model, callback) {
+        if (typeof tpl == 'object') {
             callback = model;
             model = tpl;
             tpl = this.attr('ic-tpl-name');
         }
         var tplFn = brick.getTpl(tpl);
-        if(!tplFn) return console.info('not find tpl: '+ tpl);
-        var html = tplFn(model);
-        return this.each(function(){
+        if (!tplFn) return console.info('not find tpl: ' + tpl);
+        // 如果数据模型不是对象类型,则对其包装
+        /*if(typeof model != 'object' || Array.isArray(model)){
+            model = {model : model};
+        }*/
+        var html = tplFn({model : model});
+        return this.each(function () {
             var $th = $(this);
             $th.removeAttr('ic-tpl');
             $th.html(html);
+            $th.icCompile();
             callback && callback.apply(this, [$th.children()]);
         });
     };
@@ -1142,8 +1101,8 @@ directives.reg('ic-tpl', {
         if (name === void(0)) return void(0);
         var $ctrl = this.closest('[ic-ctrl]');
         var ctrl = $ctrl.attr('ic-ctrl');
-        var namespace = ctrl ? $ctrl.data('ic-ctrl-scope') : window;
-        //var namespace = ctrl ? brick.controllers.get(ctrl) : window;
+        //var namespace = ctrl ? $ctrl.data('ic-ctrl-scope') : window;
+        var namespace = ctrl ? brick.controllers.get(ctrl) : window;
 
         var chain = name.split('.');
 
@@ -1184,15 +1143,15 @@ directives.reg('ic-tpl', {
         return this;
     };
 
-    $.fn.icForm = function(call, options){
-        return this.trigger('ic-form.'+call, options);
+    $.fn.icForm = function (call, options) {
+        return this.trigger('ic-form.' + call, options);
     };
 
     $.fn.icDialog = function (options, callback) {
 
-        options = _.isObject(options) ? _.extend({desc:'', title:''}, options) : {desc:options, title:''};
+        options = _.isObject(options) ? _.extend({desc: '', title: ''}, options) : {desc: options, title: ''};
 
-        if (!(this[0] && this[0].hasAttribute('ic-dialog'))){
+        if (!(this[0] && this[0].hasAttribute('ic-dialog'))) {
             console.error('not is ic-dialog');
             return this;
         }
@@ -1202,7 +1161,7 @@ directives.reg('ic-tpl', {
 
         callback && this.one('ic-dialog.close', callback);
 
-        setTimeout(function(){
+        setTimeout(function () {
 
             if (options === void(0)) {
                 options = true;
@@ -1220,13 +1179,13 @@ directives.reg('ic-tpl', {
                 that.trigger('ic-dialog.show');
             });
 
-        },30);
+        }, 30);
 
         return this;
     };
 
-    $.icDialog = function(msg, callback){
-        var options = _.isObject(msg) ? _.extend({desc:'', title:''}, msg) : {desc:msg, title:''};
+    $.icDialog = function (msg, callback) {
+        var options = _.isObject(msg) ? _.extend({desc: '', title: ''}, msg) : {desc: msg, title: ''};
         $('[ic-dialog]:first').icDialog(options, callback);
     };
 
@@ -1242,7 +1201,7 @@ directives.reg('ic-tpl', {
 
         clearTimeout(that.data('ic-prompt-timer'));
 
-        setTimeout(function(){
+        setTimeout(function () {
 
             if (options === void(0)) {
                 options = true;
@@ -1259,7 +1218,7 @@ directives.reg('ic-tpl', {
             that.icAniIn(21, function () {
                 that.trigger('ic-prompt.show');
 
-                var timer = setTimeout(function(){
+                var timer = setTimeout(function () {
                     that.icAniOut();
                 }, 2400);
 
@@ -1267,18 +1226,18 @@ directives.reg('ic-tpl', {
 
             });
 
-        },30);
+        }, 30);
 
         return this;
     };
 
-    $.icPrompt = function(msg){
-        var options = _.isObject(msg) ? msg : {desc:msg};
+    $.icPrompt = function (msg) {
+        var options = _.isObject(msg) ? msg : {desc: msg};
         $('[ic-prompt]:first').icPrompt(options);
     };
 
-    $.fn.icDatePicker = function(call, options){
-        return this.trigger('ic-date-picker.'+call, options);
+    $.fn.icDatePicker = function (call, options) {
+        return this.trigger('ic-date-picker.' + call, options);
     };
 
     //监听enter键
@@ -1324,7 +1283,14 @@ directives.reg('ic-tpl', {
                 var offset = $th.offset();
                 var top = offset.top;
                 var left = offset.left;
-                var $loading = $(_loading || loading).css({width: w, height: h, position: 'absolute', top: top, left: left, 'z-index': 1999}).appendTo('body');
+                var $loading = $(_loading || loading).css({
+                    width: w,
+                    height: h,
+                    position: 'absolute',
+                    top: top,
+                    left: left,
+                    'z-index': 1999
+                }).appendTo('body');
 
                 //$loading.find('svg').css({'margin-top':($th.height()-16)/2});
 
@@ -1357,8 +1323,8 @@ directives.reg('ic-tpl', {
 
 
 
-    // 内置services 可选
-    /**
+// 内置services 可选
+/**
  * Created by Julien on 2014/8/13.
  *
  *
@@ -1729,7 +1695,7 @@ function recordManager() {
 
 //内置服务
 services.reg('recordManager', recordManager);
-    /**
+/**
  * Created by Julien on 2015/9/1.
  */
 
@@ -2235,7 +2201,7 @@ brick.getAniMap = function (animation) {
 
 })();
 
-    /**
+/**
  * Created by Julien on 2015/8/10.
  */
 
@@ -2339,8 +2305,8 @@ brick.getAniMap = function (animation) {
 
 
 
-    // 内置directives 可选
-    /**
+// 内置directives 可选
+/**
  * Created by julien.zhang on 2014/10/31.
  */
 
@@ -2414,7 +2380,7 @@ directives.reg('ic-ajax', function () {
 );
 
 
-    /**
+/**
  * Created by julien.zhang on 2014/10/11.
  */
 
@@ -2484,7 +2450,7 @@ directives.reg('ic-tabs', function ($elm, attrs) {
 });
 
 
-    /**
+/**
  * Created by julien.zhang on 2014/10/29.
  */
 
@@ -2832,7 +2798,46 @@ directives.reg('ic-form', function ($elm, attrs) {
 });
 
 
-    /**
+/**
+ * Created by j on 18/7/18.
+ * ic-select  实现checkbox or radio 类似的功能
+ * ic-select-cla  选中项的添加的样式类,默认 selected
+ * [ic-select][ic-select-item]  定义子项选择符 jQuery选择符
+ * [ic-select-item] 定义子项
+ * [ic-select-type] 定义select类型,多选or单选 checkbox : radio 默认 radio
+ */
+
+brick.directives.reg('ic-select', function($elm){
+
+var cla = $elm.attr('ic-select-cla') || brick.get('ic-select-cla') || 'selected';
+var name = $elm.attr('ic-select');
+var s_item = $elm.attr('ic-select-item') || '[ic-select-item]';
+var type = $elm.attr('ic-select-type') || 'radio';
+
+var $items =  $elm.find(s_item);
+
+    if(!$items.size()){
+        $elm.find('>*').each(function(){
+            $(this).attr('ic-select-item', +new Date);
+        });
+    }
+
+var callback = type == 'checkbox' ?
+    function(){
+        $(this).toggleClass(cla);
+        $elm.trigger('ic-select.change', {name:name});
+    }
+    :
+    function(){
+        var $th = $(this).addClass(cla);
+        $(this).siblings().removeClass(cla);
+        $elm.trigger('ic-select.change', {name:name});
+    };
+
+    $elm.on('click', s_item, callback);
+
+});
+/**
  * Created by julien.zhang on 2015/3/23.
  * 回车键按下监听指令
  */
@@ -2863,7 +2868,7 @@ directives.reg({
 
     }
 });
-    /**
+/**
  * Created by julien on 2015/11/30.
  */
 
@@ -2892,75 +2897,56 @@ brick.directives.reg('ic-scroll', function ($elm) {
     }, 300));
 
 });
-    /**
+/**
  * Created by julien.zhang on 2014/10/29.
  */
 
+//ic-dialog
+directives.reg('ic-dialog', function ($elm, attrs) {
 
-directives.add('ic-dialog', function ($elm, attrs) {
+    var eventAction = brick.get('event.action');
 
-    var html = "<div class=\"t\" style=\"position:fixed; z-index: 100000; left:0; top:0; width:100%; height: 100%; overflow: auto; background: rgba(0,34,89,0.2);\"></div>";
+    $(document.body).on(eventAction, '[ic-dialog-cancel], [ic-dialog-close], [ic-dialog-confirm]', function(e){
 
-    //只执行一次绑定
-    if (!arguments.callee._run) {
+        var $th = $(this);
+        var type = this.hasAttribute('ic-dialog-confirm');
 
-        arguments.callee._run = 1;
+        var $dialog = $th.closest('[ic-dialog]');
 
-        $(document).on('click', '[ic-dialog-href]', function (e) {
-            var target = $(this).attr('ic-dialog-href');
-            $('[ic-dialog=?]'.replace('?', target)).icDialog();
-            return false;
+        $dialog.icAniOut(21, function(){
+            $dialog.trigger('ic-dialog.close', type);
+            $dialog.trigger('ic-dialog.hide', type);
         });
 
-    }
-
-
-    var $dialogContainer = $(html).appendTo('body').hide();
-
-    var id = $elm.attr('ic-dialog');
-
-    $elm.appendTo($dialogContainer);
-
-    //处理js调用
-    $elm.on('ic-dialog.call', function (e, param) {
-
-        if(param === void(0)) return onShow(e);
-        if (param === 'hide' || param == false) return onClose(e);
-        onShow(e);
+    }).on(eventAction, '[ic-dialog-href]', function (e) {
+        var target = $(this).attr('ic-dialog-href');
+        $('[ic-dialog=?]'.replace('?', target)).icDialog();
+        return false;
     });
 
-    $elm.on('click', '[ic-role-dialog-confirm]', function (e) {
-        onClose(e, 1);
+}, {selfExec: true, once: true });
+
+
+//ic-prompt
+directives.reg('ic-prompt', function ($elm, attrs) {
+
+    var eventAction = brick.get('event.action');
+
+    $(document.body).on(eventAction, '[ic-prompt-cancel], [ic-prompt-close], [ic-prompt-confirm]', function(e){
+
+        var $th = $(this);
+        var type = this.hasAttribute('ic-prompt-confirm');
+
+        var $dialog = $th.closest('[ic-prompt]');
+
+        $dialog.icAniOut(21, function(){
+            $dialog.trigger('ic-prompt.hide', type);
+        });
+
     });
 
-
-    $elm.on('click', '[ic-role-dialog-cancel], [ic-role-dialog-close]', function (e) {
-        onClose(e, 0);
-    });
-
-
-    function onShow(e) {
-        $dialogContainer.show();
-        var width = $elm.width();
-        $elm.css('margin-left', -width / 2);
-        $elm.show();
-        $elm.trigger('ic-dialog.show');
-    }
-
-    function onClose(e, type) {
-        $dialogContainer.hide();
-        $elm.hide();
-        $elm.trigger('ic-dialog.close', type);
-    }
-
-
-
-
-});
-
-
-
-    /**
+}, {selfExec: true, once: true });
+/**
  * Created by julien.zhang on 2014/10/15.
  */
 
@@ -2973,7 +2959,7 @@ directives.add('ic-dropdown', function ($elm, attrs) {
 
     var h = th.height();
 
-    var menu = th.find('[ic-role-dropdown-menu]').css({position: 'absolute', top: h + 'px'});
+    var menu = th.find('[ic-dropdown-menu]').css({position: 'absolute', top: h + 'px', display:'none!important'});
 
     var timer;
     if (menu.size()) {
@@ -2987,7 +2973,7 @@ directives.add('ic-dropdown', function ($elm, attrs) {
         });
     }
 
-    var con = th.find('[ic-role-dropdown-con]').css({position: 'absolute', overflow: 'hidden'});
+    var con = th.find('[ic-dropdown-con]').css({position: 'absolute', overflow: 'hidden'});
 
     if (con.size()) {
 
@@ -2997,7 +2983,7 @@ directives.add('ic-dropdown', function ($elm, attrs) {
 
         var flag = 1;
 
-        th.find('[ic-role-dropdown-toggle]').click(function (e) {
+        th.find('[ic-dropdown-toggle]').click(function (e) {
             if (flag) {
                 //con.slideDown();
                 con.css({height: 'auto'});
@@ -3014,7 +3000,9 @@ directives.add('ic-dropdown', function ($elm, attrs) {
 
 });
 
-    /**
+
+//
+/**
  * Created by julien.zhang on 2014/10/11.
  */
 
@@ -3170,7 +3158,7 @@ directives.reg('ic-slider', function ($elm, attr) {
 
 });
 
-    /**
+/**
  * Created by julien.zhang on 2014/10/20.
  */
 
@@ -3297,7 +3285,7 @@ directives.reg('ic-pagination', function ($elm, attrs) {
 
 
 });
-    /**
+/**
  * Created by julien.zhang on 2014/11/13.
  * 定义输入提示指令
  */
@@ -3439,7 +3427,7 @@ directives.reg('ic-type-ahead', function ($elm, attrs) {
 
 
 });
-    /**
+/**
  * Created by julien.zhang on 2014/11/5.
  */
 
@@ -3541,12 +3529,12 @@ directives.add('ic-drag-view', function ($elm, attrs) {
 
 });
 
-    // bootstrap
-    $(function () {
-        setTimeout(function () {
-            if(brick.get('bootstrap.auto') === false) return;
-            brick.bootstrap(document.body);
-        }, 30);
-    });
+// bootstrap
+$(function () {
+    setTimeout(function () {
+        if(brick.get('bootstrap.auto') === false) return;
+        brick.bootstrap(document.body);
+    }, 30);
+});
 
 })(window);

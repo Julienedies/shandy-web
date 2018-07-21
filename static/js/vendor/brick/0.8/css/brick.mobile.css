@@ -1,7 +1,22 @@
 /*
+ * {{version}}
  * {{timestamp}}
 */
-/*@import url(ic-view.scss?__inline);*/
+
+[ic-dropdown] {
+  position: relative;
+}
+
+[ic-dropdown-menu] {
+  position: absolute;
+  left: 0;
+  z-index: 10;
+}
+
+[ic-dropdown-con] {
+  overflow: hidden;
+}
+
 
 /* */
 [ic-upload] [type=file] {
@@ -54,13 +69,10 @@
     overflow: hidden;
 }
 
-[ic-role-slider-pagination] {
+[ic-role-slider-pagination], [ic-select-item],[ic-tab] {
     cursor: pointer;
 }
 
-[ic-tab] {
-    cursor: pointer;
-}
 
 [ic-tab-con] {
     display: none;
