@@ -26,7 +26,7 @@
 
 
 body{
-  padding:10px 15px 0 15px;
+  padding:10px 15px 15px 15px;
   font-size:1.4em;
   line-height: 1.8;
   color: #202020;
@@ -44,12 +44,12 @@ body{
   dt, dd {
     border: solid 1px #bdbdbe;
     border-top: none;
-    padding: 10px;
   }
 
   dt {
     @extend .flex-mc;
-    flex: 1 1 15%;
+    flex: 1 1 20%;
+    padding: 10px 2px;
     white-space: nowrap;
     font-weight: bold !important;
     * {
@@ -58,7 +58,8 @@ body{
   }
 
   dd {
-    flex: 1 1 85%;
+    flex: 1 1 80%;
+    padding: 10px;
     border-left: none;
     li{
       padding:2px 0;
@@ -88,7 +89,16 @@ dl.table_1.v-top{
 
 }
 
+label.radio{
+  font-size:1.2em;
+  vertical-align: -0.5em;
+}
+
 
 .none{
   display: none!important;
+}
+
+.pre{
+  white-space: pre;
 }

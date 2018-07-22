@@ -8,26 +8,15 @@
 </head>
 <body>
 <link rel="import" href="../../include/tabs.html?__inline" />
+
 <div class="container">
 
-    <section ic-ctrl="planCtrl">
-        <button class="button"
-                ic-ajax
-                ic-submit-method="get"
-                ic-submit-action="/stock/plan"
-                ic-submit-on-done="done">交易计划</button>
-
-        <ul ic-tpl="a">
-            <li ic-for="i,v in model" ic-if="v">
-                {{i}} : {{v}}
-            </li>
-        </ul>
-
-    </section>
+<link rel="import" href="../include/plans.html?__inline" />
 
 </div>
 
 <link rel="import" href="../../include/scripts.html?__inline" />
 <script src="main.js"></script>
+<script src="../include/plans-ctrl.js?__inline"></script>
 </body>
 </html>

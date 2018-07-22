@@ -1,0 +1,111 @@
+<section ic-ctrl="checkCtrl">
+
+    <button class="button"
+            id="market"
+            ic-ajax="market"
+            ic-submit-method="get"
+            ic-submit-action="/stock/market"
+            ic-submit-on-done="done">交易计划</button>
+
+    <div ic-form="market" ic-tpl="a">
+
+        <dl class="table_2">
+            <dt>大盘状态</dt>
+            <dd ic-init="o = model['大盘状态']">
+                <div class="field">
+                    <div class="control">
+                        <input class="input is-medium" type="text" name="大盘状态" value="{{o.text}}" ic-form-field>
+                    </div>
+                </div>
+
+                <div class="field is-grouped is-grouped-multiline" ic-select="大盘状态" ic-select-item="div>div>span">
+                    <div class="control" ic-for="i,v in o.tags">
+                        <div class="tags has-addons">
+                            <span ic-class="tag is-medium {{o.text == v.text ? 'is-warning':''}}" ic-val="{{v.text}}">{{v.text}}</span>
+                            <a class="tag is-delete is-medium"
+                               ic-ajax
+                               ic-submit-data="{{v.text}}"
+                               ic-submit-method="delete"
+                               ic-submit-action="/stock/tags/{{v.id}}"
+                               ic-submit-before="tags.remove.before"
+                               ic-submit-on-done="tags.remove.done"></a>
+                        </div>
+                    </div>
+                </div>
+            </dd>
+
+            <dt>市场情绪</dt>
+            <dd ic-init="o = model['市场情绪']">
+                <div class="field">
+                    <div class="control">
+                        <input class="input is-medium" type="text" name="市场情绪" value="{{o.text}}" ic-form-field>
+                    </div>
+                </div>
+                <div class="tags" ic-select="市场情绪">
+                            <span ic-for="i,v in ['谨慎', '酝酿', '开展', '蔓延', '高涨', '高潮', '分歧', '臆想', '失望', '恐慌']"  ic-class="tag is-medium {{o.text == v ? 'is-warning':''}}" ic-val="{{v}}">
+                                {{v}}
+                            </span>
+                </div>
+            </dd>
+
+            <dt>K线预判</dt>
+            <dd ic-init="o = model['K线预判']">
+                <div class="field">
+                    <div class="control">
+                        <input class="input is-medium" type="text" name="K线预判" value="{{o.text}}" ic-form-field>
+                    </div>
+                </div>
+                <div class="tags" ic-select="K线预判">
+                            <span ic-for="i,v in ['上涨','上冲回落','震荡向上','平衡','下探','震荡向下','下跌']" ic-class="tag is-medium {{o.text == v ? 'is-warning':''}}" ic-val="{{v}}">
+                                {{v}}
+                            </span>
+                </div>
+            </dd>
+        </dl>
+
+        <div class="field is-horizontal">
+            <div class="field-label is-medium">
+                <label class="label">主线/风口</label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <div class="control">
+                        <input class="input is-medium" type="text" value="{{model['主线'].text}}" ic-form-field="主线">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+                <label class="label">交易备注</label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <div class="control">
+                        <textarea class="textarea is-medium" ic-form-field="交易备注">{{model['交易备注'].text}}</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="field is-horizontal">
+            <div class="field-label">
+                <!-- Left empty for spacing -->
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <div class="control">
+                        <button class="button is-primary"
+                                ic-form-submit="market"
+                                ic-submit-before="submit"
+                                ic-submit-action="/stock/market">
+                            保存
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>

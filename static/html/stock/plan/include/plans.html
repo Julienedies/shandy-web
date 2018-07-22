@@ -1,0 +1,24 @@
+<section ic-ctrl="plansCtrl">
+
+    <button class="button"
+            ic-ajax="plans"
+            ic-submit-method="get"
+            ic-submit-action="/stock/plan"
+            ic-submit-on-done="done">交易计划</button>
+
+    <ul ic-tpl="plans" ic-init="model = model.plans || model">
+        <li ic-for="i,v in model" class="notification" ic-click="edit" data-id="{{v.id}}">
+            <h5 class="title is-5">{{v['股票名称']}} : {{v.type}}</h5>
+            <div class="pre">{{v['计划']}}</div>
+            <button class="delete is-large"
+                    ic-ajax
+                    ic-submit-method="delete"
+                    ic-submit-action="/stock/plan/{{v.id}}"
+                    ic-submit-before="confirm"
+                    ic-submit-on-done="remove"></button>
+        </li>
+    </ul>
+
+</section>
+
+

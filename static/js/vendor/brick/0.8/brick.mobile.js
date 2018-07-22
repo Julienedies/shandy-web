@@ -1,7 +1,7 @@
 /*!
  * https://github.com/julienedies/brick.git
  * https://github.com/Julienedies/brick/wiki
- * "2018-7-21 10:52:24"
+ * "7/22/2018, 10:48:16 PM"
  * "V 0.8"
  */
 ;
@@ -295,9 +295,9 @@ var controllers = (function () {
          * @param e {String} 事件名
          * @param msg {*}    任意要传递的数据
          */
-        fire: function (e, msg) {
+        emit: function (e, msg) {
             var that = this;
-            eventManager.fire(e, msg, that);
+            eventManager.emit(e, msg, that);
         },
         /**
          * 用于订阅事件
@@ -306,7 +306,7 @@ var controllers = (function () {
          */
         on: function (e, f) {
             var that = this;
-            eventManager.bind(e, f, that);
+            eventManager.on(e, f, that);
         },
         /**
          * 取消事件监听
@@ -314,19 +314,25 @@ var controllers = (function () {
          * @param f {Function} 回调函数
          */
         off: function (e, f) {
-            eventManager.unbind(e, f);
+            eventManager.off(e, f);
         },
         render: function (tplName, model, call) {
             var that = this;
+            if(tplName == undefined){
+                tplName = this._name;
+                model = this._model;
+            }
+            else
             if (typeof tplName == 'function') {
                 call = tplName;
                 tplName = that._name;
                 model = that;
             }
+            else
             if (typeof tplName == 'object') {
+                call = model;
                 model = tplName;
                 tplName = that._name;
-                call = model;
             }
             setTimeout(function () {
                 var $tpl_dom = that._render(tplName, model);
@@ -339,7 +345,7 @@ var controllers = (function () {
         _render: function (tplName, model) {
             var $elm = this.$elm;
             var tpl_fn = brick.getTpl(tplName);  //模板函数
-            var selector = '[ic-tpl=?]'.replace('?', tplName);
+            var selector = '[ic-tpl=?],[ic-tpl-name=?]'.replace(/[?]/img, tplName);
             var $tpl_dom; // 有ic-tpl属性的dom元素
             var html;
             // 如果数据模型不是对象类型,则对其包装
@@ -349,7 +355,7 @@ var controllers = (function () {
             $tpl_dom = $elm.filter(selector);  // <div ic-ctrl="a" ic-tpl="a"></div>
             $tpl_dom = $tpl_dom.length ? $tpl_dom : $elm.find(selector);
             html = tpl_fn({model : model});
-            $tpl_dom.show();
+            $tpl_dom.show(); // 渲染模板后进行编译
             $tpl_dom.removeAttr('ic-tpl');
             return $tpl_dom.html(html);
         }
@@ -396,7 +402,7 @@ var controllers = (function () {
         exec: function (name, parent, $elm) {
 
             var ctrl = _ctrls[name];
-            if (!ctrl) return console.log('not find controller ' + name);
+            if (!ctrl) return console.info('not find controller ' + name);
 
             var conf = ctrl.conf;
             var scope;
@@ -800,7 +806,7 @@ function compile(node){
 
 function __compile(node){
 
-    node = node[0] || node;  //jquery对象
+    node = node[0] || node;  //jquery对象转为dom对象
     if(node.nodeType != 1) return console.info('compile exit', node);
 
     var $elm = $(node);
@@ -1046,7 +1052,9 @@ directives.reg('ic-tpl', {
                 name = $parent.attr('ic-ctrl');
             }
 
+            $th.attr('ic-tpl', name);
             $th.attr('ic-tpl-name', name);
+
             __tpl[name] = createRender(this);
 
         });
@@ -1244,6 +1252,8 @@ directives.reg('ic-tpl', {
     $.fn.icEnterPress = function (call) {
 
         return this.each(function (i) {
+
+            if(/^textarea$/img.test(this.tagName)) return this;
 
             call = $.proxy(call, this);
 
@@ -2338,14 +2348,15 @@ directives.reg('ic-ajax', function () {
             var done = $elm.icParseProperty2('ic-submit-on-done') || defaultCall;
             var always = $elm.icParseProperty2('ic-submit-on-always') || defaultCall;
 
-            if (before.apply(that) === false) return;
+            var data = $elm.data('ic-submit-data') || $elm.attr('ic-submit-data');
+            var _data = before.call(that, data);
+            if (_data === false) return;
+            data = _data || data;
 
             var domain = brick.get('ajax.domain') || '';
             var url = domain + $elm.attr('ic-submit-action');
             var dataType = $elm.attr('ic-submit-data-type') || 'json';
             var method = $elm.attr('ic-submit-method') || 'post';
-
-            var data = $elm.data('ic-submit-data') || $elm.attr('ic-submit-data');
 
             $loading.size() ? $loading.show() && $elm.hide() : $elm.setLoading();
 
@@ -2725,7 +2736,8 @@ directives.reg('ic-form', function ($elm, attrs) {
     // 提交触发
     $submit.on(eventAction, toSubmit);
     // 回车提交触发
-    $fields.icEnterPress(function () {
+    $fields.not('textarea').icEnterPress(function () {
+        console.info(this);
         $submit.trigger(eventAction);
     });
 
@@ -2817,7 +2829,7 @@ var type = $elm.attr('ic-select-type') || 'radio';
 var $items =  $elm.find(s_item);
 
     if(!$items.size()){
-        $elm.find('>*').each(function(){
+        $items = $elm.find('>*').each(function(){
             $(this).attr('ic-select-item', +new Date);
         });
     }
@@ -2829,9 +2841,9 @@ var callback = type == 'checkbox' ?
     }
     :
     function(){
+        $items.removeClass(cla);
         var $th = $(this).addClass(cla);
-        $(this).siblings().removeClass(cla);
-        $elm.trigger('ic-select.change', {name:name});
+        $elm.trigger('ic-select.change', {name:name, value: $th.attr('ic-val')});
     };
 
     $elm.on('click', s_item, callback);
