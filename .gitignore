@@ -5,7 +5,7 @@ Thumbs.db
 #IDE创建
 .idea/
 .settings/
-.project
+.project/
 
 #外部类库
 bower_components/
@@ -18,4 +18,3 @@ node_modules/
 /server.js
 
 app/
-data/
