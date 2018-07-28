@@ -1,36 +1,79 @@
-/*
-布局相关样式定义
-=====================================================
- */
+@import "../../basic/0.7/basic.base";
 
-#page-wrap {
-
+.tr{
+    display: flex;
+    flex-wrap: wrap;
 }
+.td{
 
-.lh-p1{
-    line-height: 1;
 }
 
-.lh-1d5{
-    line-height: 1.5;
-}
-.lh-2{
-    line-height: 2;
-}
-.lh-2d2{
-    line-height: 2.2;
-}
-.m-r-p1{
-    margin-right:1em;
-}
-.m-l-p1{
-    margin-left:1em;
+.table_0{
+    >*{
+        @extend .tr;
+        >*{
+            padding:15px 10px;
+            &:first-child{
+                @extend .flex-right;
+                flex: 1 1 20%;
+            }
+            &:last-child{
+                flex: 1 1 80%;
+            }
+        }
+    }
 }
 
+.table_1 {
+    display: flex;
+    flex-wrap: wrap;
+    border-top: solid 1px #bdbdbe;
+    margin: 20px 0;
+    dt, dd {
+        border: solid 1px #bdbdbe;
+        border-top: none;
+    }
 
-.p-r-p1{
-    padding-right:1em;
+    dt {
+        @extend .flex-mc;
+        flex: 1 1 20%;
+        padding: 10px 2px;
+        white-space: nowrap;
+        font-weight: bold !important;
+        * {
+            font-weight: bold;
+        }
+    }
+
+    dd {
+        flex: 1 1 80%;
+        padding: 10px;
+        border-left: none;
+        li{
+            padding:2px 0;
+        }
+    }
 }
-.p-l-p1{
-    padding-left:1em;
+
+.table_2{
+    @extend .table_1;
+    &,dt,dd{
+        border:none;
+    }
+    dt,dd{
+        padding-bottom:20px;
+    }
+    dt{
+        @extend .flex-mr;
+        @extend .flex-start;
+    }
+}
+
+dl.table_1.no-border{
+    &,dt,dd{
+        border:none;
+    }
+}
+dl.table_1.v-top{
+
 }

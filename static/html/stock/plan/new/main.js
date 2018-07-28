@@ -65,6 +65,11 @@ brick.reg('planCtrl', function(){
         scope.render({});
     };
 
+    scope.plan = {
+        done: function(msg){
+
+        }
+    };
     scope.reset();
 
 });

@@ -11,6 +11,7 @@
 @import url('include/layout.css?__inline');*/
 
 @import "../base/include/import";
+@import "include/layout";
 
 
 #nav-tabs{
@@ -36,58 +37,7 @@ body{
   }
 }
 
-.table_1 {
-  display: flex;
-  flex-wrap: wrap;
-  border-top: solid 1px #bdbdbe;
-  margin: 20px 0;
-  dt, dd {
-    border: solid 1px #bdbdbe;
-    border-top: none;
-  }
 
-  dt {
-    @extend .flex-mc;
-    flex: 1 1 20%;
-    padding: 10px 2px;
-    white-space: nowrap;
-    font-weight: bold !important;
-    * {
-      font-weight: bold;
-    }
-  }
-
-  dd {
-    flex: 1 1 80%;
-    padding: 10px;
-    border-left: none;
-    li{
-      padding:2px 0;
-    }
-  }
-}
-
-.table_2{
-  @extend .table_1;
-  &,dt,dd{
-    border:none;
-  }
-  dt,dd{
-    padding-bottom:20px;
-  }
-  dt{
-    @extend .flex-start;
-  }
-}
-
-dl.table_1.no-border{
-  &,dt,dd{
-    border:none;
-  }
-}
-dl.table_1.v-top{
-
-}
 
 label.radio{
   font-size:1.2em;
