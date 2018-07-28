@@ -1,0 +1,52 @@
+<div ic-ctrl="logic_ctrl">
+
+    <div class="tabs is-large" ic-tabs="logic" ic-tab-active="1" ic-tab-select="li" ic-tabc-select=">div" ic-tab-cla="is-active">
+        <ul>
+            <li><a>新逻辑</a></li>
+            <li><a>逻辑列表</a></li>
+        </ul>
+    </div>
+
+    <div ic-tabc="logic">
+        <div ic-ctrl="set_logic_ctrl" ic-form="set_logic" ic-tpl="set_logic" ic-tpl-init="{}">
+
+            <div class="table_0">
+                <div>
+                    <div>逻辑</div>
+                    <div>
+                        <textarea rows="7" class="textarea is-medium" ic-form-field="text">{{model['text']}}</textarea>
+                    </div>
+                </div>
+                <div class="tr">
+                    <div>类型</div>
+                    <div>
+                        <div class="tags" ic-select="logic_type" ic-val="市场" ic-form-field="type">
+                        <span ic-for="i,v in ['市场', '心态', '平仓', '建仓']"  ic-class="tag is-large" ic-val="{{v}}">
+                            {{v}}
+                        </span>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div></div>
+                    <div>
+                        <button class="button is-primary"
+                                ic-form-submit
+                                ic-submit-action="/stock/logic"
+                                ic-submit-before=""
+                                ic-submit-on-done=""
+                                >保存</button>
+                        <button class="button" ic-click="reset" style="margin-left:4em;"> 重置 </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div>
+
+        </div>
+    </div>
+
+
+
+</div>
