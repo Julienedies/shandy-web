@@ -50,6 +50,7 @@ directives.reg('ic-ajax',
                     dataType: dataType,
                     data: data
                 }).done(function (data) {
+                        console.log('ic-ajax => ', done);
                         $elm.clearLoading() && $loading.hide() && $elm.show();
                         done.apply(that, [data]);
                     }

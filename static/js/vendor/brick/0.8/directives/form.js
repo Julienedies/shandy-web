@@ -194,7 +194,6 @@ directives.reg('ic-form', function ($elm, attrs) {
 
         });
 
-
         $th.on('focus', function () {
             $fieldBox.removeClass('error');
             $errTip.removeClass('error').text(foucsTip);
@@ -281,7 +280,7 @@ directives.reg('ic-form', function ($elm, attrs) {
 
         if ($submit[0].hasAttribute('ic-submit-disabled')) return;
 
-        if (!$submit.icFormVerify()) return $elm.trigger('ic-form.error');
+        if (!$submit.icFormVerify()) return $elm.trigger('ic-form.error', fields);
 
         //函数调用
         if (submitType === 1) {

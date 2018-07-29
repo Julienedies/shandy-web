@@ -1,7 +1,7 @@
 /*!
  * https://github.com/julienedies/brick.git
  * https://github.com/Julienedies/brick/wiki
- * "2018-7-28 16:27:11"
+ * "2018-7-29 10:50:19"
  * "V 0.8"
  */
 ;
@@ -343,6 +343,7 @@ var controllers = (function () {
             }, 30);
         },
         _render: function (tplName, model) {
+            console.log('render => ', tplName, model);
             var $elm = this.$elm;
             var tpl_fn = brick.getTpl(tplName);  //模板函数
             var selector = '[ic-tpl=?],[ic-tpl-name=?]'.replace(/[?]/img, tplName);
@@ -1035,7 +1036,7 @@ directives.reg('ic-event', {
 
 directives.reg('ic-tpl', {
     selfExec: true,
-    //once: true,
+    //once: true,  // 要考虑异步加载进来的模板, 所以不能只允许调用一次
     fn: function ($elm) {
 
         var __tpl = brick.__tpl = brick.__tpl || {};
@@ -1046,6 +1047,9 @@ directives.reg('ic-tpl', {
             var name = $th.attr('ic-tpl');
             var $parent;
 
+            // 只处理一次
+            if($th.attr('ic-tpl-name')) return;
+
             if(!name){
                 $parent = $th.closest('[ic-ctrl]');
                 name = $parent.attr('ic-ctrl');
@@ -1054,7 +1058,7 @@ directives.reg('ic-tpl', {
             //自动初始化渲染数据对象
             setTimeout(function(){
                 var dob = $th.icParseProperty2('ic-tpl-init');
-                console.info(dob, name);
+                //console.info(dob, name);
                 dob && $th.icRender(name, dob);
             }, 300);
 
@@ -1094,8 +1098,8 @@ directives.reg('ic-tpl', {
         var html = tplFn({model: model});
         return this.each(function () {
             var $th = $(this);
-            $th.removeAttr('ic-tpl');
             $th.html(html);
+            $th.removeAttr('ic-tpl');
             $th.icCompile();
             callback && callback.apply(this, [$th.children()]);
         });
@@ -1111,7 +1115,9 @@ directives.reg('ic-tpl', {
     };
 
     $.fn.icParseProperty = function (name) {
-        if (name === undefined) return;
+        //console.info('icParseProperty => ', name);
+        var params = name.split(':');
+        name = params.shift();
         var match;
         // js直接量  <div ic-tpl-init="{}">  object {}
         if (match = name.match(/^\s*(([{\[])([^{\[]*)[}\]])\s*$/)) {
@@ -1122,7 +1128,7 @@ directives.reg('ic-tpl', {
             }
         }
         else  // 字符串
-        if (match = /^\s*((['"])[^'"]*\2)\s*$/) {
+        if (match = name.match(/^\s*((['"])[^'"]*\2)\s*$/)) {
             return match[1];
         }
         else  // 数字
@@ -1133,24 +1139,49 @@ directives.reg('ic-tpl', {
         // 从控制器scope里获取或者全局window
         var $ctrl = this.closest('[ic-ctrl]');
         var ctrl = $ctrl.attr('ic-ctrl');
-        //var namespace = ctrl ? $ctrl.data('ic-ctrl-scope') : window;
-        var namespace = ctrl ? brick.controllers.get(ctrl) : window;
+        //var namespace = ctrl ? $ctrl.data('ic-ctrl-scope') : {};
+        var namespace = ctrl ? brick.controllers.get(ctrl) : {};
 
-        return (function (root, chain) {
+        function f(root, chain) {
             var k = chain.shift();
             var v = root && root[k];
-            if (!v) return;
+            if (v === undefined) return;
             if (chain.length) {
                 return arguments.callee(v, chain);
             }
             return v;
-        })(namespace, name.split('.'));
+        }
+
+        var v = f(namespace, name.split('.'));
+
+        if(v){
+
+        }
+
+        v = v || f(window, name.split('.'));
+
+        //console.info('icParseProperty => ' + name + ' => ', v);
+
+        if(typeof v == 'function' && params.length){
+            return function(){
+                var that = this;
+                var args = [].slice.call(arguments);
+                var p;
+                while(p = params.shift()){
+                    args.push(p);
+                }
+                return v.apply(that, args);   //window.confirm通过apply方式调用会出错,暂时不处理
+            };
+        }
+
+        return v;
 
     };
 
     $.fn.icParseProperty2 = function (name) {
         name = this.attr(name);
-        if (name === undefined) return;
+        //console.info('icParseProperty2 => ', this[0], name);
+        if (name === undefined || name == '') return;
         return this.icParseProperty(name);
     };
 
@@ -1427,11 +1458,9 @@ directives.reg('ic-tpl', {
 // 内置services 可选
 /**
  * Created by Julien on 2014/8/13.
- *
- *
  * 记录管理器
- *
- * var serv = new recordManager(
+ * var recordManager = brick.services.get('recordManager');
+ * var serv = recordManager(
  *                              {
  *                                  scope:scope,
  *                                  broadcast:true, //是否广播事件
@@ -1440,13 +1469,11 @@ directives.reg('ic-tpl', {
  *                                  beforeSave:function(record,index){}
  *                              }
  *                              );
- *
- *
  */
 
 function recordManager() {
 
-    function fn(conf) {
+    function RecordManager(conf) {
 
         if (conf && conf.constructor === Object) {
 
@@ -1781,15 +1808,18 @@ function recordManager() {
 
     };
 
-
     for (var i in proto) {
 
-        fn.prototype[i] = proto[i];
+        RecordManager.prototype[i] = proto[i];
 
     }
 
 
-    return fn;
+    function f(conf){
+        return new RecordManager(conf);
+    }
+
+    return f;
 
 }
 
@@ -2459,6 +2489,7 @@ directives.reg('ic-ajax',
                     dataType: dataType,
                     data: data
                 }).done(function (data) {
+                        console.log('ic-ajax => ', done);
                         $elm.clearLoading() && $loading.hide() && $elm.show();
                         done.apply(that, [data]);
                     }
@@ -2755,7 +2786,6 @@ directives.reg('ic-form', function ($elm, attrs) {
 
         });
 
-
         $th.on('focus', function () {
             $fieldBox.removeClass('error');
             $errTip.removeClass('error').text(foucsTip);
@@ -2842,7 +2872,7 @@ directives.reg('ic-form', function ($elm, attrs) {
 
         if ($submit[0].hasAttribute('ic-submit-disabled')) return;
 
-        if (!$submit.icFormVerify()) return $elm.trigger('ic-form.error');
+        if (!$submit.icFormVerify()) return $elm.trigger('ic-form.error', fields);
 
         //函数调用
         if (submitType === 1) {
@@ -2922,28 +2952,37 @@ var cla = $elm.attr('ic-select-cla') || brick.get('ic-select-cla') || 'selected'
 var name = $elm.attr('ic-select');
 var s_item = $elm.attr('ic-select-item') || '[ic-select-item]';
 var type = $elm.attr('ic-select-type') || 'radio';
-
 var $items =  $elm.find(s_item);
 
-    if(!$items.size()){
-        $items = $elm.find('>*').each(function(){
-            $(this).attr('ic-select-item', +new Date);
-        });
-    }
+if(!$items.size()){
+    $items = $elm.find('>*').each(function(){
+        $(this).attr('ic-select-item', +new Date);
+    });
+}
+
+var $selected = $items.filter('[selected]');
 
 var callback = type == 'checkbox' ?
     function(){
         $(this).toggleClass(cla);
-        $elm.trigger('ic-select.change', {name:name});
+        var val = $items.filter('.'+cla).map(function(){
+            return $(this).attr('ic-val');
+        });
+        $elm.attr('ic-val', JSON.stringify(val));
+        $elm.trigger('ic-select.change', {name:name, value: val});
     }
     :
     function(){
         $items.removeClass(cla);
         var $th = $(this).addClass(cla);
-        $elm.trigger('ic-select.change', {name:name, value: $th.attr('ic-val')});
+        var val = $th.attr('ic-val');
+        $elm.attr('ic-val', val);
+        $elm.trigger('ic-select.change', {name:name, value: val});
     };
 
     $elm.on('click', s_item, callback);
+
+    $selected.click();
 
 });
 /**

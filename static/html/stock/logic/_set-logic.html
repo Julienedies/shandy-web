@@ -1,34 +1,36 @@
-<div ic-ctrl="logic_ctrl">
+<div ic-ctrl="set_logic_ctrl">
 
-    <div ic-ctrl="set_logic_ctrl" ic-form="set_logic" ic-tpl="set_logic" ic-tpl-init="{}">
+    <div class="column is-10">
 
-        <div class="table_0">
+        <div class="table_0" ic-form="set_logic" ic-tpl ic-tpl-init="{}" ic-init="model=model[0]||model">
             <div>
-                <div>逻辑</div>
+                <h6>逻辑</h6>
                 <div>
-                    <textarea rows="7" class="textarea is-medium" ic-form-field="text">{{model['text']}}</textarea>
+                    <textarea rows="7" class="textarea is-medium" ic-form-field="text" ic-field-rule="required">{{model.text}}</textarea>
+                    <input type="hidden" name="id" ic-form-field  value="{{model.id}}" />
                 </div>
             </div>
-            <div class="tr">
-                <div>类型</div>
+            <div>
+                <h6>类型</h6>
                 <div>
                     <div class="tags" ic-select="logic_type" ic-val="市场" ic-form-field="type">
-                        <span ic-for="i,v in ['市场', '心态', '平仓', '建仓']"  ic-class="tag is-large" ic-val="{{v}}">
-                            {{v}}
-                        </span>
+                    <span ic-for="i,v in ['市场', '控制', '平仓', '建仓']"  ic-class="tag is-large" ic-val="{{v}}" ic-has-selected="v==(model.type || '市场')">
+                        {{v}}
+                    </span>
                     </div>
                 </div>
             </div>
             <div>
                 <div></div>
-                <div>
+                <div class="buttons">
                     <button class="button is-primary"
-                            ic-form-submit
+                            ic-form-submit="set_logic"
                             ic-submit-action="/stock/logic"
-                            ic-submit-before=""
-                            ic-submit-on-done=""
+                            ic-submit-before="before"
+                            ic-submit-on-done="done"
                             >保存</button>
                     <button class="button" ic-click="reset" style="margin-left:4em;"> 重置 </button>
+                    <button class="button" ic-click="close" style="margin-left:4em;"> 关闭 </button>
                 </div>
             </div>
         </div>
@@ -36,3 +38,4 @@
     </div>
 
 </div>
+

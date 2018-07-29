@@ -1,0 +1,84 @@
+<section ic-ctrl="set_plan_ctrl">
+
+    <div ic-form="plan" ic-tpl ic-tpl-init="{}" ic-init="model=model[0]||model">
+
+        <div class="table_0">
+            <!-- tr -->
+            <div>
+                <h6>计划类型</h6>
+                <div>
+                    <div class="control">
+                        <label class="radio is-medium">
+                            <input type="radio" name="type" value="平仓预案" ic-has-checked="model.type!='建仓计划'" ic-form-field>
+                            平仓预案
+                        </label>
+                        <label class="radio">
+                            <input type="radio" name="type" value="建仓计划" ic-has-checked="model.type=='建仓计划'">
+                            建仓计划
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <!-- tr -->
+            <div>
+                <h6>股票名称</h6>
+                <div>
+                    <div class="control">
+                        <input class="input is-medium" type="text" name="股票名称" value="{{model['股票名称']}}" ic-form-field ic-field-rule="required">
+                        <input type="hidden" name="id" value="{{model.id}}" ic-form-field>
+                    </div>
+                </div>
+            </div>
+            <!-- tr -->
+            <div>
+                <h6>行情性质</h6>
+                <div>
+                        <input class="input is-medium" type="text" name="行情性质" value="{{model['行情性质']}}" ic-form-field>
+                </div>
+            </div>
+            <!-- tr -->
+            <div>
+                <h6>建仓条件</h6>
+                <div>
+                    <div class="tags" ic-select="条件" ic-select-type="checkbox">
+                            <span class="tag is-medium" ic-for="i,v in ['是否主线','是否风口','是否龙头','强弱','确定性','风险','预期收益']" ic-val="{{v}}">
+                                {{v}}
+                            </span>
+                    </div>
+                </div>
+            </div>
+            <!-- tr -->
+            <div>
+                <h6>计划预案</h6>
+                <div>
+                    <textarea rows="7" class="textarea is-medium" ic-form-field="计划">{{model['计划']}}</textarea>
+                </div>
+            </div>
+            <!-- tr -->
+            <div>
+                <h6></h6>
+                <div>
+                    <div class="buttons">
+                        <button class="button is-primary"
+                                ic-form-submit="plan"
+                                ic-submit-action="/stock/plan"
+                                ic-submit-before="submit"
+                                ic-submit-on-done="done"
+                                >保存</button>
+                        <button class="button" ic-click="reset" style="margin-left:4em;"> 重置 </button>
+                        <button class="button" ic-click="close" style="margin-left:4em;"> 关闭 </button>
+                    </div>
+                </div>
+            </div>
+            <!-- tr -->
+            <div>
+                <h6></h6>
+                <div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</section>

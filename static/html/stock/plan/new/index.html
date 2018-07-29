@@ -9,24 +9,14 @@
 <body>
 <link rel="import" href="../../include/tabs.html?__inline" />
 
-<div class="container" ic-ctrl="mainCtrl">
+<div class="container">
 
-    <div class="tabs is-large" ic-tabs="a" ic-tab-active="1" ic-tab-select="li" ic-tabc-select="section" ic-tab-cla="is-active">
-        <ul>
-            <li><a>复盘</a></li>
-            <li><a>新计划</a></li>
-        </ul>
-    </div>
-
-    <div ic-tabc="a">
-        <link rel="import" href="_check.html?__inline" />
-        <link rel="import" href="_plan.html?__inline" />
-    </div>
+    <link rel="import" href="../index/set-plan-ctrl.html?__inline" />
 
 </div>
 
 <link rel="import" href="../../include/scripts.html?__inline" />
 <script src="main.js"></script>
-<script src="../include/plans-ctrl.js?__inline"></script>
+<script src="plans-ctrl.js?__inline"></script>
 </body>
 </html>

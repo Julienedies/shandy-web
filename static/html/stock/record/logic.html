@@ -6,7 +6,7 @@
     <style>
         body {
             background-color: #e6e6ce;
-            font: 14px/1.5 "Helvetica Neue",Helvetica,Arial,"Microsoft Yahei","Hiragino Sans GB","Heiti SC","WenQuanYi Micro Hei",sans-serif;
+            font: 14px/1.5 "Helvetica Neue", Helvetica, Arial, "Microsoft Yahei", "Hiragino Sans GB", "Heiti SC", "WenQuanYi Micro Hei", sans-serif;
         }
 
         pre {
@@ -449,11 +449,14 @@
 </article>
 <script src="../../../js/vendor/underscore-1.8.2.js"></script>
 <script src="../../../js/vendor/jquery-2.1.3.js"></script>
-<script src="../../../js/brick/0.7/brick.mobile.js"></script>
+<script src="../../../js/vendor/brick/0.8/brick.mobile.js"></script>
 <script>
-    $('pre').filter(function(index){
-        return /^\s+$/img.test($(this).text());
-    }).css({display:'none'});
+    var arr = [];
+    $('pre').filter(function (index) {
+        var text = $(this).text();
+        //!/^\s+$/img.test(text) && arr.push({text: text, type: '市场'});
+        return /^\s+$/img.test(text);
+    }).css({display: 'none'});
 </script>
 </body>
 </html>
