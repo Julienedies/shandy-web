@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>logic</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<link rel="stylesheet" href="/public/static/css/basic/0.7/basic.css" />
+<link rel="stylesheet" href="/public/static/css/js/vendor/brick/0.8/css/brick.mobile.css" />
+<link rel="stylesheet" href="/public/static/css/vendor/bulma/css/bulma.css" />
+<link rel="stylesheet" href="/public/static/css/common/common.css" />
+    <link rel="stylesheet" href="/public/static/css/html/stock/replay/style.css" />
+</head>
+<body id="logic_list" ic-ctrl="main_ctrl">
+<div class="tabs is-medium is-boxed" id="nav-tabs">
+    <ul>
+        <li class="is-active"><a href="/public/static/html/stock/index.html">stock</a></li>
+
+        <li><a href="/public/static/html/stock/record/logic.html">logic</a></li>
+        <li><a href="/public/static/html/stock/system/index.html">system</a></li>
+        <li><a href="/public/static/html/stock/plan/new/">新计划</a></li>
+        <!--<li><a href="/public/static/html/stock/logic/new.html">新逻辑</a></li>-->
+        <li><a href="/public/static/html/stock/logic/index.html">逻辑</a></li>
+        <li><a href="/public/static/html/stock/mistake/">错误</a></li>
+        <li><a href="/public/static/html/stock/plan/buy/">建仓计划</a></li>
+        <li><a href="/public/static/html/stock/plan/sell/">平仓预案</a></li>
+        <li><a href="/public/static/html/stock/replay/index.html">复盘</a></li>
+        <li><a href="/public/static/html/stock/plan/index/">计划预案</a></li>
+    </ul>
+</div>
+
+
+
+
+<section ic-ctrl="replay_ctrl">
+
+    <button class="button"
+            id="replay"
+            ic-ajax="replay"
+            ic-ajax-auto
+            ic-submit-method="get"
+            ic-submit-action="/stock/replay"
+            ic-submit-on-done="done">交易计划</button>
+
+    <div ic-form="market" ic-tpl="a">
+
+        <div class="table_0">
+
+            <div>
+                <h6>大盘状态</h6>
+                <div ic-init="o = model['大盘状态']">
+                    <div class="field">
+                        <div class="control">
+                            <input class="input is-medium" type="text" name="大盘状态" value="{{o.text}}" ic-form-field>
+                        </div>
+                    </div>
+                    <div class="field is-grouped is-grouped-multiline" ic-select="大盘状态" ic-select-item="div>div>span">
+                        <div class="control" ic-for="i,v in o.tags">
+                            <div class="tags has-addons">
+                                <span ic-class="tag is-medium {{o.text == v.text ? 'is-warning':''}}" ic-val="{{v.text}}">{{v.text}}</span>
+                                <a class="tag is-delete is-medium"
+                                   ic-ajax
+                                   ic-submit-data="{{v.text}}"
+                                   ic-submit-method="delete"
+                                   ic-submit-action="/stock/tags/{{v.id}}"
+                                   ic-submit-before="tags.remove.before"
+                                   ic-submit-on-done="tags.remove.done"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h6>市场情绪</h6>
+                <div ic-init="o = model['市场情绪']">
+                    <div class="field">
+                        <div class="control">
+                            <input class="input is-medium" type="text" name="市场情绪" value="{{o.text}}" ic-form-field>
+                        </div>
+                    </div>
+                    <div class="tags" ic-select="市场情绪">
+                            <span ic-for="i,v in ['谨慎', '酝酿', '开展', '蔓延', '高涨', '高潮', '分歧', '臆想', '失望', '恐慌']"  ic-class="tag is-medium {{o.text == v ? 'is-warning':''}}" ic-val="{{v}}">
+                                {{v}}
+                            </span>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h6>K线预判</h6>
+                <div ic-init="o = model['K线预判']">
+                    <div class="field">
+                        <div class="control">
+                            <input class="input is-medium" type="text" name="K线预判" value="{{o.text}}" ic-form-field>
+                        </div>
+                    </div>
+                    <div class="tags" ic-select="K线预判">
+                            <span ic-for="i,v in ['上涨','上冲回落','震荡向上','平衡','下探','震荡向下','下跌']" ic-class="tag is-medium {{o.text == v ? 'is-warning':''}}" ic-val="{{v}}">
+                                {{v}}
+                            </span>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h6>主线/风口</h6>
+                <div>
+                    <div class="control">
+                        <input class="input is-medium" type="text" value="{{model['主线'].text}}" ic-form-field="主线">
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h6>交易备注</h6>
+                <div>
+                    <div class="control">
+                        <textarea class="textarea is-medium" ic-form-field="交易备注">{{model['交易备注'].text}}</textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h6></h6>
+                <div>
+                    <div class="buttons">
+                        <button class="button is-primary"
+                                ic-form-submit="market"
+                                ic-submit-before="submit"
+                                ic-submit-action="/stock/market">
+                            保存
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<script src="/public/static/js/vendor/underscore-1.8.2.js"></script>
+<script src="/public/static/js/vendor/jquery-2.1.3.js"></script>
+<script src="/public/static/js/vendor/brick/0.8/brick.mobile.js"></script>
+<script src="/public/static/js/common.js"></script>
+<script src="/public/static/js/html/stock/replay/main.js"></script>
+<script type="text/javascript" charset="utf-8" src="http://192.168.3.46:8132/livereload.js"></script></body>
+</html>

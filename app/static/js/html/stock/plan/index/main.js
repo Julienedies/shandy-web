@@ -1,0 +1,64 @@
+/**
+ * Created by j on 18/7/1.
+ */
+
+brick.controllers.reg('plans_ctrl', function () {
+
+    var scope = this;
+    var $elm = scope.$elm;
+    var list = brick.services.get('recordManager')();
+
+    scope.plan = {
+        get: {
+            done: function (data) {
+                console.info(data);
+                list.init(data);
+                scope.render('plans', data);
+            }
+        },
+        add: function () {
+            scope.emit('plan.edit');
+        },
+        edit: function (e, id) {
+            scope.emit('plan.edit', list.get(id));
+        },
+        remove: function () {
+            $(this).closest('li').remove();
+        }
+    };
+
+
+    scope.on('plan.edit.done', function(){
+        $elm.find('#get_plans').click();
+    });
+
+});
+
+//
+brick.reg('set_plan_ctrl', function () {
+
+    var scope = this;
+    var $elm = this.$elm;
+    var model;
+
+    scope.done = function(){
+        $elm.hide();
+        scope.emit('plan.edit.done');
+    };
+
+    scope.reset = function(){
+        scope.render({});
+    };
+
+    scope.close = function(){
+        $elm.hide();
+    };
+
+    scope.on('plan.edit', function (e, msg) {
+        model = msg;
+        $elm.show();
+        msg && scope.render(msg[0] || msg);
+    });
+
+});
+

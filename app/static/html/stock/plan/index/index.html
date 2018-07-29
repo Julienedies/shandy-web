@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>当前交易计划</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<link rel="stylesheet" href="/public/static/css/basic/0.7/basic.css" />
+<link rel="stylesheet" href="/public/static/css/js/vendor/brick/0.8/css/brick.mobile.css" />
+<link rel="stylesheet" href="/public/static/css/vendor/bulma/css/bulma.css" />
+<link rel="stylesheet" href="/public/static/css/common/common.css" />
+    <link rel="stylesheet" href="/public/static/css/html/stock/plan/index/style.css">
+</head>
+<body ic-ctrl="main_ctrl">
+
+<div class="tabs is-medium is-boxed" id="nav-tabs">
+    <ul>
+        <li class="is-active"><a href="/public/static/html/stock/index.html">stock</a></li>
+
+        <li><a href="/public/static/html/stock/record/logic.html">logic</a></li>
+        <li><a href="/public/static/html/stock/system/index.html">system</a></li>
+        <li><a href="/public/static/html/stock/plan/new/">新计划</a></li>
+        <!--<li><a href="/public/static/html/stock/logic/new.html">新逻辑</a></li>-->
+        <li><a href="/public/static/html/stock/logic/index.html">逻辑</a></li>
+        <li><a href="/public/static/html/stock/mistake/">错误</a></li>
+        <li><a href="/public/static/html/stock/plan/buy/">建仓计划</a></li>
+        <li><a href="/public/static/html/stock/plan/sell/">平仓预案</a></li>
+        <li><a href="/public/static/html/stock/replay/index.html">复盘</a></li>
+        <li><a href="/public/static/html/stock/plan/index/">计划预案</a></li>
+    </ul>
+</div>
+
+
+
+
+<div id="plans" class="column is-8 is-offset-2">
+
+<section ic-ctrl="plans_ctrl">
+
+    <div class="buttons">
+        <button class="button"
+                id="get_plans"
+                ic-ajax="plans"
+                ic-ajax-auto
+                ic-submit-method="get"
+                ic-submit-action="/stock/plan"
+                ic-submit-on-done="plan.get.done">当前计划</button>
+        <button class="button" ic-click="plan.add">新计划</button>
+    </div>
+
+    <ul ic-tpl="plans" ic-init="model = model.plans || model">
+        <li ic-for="i,v in model" class="notification">
+            <h5 class="title is-5">{{v['股票名称']}} : {{v.type}}</h5>
+            <div class="pre">{{v['计划']}}</div>
+            <div class="tar">
+                <a ic-click="plan.edit:{{v.id}}">编辑</a>
+            </div>
+            <button class="delete is-large"
+                    ic-ajax
+                    ic-submit-method="delete"
+                    ic-submit-action="/stock/plan/{{v.id}}"
+                    ic-submit-before="ajax_before_confirm:确认删除?"
+                    ic-submit-on-done="plan.remove"></button>
+        </li>
+    </ul>
+
+</section>
+
+
+
+<section ic-ctrl="set_plan_ctrl">
+
+    <div ic-form="plan" ic-tpl ic-tpl-init="{}" ic-init="model=model[0]||model">
+
+        <div class="table_0">
+            <!-- tr -->
+            <div>
+                <h6>计划类型</h6>
+                <div>
+                    <div class="control">
+                        <label class="radio is-medium">
+                            <input type="radio" name="type" value="平仓预案" ic-has-checked="model.type!='建仓计划'" ic-form-field>
+                            平仓预案
+                        </label>
+                        <label class="radio">
+                            <input type="radio" name="type" value="建仓计划" ic-has-checked="model.type=='建仓计划'">
+                            建仓计划
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <!-- tr -->
+            <div>
+                <h6>股票名称</h6>
+                <div>
+                    <div class="control">
+                        <input class="input is-medium" type="text" name="股票名称" value="{{model['股票名称']}}" ic-form-field ic-field-rule="required">
+                        <input type="hidden" name="id" value="{{model.id}}" ic-form-field>
+                    </div>
+                </div>
+            </div>
+            <!-- tr -->
+            <div>
+                <h6>行情性质</h6>
+                <div>
+                        <input class="input is-medium" type="text" name="行情性质" value="{{model['行情性质']}}" ic-form-field>
+                </div>
+            </div>
+            <!-- tr -->
+            <div>
+                <h6>建仓条件</h6>
+                <div>
+                    <div class="tags" ic-select="条件" ic-select-type="checkbox">
+                            <span class="tag is-medium" ic-for="i,v in ['是否主线','是否风口','是否龙头','强弱','确定性','风险','预期收益']" ic-val="{{v}}">
+                                {{v}}
+                            </span>
+                    </div>
+                </div>
+            </div>
+            <!-- tr -->
+            <div>
+                <h6>计划预案</h6>
+                <div>
+                    <textarea rows="7" class="textarea is-medium" ic-form-field="计划">{{model['计划']}}</textarea>
+                </div>
+            </div>
+            <!-- tr -->
+            <div>
+                <h6></h6>
+                <div>
+                    <div class="buttons">
+                        <button class="button is-primary"
+                                ic-form-submit="plan"
+                                ic-submit-action="/stock/plan"
+                                ic-submit-before="submit"
+                                ic-submit-on-done="done"
+                                >保存</button>
+                        <button class="button" ic-click="reset" style="margin-left:4em;"> 重置 </button>
+                        <button class="button" ic-click="close" style="margin-left:4em;"> 关闭 </button>
+                    </div>
+                </div>
+            </div>
+            <!-- tr -->
+            <div>
+                <h6></h6>
+                <div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+</div>
+
+<script src="/public/static/js/vendor/underscore-1.8.2.js"></script>
+<script src="/public/static/js/vendor/jquery-2.1.3.js"></script>
+<script src="/public/static/js/vendor/brick/0.8/brick.mobile.js"></script>
+<script src="/public/static/js/common.js"></script>
+<script src="/public/static/js/html/stock/plan/index/main.js"></script>
+<script type="text/javascript" charset="utf-8" src="http://192.168.3.46:8132/livereload.js"></script></body>
+</html>
