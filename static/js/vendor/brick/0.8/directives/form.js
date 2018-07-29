@@ -227,12 +227,13 @@ directives.reg('ic-form', function ($elm, attrs) {
                 }
 
             } else {
-                val = $th.attr('ic-val');
+                //val = $th.icParseProperty2('ic-val', true);
+                val = $th.data('ic-val') || $th.attr('ic-val');
             }
 
             fields[submitName] = val;
 
-            /*var prev = fields[submitName];
+            /*var prev = fields[submitName];true
             if (prev) {
                 prev =  ? prev : [prev];
                 prev.push(val);

@@ -29,6 +29,7 @@ brick.reg('replay_ctrl', function () {
            },
             done: function(data){
                 $(this).val('');
+                $elm.find('[ic-form-submit="replay"]').trigger('ic-form.submit');
             }
         },
         remove : {

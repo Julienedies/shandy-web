@@ -69,26 +69,23 @@
 
             <div>
                 <h6>主线/风口</h6>
-                <div ic-init="o = model['主线']">
+                <div ic-init="o = model['主线风口'];arr = o.text;">
                     <div class="field">
                         <input class="input is-medium"
                                type="text"
-                               name="主线"
-                               value="{{model['主线'].text}}"
-                               ic-form-field
-                               ic-ajax-disabled
+                               name="主线风口"
+                               ic-ajax
                                ic-submit-action="/stock/tags"
                                ic-submit-before="tags.add.before"
                                ic-submit-on-done="tags.add.done"
                                 />
                     </div>
-                    <div class="field is-grouped is-grouped-multiline" ic-select="主线" ic-select-item="div>span">
+                    <div class="field is-grouped is-grouped-multiline" ic-select="主线" ic-select-type="checkbox" ic-select-item="div>span" ic-form-field="主线风口" >
                         <div class="control" ic-for="i,v in o.tags">
                             <div class="tags has-addons">
-                                <span ic-class="tag is-medium {{o.text == v.text ? 'is-warning':''}}" ic-val="{{v.text}}">{{v.text}}</span>
+                                <span ic-class="tag is-medium" ic-val="{{v.text}}" ic-has-selected="arr.indexOf(v.text)>-1">{{v.text}}</span>
                                 <a class="tag is-delete is-medium"
                                    ic-ajax
-                                   ic-submit-data="{{v.text}}"
                                    ic-submit-method="delete"
                                    ic-submit-action="/stock/tags/{{v.id}}"
                                    ic-submit-before="tags.remove.before"

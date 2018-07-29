@@ -29,7 +29,9 @@ module.exports = {
 
         for (let i in data) {
             let tag = data[i];
-            tags.find(tag).set({name: i, text: tag});
+            if(typeof tag == 'string'){
+                tags.find(tag).set({name: i, text: tag});
+            }
         }
 
         replay.set(data);

@@ -116,15 +116,45 @@
             <div>
                 <h6>行情性质</h6>
                 <div>
-                        <input class="input is-medium" type="text" name="行情性质" value="{{model['行情性质']}}" ic-form-field>
+                     <input class="input is-medium" type="text" name="行情性质" value="{{model['行情性质']}}" ic-form-field>
                 </div>
             </div>
+            <!--<div>
+                <h6>节点</h6>
+                <div>
+                    <div class="field">
+                        <input class="input is-medium"
+                               type="text"
+                               name="K线节点"
+                               ic-form-field="K线节点"
+                               ic-ajax
+                               ic-submit-action="/stock/tags"
+                               ic-submit-before="tags.add.before"
+                               ic-submit-on-done="tags.add.done"
+                                />
+                    </div>
+                    <div class="field is-grouped is-grouped-multiline" ic-select="K线节点" ic-select-item=">div>div>span">
+                        <div class="control" ic-for="i,v in ['启动', '突破', '支撑']">
+                            <div class="tags has-addons">
+                                <span ic-class="tag is-medium" ic-val="{{v}}">{{v}}</span>
+                                <a class="tag is-delete is-medium"
+                                   ic-ajax-x
+                                   ic-submit-method="delete"
+                                   ic-submit-action="/stock/tags/{{v.id}}"
+                                   ic-submit-before="tags.remove.before"
+                                   ic-submit-on-done="tags.remove.done"
+                                        ></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
             <!-- tr -->
             <div>
                 <h6>建仓条件</h6>
                 <div>
                     <div class="tags" ic-select="条件" ic-select-type="checkbox">
-                            <span class="tag is-medium" ic-for="i,v in ['是否主线','是否风口','是否龙头','强弱','确定性','风险','预期收益']" ic-val="{{v}}">
+                            <span class="tag is-medium" ic-for="i,v in ['是否主线','是否风口','是否龙头','强弱','确定性','风险','预期收益', '节点']" ic-val="{{v}}">
                                 {{v}}
                             </span>
                     </div>

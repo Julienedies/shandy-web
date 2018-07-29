@@ -64,6 +64,16 @@ module.exports = {
             action: 'stock/plan/index.del'
         },
         {
+            url: '/stock/tags',
+            method: 'get',
+            action: '/stock/tags.get'
+        },
+        {
+            url: '/stock/tags',
+            method: 'post',
+            action: '/stock/tags.post'
+        },
+        {
             url: '/stock/tags/:id',
             method: 'delete',
             action: '/stock/tags.del'

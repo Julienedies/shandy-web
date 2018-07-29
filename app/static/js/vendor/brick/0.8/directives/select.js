@@ -31,6 +31,7 @@ var callback = type == 'checkbox' ?
             values.push($(this).attr('ic-val'));
         });
         $elm.attr('ic-val', JSON.stringify(values));
+        $elm.data('ic-val', values);
         $elm.trigger('ic-select.change', {name:name, value: values});
     }
     :

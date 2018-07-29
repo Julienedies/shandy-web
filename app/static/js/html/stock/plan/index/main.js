@@ -29,7 +29,12 @@ brick.controllers.reg('plans_ctrl', function () {
 
     scope.get_replay_done = function(data){
         console.info(data);
-        scope.render('replay', data);
+        var obj = {};
+        for(let i in data){
+            let text = data[i].text;
+            obj[i] = {text: Array.isArray(text) ? text.join(' , '): text};
+        }
+        scope.render('replay', obj);
     };
 
 
@@ -63,6 +68,11 @@ brick.reg('set_plan_ctrl', function () {
         model = msg;
         $elm.show();
         msg && scope.render(msg[0] || msg);
+    });
+
+    $elm.on('ic-select.change', '[ic-select]', function(e, msg){
+        console.log(e, msg);
+        $elm.find(`input[name=${msg.name}]`).val(msg.value);
     });
 
 });

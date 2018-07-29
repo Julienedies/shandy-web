@@ -1,7 +1,7 @@
 /*!
  * https://github.com/julienedies/brick.git
  * https://github.com/Julienedies/brick/wiki
- * "2018-7-29 18:02:57"
+ * "2018-7-29 23:30:59"
  * "V 0.8"
  */
 ;
@@ -1114,10 +1114,8 @@ directives.reg('ic-tpl', {
         });
     };
 
-    $.fn.icParseProperty = function (name) {
+    $.fn.icParseProperty = function (name, isLiteral) {
         //console.info('icParseProperty => ', name);
-        var params = name.split(':');
-        name = params.shift();
         var match;
         // js直接量  <div ic-tpl-init="{}">  object {}
         if (match = name.match(/^\s*(([{\[])([^{\[]*)[}\]])\s*$/)) {
@@ -1136,6 +1134,11 @@ directives.reg('ic-tpl', {
             return match[1];
         }
 
+        if(isLiteral) return name;  //按直接量解析
+
+        var params = name.split(':');
+        name = params.shift();
+
         // 从控制器scope里获取或者全局window
         var $ctrl = this.closest('[ic-ctrl]');
         var ctrl = $ctrl.attr('ic-ctrl');
@@ -1153,10 +1156,6 @@ directives.reg('ic-tpl', {
         }
 
         var v = f(namespace, name.split('.'));
-
-        if(v){
-
-        }
 
         v = v || f(window, name.split('.'));
 
@@ -1178,11 +1177,10 @@ directives.reg('ic-tpl', {
 
     };
 
-    $.fn.icParseProperty2 = function (name) {
+    $.fn.icParseProperty2 = function (name, isLiteral) {
         name = this.attr(name);
-        //console.info('icParseProperty2 => ', this[0], name);
-        if (name === undefined || name == '') return;
-        return this.icParseProperty(name);
+        if (name === undefined || name == '') return name;
+        return this.icParseProperty(name, isLiteral);
     };
 
     $.fn.icTabs = function (options) {
@@ -2837,12 +2835,13 @@ directives.reg('ic-form', function ($elm, attrs) {
                 }
 
             } else {
-                val = $th.attr('ic-val');
+                //val = $th.icParseProperty2('ic-val', true);
+                val = $th.data('ic-val') || $th.attr('ic-val');
             }
 
             fields[submitName] = val;
 
-            /*var prev = fields[submitName];
+            /*var prev = fields[submitName];true
             if (prev) {
                 prev =  ? prev : [prev];
                 prev.push(val);
@@ -2988,6 +2987,7 @@ var callback = type == 'checkbox' ?
             values.push($(this).attr('ic-val'));
         });
         $elm.attr('ic-val', JSON.stringify(values));
+        $elm.data('ic-val', values);
         $elm.trigger('ic-select.change', {name:name, value: values});
     }
     :
