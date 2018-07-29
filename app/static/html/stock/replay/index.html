@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>logic</title>
+    <title>复盘</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 <link rel="stylesheet" href="/public/static/css/basic/0.7/basic.css" />
 <link rel="stylesheet" href="/public/static/css/js/vendor/brick/0.8/css/brick.mobile.css" />
@@ -13,9 +13,8 @@
 <body id="logic_list" ic-ctrl="main_ctrl">
 <div class="tabs is-medium is-boxed" id="nav-tabs">
     <ul>
-        <li class="is-active"><a href="/public/static/html/stock/index.html">stock</a></li>
-
-        <li><a href="/public/static/html/stock/record/logic.html">logic</a></li>
+        <li class="is-active"><a href="/public/static/html/stock/zold/index.html">stock</a></li>
+        <li><a href="/public/static/html/stock/zold/logic.html">logic</a></li>
         <li><a href="/public/static/html/stock/system/index.html">system</a></li>
         <li><a href="/public/static/html/stock/plan/new/">新计划</a></li>
         <!--<li><a href="/public/static/html/stock/logic/new.html">新逻辑</a></li>-->
@@ -31,17 +30,17 @@
 
 
 
-<section ic-ctrl="replay_ctrl">
+<section class="column is-10 is-offset-1" ic-ctrl="replay_ctrl">
 
     <button class="button"
-            id="replay"
-            ic-ajax="replay"
+            id="get_replay"
+            ic-ajax="get_replay"
             ic-ajax-auto
             ic-submit-method="get"
             ic-submit-action="/stock/replay"
-            ic-submit-on-done="done">交易计划</button>
+            ic-submit-on-done="done">大盘复盘</button>
 
-    <div ic-form="market" ic-tpl="a">
+    <div ic-form="replay" ic-tpl="a">
 
         <div class="table_0">
 
@@ -49,9 +48,7 @@
                 <h6>大盘状态</h6>
                 <div ic-init="o = model['大盘状态']">
                     <div class="field">
-                        <div class="control">
-                            <input class="input is-medium" type="text" name="大盘状态" value="{{o.text}}" ic-form-field>
-                        </div>
+                         <input class="input is-medium" type="text" name="大盘状态" value="{{o.text}}" ic-form-field>
                     </div>
                     <div class="field is-grouped is-grouped-multiline" ic-select="大盘状态" ic-select-item="div>div>span">
                         <div class="control" ic-for="i,v in o.tags">
@@ -64,6 +61,39 @@
                                    ic-submit-action="/stock/tags/{{v.id}}"
                                    ic-submit-before="tags.remove.before"
                                    ic-submit-on-done="tags.remove.done"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h6>主线/风口</h6>
+                <div ic-init="o = model['主线']">
+                    <div class="field">
+                        <input class="input is-medium"
+                               type="text"
+                               name="主线"
+                               value="{{model['主线'].text}}"
+                               ic-form-field
+                               ic-ajax-disabled
+                               ic-submit-action="/stock/tags"
+                               ic-submit-before="tags.add.before"
+                               ic-submit-on-done="tags.add.done"
+                                />
+                    </div>
+                    <div class="field is-grouped is-grouped-multiline" ic-select="主线" ic-select-item="div>span">
+                        <div class="control" ic-for="i,v in o.tags">
+                            <div class="tags has-addons">
+                                <span ic-class="tag is-medium {{o.text == v.text ? 'is-warning':''}}" ic-val="{{v.text}}">{{v.text}}</span>
+                                <a class="tag is-delete is-medium"
+                                   ic-ajax
+                                   ic-submit-data="{{v.text}}"
+                                   ic-submit-method="delete"
+                                   ic-submit-action="/stock/tags/{{v.id}}"
+                                   ic-submit-before="tags.remove.before"
+                                   ic-submit-on-done="tags.remove.done"
+                                   ></a>
                             </div>
                         </div>
                     </div>
@@ -102,14 +132,6 @@
                 </div>
             </div>
 
-            <div>
-                <h6>主线/风口</h6>
-                <div>
-                    <div class="control">
-                        <input class="input is-medium" type="text" value="{{model['主线'].text}}" ic-form-field="主线">
-                    </div>
-                </div>
-            </div>
 
             <div>
                 <h6>交易备注</h6>
@@ -125,9 +147,11 @@
                 <div>
                     <div class="buttons">
                         <button class="button is-primary"
-                                ic-form-submit="market"
-                                ic-submit-before="submit"
-                                ic-submit-action="/stock/market">
+                                ic-form-submit="replay"
+                                ic-submit-action="/stock/replay"
+                                ic-submit-before="replay.before"
+                                ic-submit-on-done="replay.done"
+                                >
                             保存
                         </button>
                     </div>
@@ -144,5 +168,5 @@
 <script src="/public/static/js/vendor/brick/0.8/brick.mobile.js"></script>
 <script src="/public/static/js/common.js"></script>
 <script src="/public/static/js/html/stock/replay/main.js"></script>
-<script type="text/javascript" charset="utf-8" src="http://192.168.3.46:8132/livereload.js"></script></body>
+<script type="text/javascript" charset="utf-8" src="http://192.168.3.48:8132/livereload.js"></script></body>
 </html>

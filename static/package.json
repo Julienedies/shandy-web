@@ -1,14 +1,3 @@
 {
-    "name": "gushenwei",
-    "version": "0.1.0",
-    "description": "",
-    "repository": "",
-    "main": "",
-    "dependencies": {
-    },
-    "devDependencies": {
-    },
-    "scripts": {
-        "init":"npm i -g fis && npm i -g fis-postpackager-simple && npm i -g fis-postprocessor-require-async && npm i -g fis-postpackager-autoload &&  npm i -g fis-preprocessor-smarty-fix && npm i -g fis-postpackager-jchm && npm i -g fis-parser-less && npm i -g fis-parser-sass && npm i -g zoo"
-    }
+
 }

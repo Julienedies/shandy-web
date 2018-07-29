@@ -1,7 +1,7 @@
 /*!
  * https://github.com/julienedies/brick.git
  * https://github.com/Julienedies/brick/wiki
- * "2018-7-29 10:50:19"
+ * "2018-7-29 18:02:57"
  * "V 0.8"
  */
 ;
@@ -2450,24 +2450,29 @@ directives.reg('ic-ajax',
 
             var eventAction = brick.get('event.action');
 
+            function call(e){
+                var $th = $(this);
+                if($th.is(':text')){
+                    $th.icEnterPress(_call);
+                }else{
+                    _call.call(this, e);
+                }
+            }
+
             function _call(e) {
+
                 var that = this;
 
                 if (this.hasAttribute('ic-ajax-disabled')) return;
 
                 var $elm = $(this);
-                var namespace = $elm.attr('ic-ajax');
-
-                var $loading = $('[ic-role-loading=?]'.replace('?', namespace || +(new Date)));
+                var name = $elm.attr('ic-ajax');
 
                 var defaultCall = function () {
                     //console.log(arguments)
                 };
 
                 var before = $elm.icParseProperty2('ic-submit-before') || defaultCall;
-                var failed = $elm.icParseProperty2('ic-submit-on-fail') || defaultCall;
-                var done = $elm.icParseProperty2('ic-submit-on-done') || defaultCall;
-                var always = $elm.icParseProperty2('ic-submit-on-always') || defaultCall;
 
                 var data = $elm.data('ic-submit-data') || $elm.attr('ic-submit-data');
                 var _data = before.call(that, data);
@@ -2479,6 +2484,12 @@ directives.reg('ic-ajax',
                 var dataType = $elm.attr('ic-submit-data-type') || 'json';
                 var method = $elm.attr('ic-submit-method') || 'post';
 
+
+                var failed = $elm.icParseProperty2('ic-submit-on-fail') || defaultCall;
+                var done = $elm.icParseProperty2('ic-submit-on-done') || defaultCall;
+                var always = $elm.icParseProperty2('ic-submit-on-always') || defaultCall;
+
+                var $loading = $('[ic-role-loading=?]'.replace('?', name || +(new Date)));
                 $loading.size() ? $loading.show() && $elm.hide() : $elm.setLoading();
 
                 $elm.attr('ic-ajax-disabled', true);
@@ -2506,8 +2517,8 @@ directives.reg('ic-ajax',
             }
 
             var $doc = $(document.body);
-            $doc.on(eventAction, '[ic-ajax]', _call);
-            $doc.on('ic-ajax', '[ic-ajax]', _call);
+            $doc.on(eventAction, '[ic-ajax]', call);
+            $doc.on('ic-ajax', '[ic-ajax]', call);
 
         }
     }
@@ -2517,6 +2528,13 @@ directives.reg('ic-ajax-auto',
     {
         fn: function ($elm){
             $elm.icAjax();
+        }
+    }
+);
+
+directives.reg('ic-ajax-enter',
+    {
+        fn: function ($elm){
         }
     }
 );
@@ -2611,7 +2629,7 @@ directives.reg('ic-form', function ($elm, attrs) {
 
     var presetRule = {
         id: /[\w_]{4,18}/,
-        required: /.+/,
+        required: /.+/img,
         phone: /^\d[\d-]{5,16}$/,
         email: /^(\w)+(\.\w+)*@(\w)+((\.\w{2,3}){1,3})$/,
         password: /(?:[\w]|[!@#$%^&*]){6,16}/,
@@ -2965,11 +2983,12 @@ var $selected = $items.filter('[selected]');
 var callback = type == 'checkbox' ?
     function(){
         $(this).toggleClass(cla);
-        var val = $items.filter('.'+cla).map(function(){
-            return $(this).attr('ic-val');
+        var values = [];
+        $items.filter('.'+cla).each(function(){
+            values.push($(this).attr('ic-val'));
         });
-        $elm.attr('ic-val', JSON.stringify(val));
-        $elm.trigger('ic-select.change', {name:name, value: val});
+        $elm.attr('ic-val', JSON.stringify(values));
+        $elm.trigger('ic-select.change', {name:name, value: values});
     }
     :
     function(){

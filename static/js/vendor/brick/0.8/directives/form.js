@@ -19,7 +19,7 @@ directives.reg('ic-form', function ($elm, attrs) {
 
     var presetRule = {
         id: /[\w_]{4,18}/,
-        required: /.+/,
+        required: /.+/img,
         phone: /^\d[\d-]{5,16}$/,
         email: /^(\w)+(\.\w+)*@(\w)+((\.\w{2,3}){1,3})$/,
         password: /(?:[\w]|[!@#$%^&*]){6,16}/,

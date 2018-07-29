@@ -14,9 +14,8 @@
 
 <div class="tabs is-medium is-boxed" id="nav-tabs">
     <ul>
-        <li class="is-active"><a href="/public/static/html/stock/index.html">stock</a></li>
-
-        <li><a href="/public/static/html/stock/record/logic.html">logic</a></li>
+        <li class="is-active"><a href="/public/static/html/stock/zold/index.html">stock</a></li>
+        <li><a href="/public/static/html/stock/zold/logic.html">logic</a></li>
         <li><a href="/public/static/html/stock/system/index.html">system</a></li>
         <li><a href="/public/static/html/stock/plan/new/">新计划</a></li>
         <!--<li><a href="/public/static/html/stock/logic/new.html">新逻辑</a></li>-->
@@ -37,6 +36,13 @@
 <section ic-ctrl="plans_ctrl">
 
     <div class="buttons">
+
+        <button class="button"
+                ic-ajax="get_replay"
+                ic-ajax-auto
+                ic-submit-method="get"
+                ic-submit-action="/stock/replay"
+                ic-submit-on-done="get_replay_done">大盘复盘</button>
         <button class="button"
                 id="get_plans"
                 ic-ajax="plans"
@@ -44,8 +50,16 @@
                 ic-submit-method="get"
                 ic-submit-action="/stock/plan"
                 ic-submit-on-done="plan.get.done">当前计划</button>
+
         <button class="button" ic-click="plan.add">新计划</button>
+
     </div>
+
+    <ul ic-tpl="replay" class="notification">
+        <li ic-for="i, v in model" ic-if="v.text">
+            <div class="pre"><span class="title is-6" style="display:inline-block;min-width:4em;">{{i}}</span> : {{v.text}}</div>
+        </li>
+    </ul>
 
     <ul ic-tpl="plans" ic-init="model = model.plans || model">
         <li ic-for="i,v in model" class="notification">
@@ -159,5 +173,5 @@
 <script src="/public/static/js/vendor/brick/0.8/brick.mobile.js"></script>
 <script src="/public/static/js/common.js"></script>
 <script src="/public/static/js/html/stock/plan/index/main.js"></script>
-<script type="text/javascript" charset="utf-8" src="http://192.168.3.46:8132/livereload.js"></script></body>
+<script type="text/javascript" charset="utf-8" src="http://192.168.3.48:8132/livereload.js"></script></body>
 </html>

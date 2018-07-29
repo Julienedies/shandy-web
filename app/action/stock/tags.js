@@ -8,7 +8,6 @@ const path = require('path');
 const dob = require('../../libs/dob.js');
 
 const tags = dob('tags', {key: 'text'});
-//const plan = dob('plan');
 
 module.exports = {
 
@@ -22,7 +21,9 @@ module.exports = {
 
         var data = req.body;
 
-        res.send('ok.');
+        tags.set(data);
+
+        res.send({msg:'ok'});
     },
 
     del: function (req, res) {

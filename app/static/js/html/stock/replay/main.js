@@ -10,15 +10,27 @@ brick.reg('replay_ctrl', function () {
     scope.done = function (data) {
         console.info(data);
         scope.render('a', data);
-        $(this).remove();
     };
 
-    scope.submit = function (fields) {
-        console.info(fields);
-        return fields;
+    scope.replay = {
+        before: function (fields){
+            console.info(fields);
+            return fields;
+        },
+        done: function(msg){
+            $elm.find('#get_replay').icAjax();
+        }
     };
 
     scope.tags = {
+        add: {
+           before: function(data){
+               return {name: this.name, text: this.value};
+           },
+            done: function(data){
+                $(this).val('');
+            }
+        },
         remove : {
             before: function(data){
                 return {text: data};

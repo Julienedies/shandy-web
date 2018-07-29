@@ -27,6 +27,11 @@ brick.controllers.reg('plans_ctrl', function () {
         }
     };
 
+    scope.get_replay_done = function(data){
+        console.info(data);
+        scope.render('replay', data);
+    };
+
 
     scope.on('plan.edit.done', function(){
         $elm.find('#get_plans').click();
