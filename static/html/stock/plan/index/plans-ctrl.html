@@ -1,6 +1,6 @@
 <section ic-ctrl="plans_ctrl">
 
-    <div class="buttons">
+    <div class="buttons tags">
 
         <button class="button"
                 ic-ajax="get_replay"
@@ -17,6 +17,7 @@
                 ic-submit-on-done="plan.get.done">当前计划</button>
 
         <button class="button" ic-click="plan.add">新计划</button>
+        <span class="tag is-medium is-black">明确具体的计划</span>
 
     </div>
 
@@ -29,6 +30,7 @@
     <ul ic-tpl="plans" ic-init="model = model.plans || model">
         <li ic-for="i,v in model" class="notification">
             <h5 class="title is-5">{{v['股票名称']}} : {{v.type}}</h5>
+            <div class="pre">{{v['行情性质']}}</div>
             <div class="pre">{{v['计划']}}</div>
             <div class="tar">
                 <a ic-click="plan.edit:{{v.id}}">编辑</a>

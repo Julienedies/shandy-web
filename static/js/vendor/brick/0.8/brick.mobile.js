@@ -1,7 +1,7 @@
 /*!
  * https://github.com/julienedies/brick.git
  * https://github.com/Julienedies/brick/wiki
- * "2018-7-29 23:30:59"
+ * "2018-7-31 11:32:22"
  * "V 0.8"
  */
 ;
@@ -778,9 +778,14 @@ function createRender(root) {
         })
         .replace(/&amp;&amp;/g, '&&');
 
-    //console.log(_tpl);
+    console.log(_tpl);
 
-    var tpl_fn = _.template(_tpl);
+    try{
+        var tpl_fn = _.template(_tpl);
+    }catch(e){
+       return console.error(e, _tpl);
+    }
+
     tpl_fn._tpl_ = _tpl;
     return tpl_fn;
 
@@ -1305,7 +1310,9 @@ directives.reg('ic-tpl', {
             call = $.proxy(call, this);
 
             var fn = function (e) {
+
                 if (e.which == 13) {
+                    //console.info('ic-enter-press emit.');
                     call(e);
                 }
             };
@@ -2448,16 +2455,7 @@ directives.reg('ic-ajax',
 
             var eventAction = brick.get('event.action');
 
-            function call(e){
-                var $th = $(this);
-                if($th.is(':text')){
-                    $th.icEnterPress(_call);
-                }else{
-                    _call.call(this, e);
-                }
-            }
-
-            function _call(e) {
+            function call(e) {
 
                 var that = this;
 
@@ -2481,7 +2479,6 @@ directives.reg('ic-ajax',
                 var url = domain + $elm.attr('ic-submit-action');
                 var dataType = $elm.attr('ic-submit-data-type') || 'json';
                 var method = $elm.attr('ic-submit-method') || 'post';
-
 
                 var failed = $elm.icParseProperty2('ic-submit-on-fail') || defaultCall;
                 var done = $elm.icParseProperty2('ic-submit-on-done') || defaultCall;
@@ -2515,7 +2512,7 @@ directives.reg('ic-ajax',
             }
 
             var $doc = $(document.body);
-            $doc.on(eventAction, '[ic-ajax]', call);
+            $doc.on(eventAction, '[ic-ajax]:not([ic-ajax-enter])', call);
             $doc.on('ic-ajax', '[ic-ajax]', call);
 
         }
@@ -2533,6 +2530,9 @@ directives.reg('ic-ajax-auto',
 directives.reg('ic-ajax-enter',
     {
         fn: function ($elm){
+            $elm.icEnterPress(function(){
+                $elm.icAjax();
+            });
         }
     }
 );

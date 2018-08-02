@@ -1,16 +1,25 @@
 <section class="column is-10 is-offset-1" ic-ctrl="replay_ctrl">
 
-    <button class="button"
-            id="get_replay"
-            ic-ajax="get_replay"
-            ic-ajax-auto
-            ic-submit-method="get"
-            ic-submit-action="/stock/replay"
-            ic-submit-on-done="done">大盘复盘</button>
+        <button class="button none"
+                id="get_replay"
+                ic-ajax="get_replay"
+                ic-ajax-auto
+                ic-submit-method="get"
+                ic-submit-action="/stock/replay"
+                ic-submit-on-done="done">大盘复盘</button>
 
     <div ic-form="replay" ic-tpl="a">
 
         <div class="table_0">
+
+            <div>
+                <h6>思考</h6>
+                <div class="tags">
+                    <span class="tag is-medium is-black">明确具体的复盘</span>
+                    <span class="tag is-medium is-black">哪些在涨?</span>
+                    <span class="tag is-medium is-black">哪些在跌?</span>
+                </div>
+            </div>
 
             <div>
                 <h6>大盘状态</h6>
@@ -43,6 +52,7 @@
                                type="text"
                                name="主线风口"
                                ic-ajax
+                               ic-ajax-enter
                                ic-submit-action="/stock/tags"
                                ic-submit-before="tags.add.before"
                                ic-submit-on-done="tags.add.done"
@@ -97,12 +107,20 @@
                 </div>
             </div>
 
-
             <div>
-                <h6>交易备注</h6>
+                <h6>复盘汇总</h6>
                 <div>
                     <div class="control">
-                        <textarea class="textarea is-medium" ic-form-field="交易备注">{{model['交易备注'].text}}</textarea>
+                        <textarea class="textarea is-medium" ic-form-field="复盘汇总">{{model['复盘汇总'].text}}</textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h6>预判</h6>
+                <div>
+                    <div class="control">
+                        <textarea class="textarea is-medium" ic-form-field="预判">{{model['预判'].text}}</textarea>
                     </div>
                 </div>
             </div>

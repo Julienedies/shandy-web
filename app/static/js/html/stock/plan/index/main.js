@@ -2,6 +2,8 @@
  * Created by j on 18/7/1.
  */
 
+//brick.debug('log',true);
+
 brick.controllers.reg('plans_ctrl', function () {
 
     var scope = this;
