@@ -68,7 +68,7 @@ fis.config.set('roadmap.path', [
 
     //css目录下css文件
     {
-        reg: /^\/css\/.+\.(?:css|scss|sass)$/i,
+        reg: /^\/css\/.+\.(?:css|scss|sass|svg|eot|ttf|woff|woff2)$/i,
         release: '$&',
         url: '/public/static$&',
         useDomain: true,

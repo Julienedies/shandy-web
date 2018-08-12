@@ -69,7 +69,7 @@ var proto = {
         for (var j in pool) {
             var record = pool[j];
             //console.log(value === this._queryKeyValue(record, query), value, this._queryKeyValue(record, query))
-            if (value === this._queryKeyValue(record, query)) {
+            if (value == this._queryKeyValue(record, query)) {
                 r.push(record);
             }
         }

@@ -33,7 +33,7 @@
   user-select: none;
 }
 
-.__flex, .flex-middle, .flex-mc, .table_1 dt, .table_2 dt, .flex-mj, .flex-mr, .flex-center, .flex-justify, .flex-right, .table_0 > * > *:first-child, .flex-end, .flex-start, .flex {
+.__flex, .flex-middle, .flex-mc, .table_1 dt, .table_2 dt, .flex-mj, .flex-mr, .tr, .table_3 > *, .table_0 > *, .flex-center, .flex-justify, .flex-right, .table_0 > * > *:first-child, .flex-end, .flex-start, .flex {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -46,7 +46,7 @@
   flex: 1;
 }
 
-.flex-middle, .flex-mc, .table_1 dt, .table_2 dt, .flex-mj, .flex-mr {
+.flex-middle, .flex-mc, .table_1 dt, .table_2 dt, .flex-mj, .flex-mr, .tr, .table_3 > *, .table_0 > * {
   -webkit-box-align: center;
   -webkit-align-items: center;
   align-items: center;
@@ -76,7 +76,7 @@
   align-items: flex-end;
 }
 
-.flex-start, .table_2 dt {
+.flex-start, .tr, .table_3 > *, .table_0 > *, .table_2 dt {
   -webkit-box-align: start;
   -webkit-align-items: flex-start;
   align-items: flex-start;
@@ -117,7 +117,7 @@
   user-select: none;
 }
 
-.__flex, .flex-middle, .flex-mc, .table_1 dt, .table_2 dt, .flex-mj, .flex-mr, .flex-center, .flex-justify, .flex-right, .table_0 > * > *:first-child, .flex-end, .flex-start, .flex {
+.__flex, .flex-middle, .flex-mc, .table_1 dt, .table_2 dt, .flex-mj, .flex-mr, .tr, .table_3 > *, .table_0 > *, .flex-center, .flex-justify, .flex-right, .table_0 > * > *:first-child, .flex-end, .flex-start, .flex {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -130,7 +130,7 @@
   flex: 1;
 }
 
-.flex-middle, .flex-mc, .table_1 dt, .table_2 dt, .flex-mj, .flex-mr {
+.flex-middle, .flex-mc, .table_1 dt, .table_2 dt, .flex-mj, .flex-mr, .tr, .table_3 > *, .table_0 > * {
   -webkit-box-align: center;
   -webkit-align-items: center;
   align-items: center;
@@ -160,15 +160,24 @@
   align-items: flex-end;
 }
 
-.flex-start, .table_2 dt {
+.flex-start, .tr, .table_3 > *, .table_0 > *, .table_2 dt {
   -webkit-box-align: start;
   -webkit-align-items: flex-start;
   align-items: flex-start;
 }
 
-.tr, .table_0 > * {
+.tr, .table_3 > *, .table_0 > * {
   display: flex;
   flex-wrap: wrap;
+}
+
+.table_3 > * > * {
+  padding-bottom: 5px;
+}
+
+.table_3 > * > *:first-child {
+  font-weight: bold;
+  min-width: 5em;
 }
 
 .table_0 > * > * {
@@ -228,8 +237,24 @@ dl.table_1.no-border, dl.no-border.table_2, dl.table_1.no-border dt, dl.no-borde
   border: none;
 }
 
+/*
+组件样式定义
+=========================================================
+ */
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  display: none;
+}
+
 #nav-tabs {
   font-size: 1.2em;
+  margin-bottom: 0.5rem;
 }
 
 #nav-tabs .is-active {
@@ -270,4 +295,8 @@ label.radio {
 
 .tar {
   text-align: right;
+}
+
+.pointer {
+  cursor: pointer;
 }

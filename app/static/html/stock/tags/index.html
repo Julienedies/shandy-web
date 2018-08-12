@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>标签管理</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<link rel="stylesheet" href="/public/static/css/basic/0.7/basic.css" />
+<link rel="stylesheet" href="/public/static/css/js/vendor/brick/0.8/css/brick.mobile.css" />
+<link rel="stylesheet" href="/public/static/css/vendor/fontawesome/css/all.css" />
+<link rel="stylesheet" href="/public/static/css/vendor/bulma/css/bulma.css" />
+<link rel="stylesheet" href="/public/static/css/common/common.css" />
+
+
+    <link rel="stylesheet" href="/public/static/css/html/stock/tags/style.css" />
+</head>
+<body ic-ctrl="main_ctrl">
+
+<div class="tabs is-medium is-boxed" id="nav-tabs">
+    <ul>
+        <li class="is-active"><a href="/public/static/html/stock/zold/index.html">stock</a></li>
+        <li><a href="/public/static/html/stock/zold/system/index.html">system</a></li>
+       <!-- <li><a href="/public/static/html/stock/zold/logic.html">logic</a></li>-->
+        <!--<li><a href="/public/static/html/stock/logic/new.html">新逻辑</a></li>-->
+        <li><a href="/public/static/html/stock/tags/index.html">标签</a></li>
+        <li><a href="/public/static/html/stock/plan/buy/">建仓计划</a></li>
+        <li><a href="/public/static/html/stock/plan/sell/">平仓预案</a></li>
+        <li><a href="/public/static/html/stock/mistake/">错误</a></li>
+        <li><a href="/public/static/html/stock/system/index.html">交易系统</a></li>
+        <li><a href="/public/static/html/stock/logic/index.html">逻辑</a></li>
+        <li><a href="/public/static/html/stock/replay/index.html">复盘</a></li>
+        <li><a href="/public/static/html/stock/plan/index/">计划预案</a></li>
+    </ul>
+</div>
+
+
+
+
+<section class="column is-10 is-offset-1" ic-ctrl="tags_ctrl">
+
+    <div class="buttons">
+        <button class="button"
+                ic-ajax
+                ic-ajax-auto
+                ic-submit-method="get"
+                ic-submit-action="/stock/tags"
+                ic-submit-on-done="on_get_done">标签列表</button>
+        <button class="button" ic-click="add">新标签</button>
+    </div>
+
+    <div class="table_0"  ic-tpl>
+        <div ic-for="k,arr in model">
+            <h6>{{k}}</h6>
+            <div class="field is-grouped is-grouped-multiline">
+                <div class="control"  ic-for="i,v in arr">
+                    <div class="tags has-addons is-medium">
+                        <span class="tag is-medium pointer" aic-click="edit:{{v.id}}">{{v.text}}</span>
+                        <a class="tag is-medium" ic-click="edit:{{v.id}}">
+                            <span class="icon is-medium" style="opacity: 0.2"><i class="far fa-edit"></i></span>
+                        </a>
+                        <a class="tag is-medium is-delete"
+                                ic-ajax
+                                ic-submit-method="delete"
+                                ic-submit-action="/stock/tags/{{v.id}}"
+                                ic-submit-before
+                                ic-submit-on-done="remove"></a>
+                    </div>
+                </div>
+                <div class="control">
+                        <a class="tag is-medium" ic-click="add:{{k}}">
+                            <span class="icon is-medium"><i class="fas fa-file-medical"></i></span>
+                        </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+
+<div class="popup" ic-ctrl="set_tag_ctrl" ic-popup="set_tag">
+
+    <div class="column is-10">
+
+        <div class="table_0" ic-form="set_tag" ic-tpl ic-tpl-init="{}" ic-init="model=model[0]||model">
+
+            <div>
+                <h6>标签类型</h6>
+                <div class="field">
+                    <input class="input is-medium" type="text" name="type" value="{{model.type}}" ic-form-field ic-field-rule="required">
+                    <input type="hidden" name="id" ic-form-field  value="{{model.id}}" />
+                </div>
+            </div>
+
+            <div>
+                <h6>标签内容</h6>
+                <div>
+                    <input class="input is-medium" type="text" name="text" value="{{model.text}}" ic-form-field ic-field-rule="required">
+                </div>
+            </div>
+
+            <div>
+                <h6>备注</h6>
+                <div>
+                    <textarea rows="3" class="textarea is-medium" ic-form-field="note">{{model.note}}</textarea>
+                </div>
+            </div>
+
+            <div>
+                <div></div>
+                <div class="buttons">
+                    <button class="button is-primary"
+                            ic-form-submit
+                            ic-submit-action="/stock/tags"
+                            ic-submit-before="before"
+                            ic-submit-on-done="done"
+                            >保存</button>
+                    <button class="button" ic-click="reset" style="margin-left:4em;"> 重置 </button>
+                    <button class="button" ic-popup-close style="margin-left:4em;"> 关闭 </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<script src="/public/static/js/vendor/underscore-1.8.2.js"></script>
+<script src="/public/static/js/vendor/jquery-2.1.3.js"></script>
+<script src="/public/static/js/vendor/brick/0.8/brick.mobile.js"></script>
+<script src="/public/static/js/common.js"></script>
+<script src="/public/static/js/html/stock/tags/main.js"></script>
+<script type="text/javascript" charset="utf-8" src="http://192.168.3.68:8132/livereload.js"></script></body>
+</html>

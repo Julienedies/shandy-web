@@ -1,4 +1,4 @@
-#plans [ic-ctrl="set_plan_ctrl"] {
+#plans [ic-ctrl="set_plan_ctrl"], #plans [ic-ctrl="set_tag_ctrl"] {
   padding-top: 15px;
   position: fixed;
   top: 0;
@@ -7,9 +7,14 @@
   right: 0;
   z-index: 100;
   background: #fff;
+  overflow-y: scroll;
   display: none;
 }
 
-#plans [ic-ctrl="set_plan_ctrl"] h6 {
+#plans [ic-ctrl="set_plan_ctrl"] h6, #plans [ic-ctrl="set_tag_ctrl"] h6 {
   font-weight: bold;
+}
+
+#plans [ic-ctrl="set_tag_ctrl"] {
+  background: rgba(0, 0, 0, 0.8);
 }

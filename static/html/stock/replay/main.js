@@ -7,10 +7,16 @@ brick.reg('replay_ctrl', function () {
     var scope = this;
     var $elm = this.$elm;
 
-    scope.done = function (data) {
+    var list = brick.services.get('recordManager')();
+    var model;
+
+    scope.get_replay_done = function (data) {
         console.info(data);
-        scope.render('a', data);
+        list.init(scope.tags_convert(data.tags));
+        model = data;
+        scope.render('replay', data);
     };
+
 
     scope.replay = {
         before: function (fields){
@@ -18,33 +24,24 @@ brick.reg('replay_ctrl', function () {
             return fields;
         },
         done: function(msg){
-            $elm.find('#get_replay').icAjax();
+            scope.get_replay_done(msg);
         }
     };
 
-    scope.tags = {
-        add: {
-           before: function(data){
-               return {name: this.name, text: this.value};
-           },
-            done: function(data){
-                $(this).val('');
-                $elm.find('[ic-form-submit="replay"]').trigger('ic-form.submit');
-            }
-        },
-        remove : {
-            before: function(data){
-                return {text: data};
-            },
-            done: function(data){
-                $(this).closest('.control').remove();
-            }
-        }
+
+    scope.tag_edit = function(e, id){
+        scope.emit('tag.edit', list.get(id));
     };
 
-    $elm.on('ic-select.change', '[ic-select]', function(e, msg){
-        console.log(e, msg);
-        $elm.find(`input[name=${msg.name}]`).val(msg.value);
+    scope.tag_remove_done = function(data){
+        model.tags = data;
+        scope.get_replay_done(model);
+    };
+
+
+    scope.on('tag.edit.done', function(e, msg){
+        console.info(e, msg);
+        scope.tag_remove_done(msg);
     });
 
 });

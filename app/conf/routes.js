@@ -51,42 +51,42 @@ module.exports = {
         {
             url: '/stock/plan',
             method: 'get',
-            action: 'stock/plan/index.get'
+            action: 'stock/plan.get'
         },
         {
             url: '/stock/plan',
             method: 'post',
-            action: 'stock/plan/index.post'
+            action: 'stock/plan.post'
         },
         {
             url: '/stock/plan/:id',
             method: 'delete',
-            action: 'stock/plan/index.del'
+            action: 'stock/plan.del'
         },
         {
-            url: '/stock/tags',
+            url: '/stock/tags/:type?',
             method: 'get',
-            action: '/stock/tags.get'
+            action: 'stock/tags.get'
         },
         {
             url: '/stock/tags',
             method: 'post',
-            action: '/stock/tags.post'
+            action: 'stock/tags.post'
         },
         {
             url: '/stock/tags/:id',
             method: 'delete',
-            action: '/stock/tags.del'
+            action: 'stock/tags.del'
         },
         {
             url: '/stock/replay',
             method: 'get',
-            action: '/stock/replay.get'
+            action: 'stock/replay.get'
         },
         {
             url: '/stock/replay',
             method: 'post',
-            action: '/stock/replay.post'
+            action: 'stock/replay.post'
         },
         {
             url: '/stock/logic',
@@ -96,12 +96,12 @@ module.exports = {
         {
             url: '/stock/logic',
             method: 'post',
-            action: '/stock/logic.post'
+            action: 'stock/logic.post'
         },
         {
-            url: '/stock/logic/:id?',
+            url: '/stock/logic/:id',
             method: 'delete',
-            action: '/stock/logic.del'
+            action: 'stock/logic.del'
         }
     ]
 

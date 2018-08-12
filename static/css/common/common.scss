@@ -12,10 +12,12 @@
 
 @import "../base/include/import";
 @import "include/layout";
+@import "include/components";
 
 
 #nav-tabs{
   font-size:1.2em;
+  margin-bottom: 0.5rem;
   .is-active{
     color: #333333;
     font-weight: bolder;
@@ -25,7 +27,6 @@
   }
 }
 
-
 body{
   padding:10px 15px 15px 15px;
   font-size:1.4em;
@@ -34,6 +35,10 @@ body{
   font: 18px/1.8 "Helvetica Neue",Helvetica,Arial,"Microsoft Yahei","Hiragino Sans GB","Heiti SC","WenQuanYi Micro Hei",sans-serif;
   @media screen and (max-width: 800px) {
     font-size:22px;
+  }
+  &::-webkit-scrollbar {
+    //width: 0 !important;
+    //display: none;
   }
 }
 
@@ -55,4 +60,8 @@ label.radio{
 
 .tar{
   text-align:right;
+}
+
+.pointer{
+  cursor: pointer;
 }

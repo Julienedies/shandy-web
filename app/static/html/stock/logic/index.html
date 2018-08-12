@@ -6,22 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 <link rel="stylesheet" href="/public/static/css/basic/0.7/basic.css" />
 <link rel="stylesheet" href="/public/static/css/js/vendor/brick/0.8/css/brick.mobile.css" />
+<link rel="stylesheet" href="/public/static/css/vendor/fontawesome/css/all.css" />
 <link rel="stylesheet" href="/public/static/css/vendor/bulma/css/bulma.css" />
 <link rel="stylesheet" href="/public/static/css/common/common.css" />
+
+
     <link rel="stylesheet" href="/public/static/css/html/stock/logic/style.css" />
 </head>
 <body id="logic_list" ic-ctrl="main_ctrl">
 <div class="tabs is-medium is-boxed" id="nav-tabs">
     <ul>
         <li class="is-active"><a href="/public/static/html/stock/zold/index.html">stock</a></li>
-        <li><a href="/public/static/html/stock/zold/logic.html">logic</a></li>
-        <li><a href="/public/static/html/stock/system/index.html">system</a></li>
-        <li><a href="/public/static/html/stock/plan/new/">新计划</a></li>
+        <li><a href="/public/static/html/stock/zold/system/index.html">system</a></li>
+       <!-- <li><a href="/public/static/html/stock/zold/logic.html">logic</a></li>-->
         <!--<li><a href="/public/static/html/stock/logic/new.html">新逻辑</a></li>-->
-        <li><a href="/public/static/html/stock/logic/index.html">逻辑</a></li>
-        <li><a href="/public/static/html/stock/mistake/">错误</a></li>
+        <li><a href="/public/static/html/stock/tags/index.html">标签</a></li>
         <li><a href="/public/static/html/stock/plan/buy/">建仓计划</a></li>
         <li><a href="/public/static/html/stock/plan/sell/">平仓预案</a></li>
+        <li><a href="/public/static/html/stock/mistake/">错误</a></li>
+        <li><a href="/public/static/html/stock/system/index.html">交易系统</a></li>
+        <li><a href="/public/static/html/stock/logic/index.html">逻辑</a></li>
         <li><a href="/public/static/html/stock/replay/index.html">复盘</a></li>
         <li><a href="/public/static/html/stock/plan/index/">计划预案</a></li>
     </ul>
@@ -30,11 +34,11 @@
 
 
 
-<div ic-ctrl="set_logic_ctrl">
+<div ic-ctrl="set_logic_ctrl" ic-popup="set_logic">
 
     <div class="column is-10">
 
-        <div class="table_0" ic-form="set_logic" ic-tpl ic-tpl-init="{}" ic-init="model=model[0]||model">
+        <div class="table_0" ic-form="set_logic" ic-tpl ic-tpl-init="{}">
             <div>
                 <h6>逻辑</h6>
                 <div>
@@ -46,7 +50,7 @@
                 <h6>类型</h6>
                 <div>
                     <div class="tags" ic-select="logic_type" ic-val="市场" ic-form-field="type">
-                    <span ic-for="i,v in ['市场', '控制', '平仓', '建仓']"  ic-class="tag is-large" ic-val="{{v}}" ic-has-selected="v==(model.type || '市场')">
+                    <span ic-for="i,v in ['市场', '控制', '操作']" ic-class="tag is-large" ic-val="{{v}}" ic-has-selected="v==(model.type||'市场')">
                         {{v}}
                     </span>
                     </div>
@@ -56,13 +60,13 @@
                 <div></div>
                 <div class="buttons">
                     <button class="button is-primary"
-                            ic-form-submit="set_logic"
+                            ic-form-submit
                             ic-submit-action="/stock/logic"
-                            ic-submit-before="before"
+                            ic-submit-before
                             ic-submit-on-done="done"
                             >保存</button>
                     <button class="button" ic-click="reset" style="margin-left:4em;"> 重置 </button>
-                    <button class="button" ic-click="close" style="margin-left:4em;"> 关闭 </button>
+                    <button class="button" ic-popup-close style="margin-left:4em;"> 关闭 </button>
                 </div>
             </div>
         </div>
@@ -72,7 +76,7 @@
 </div>
 
 
-<section class="column is-8 is-offset-2" ic-ctrl="logic_ctrl">
+<section class="column is-8 is-offset-2" ic-ctrl="logics_ctrl">
 
     <div class="buttons">
         <button class="button"
@@ -111,5 +115,5 @@
 <script src="/public/static/js/vendor/brick/0.8/brick.mobile.js"></script>
 <script src="/public/static/js/common.js"></script>
 <script src="/public/static/js/html/stock/logic/main.js"></script>
-<script type="text/javascript" charset="utf-8" src="http://192.168.3.49:8132/livereload.js"></script></body>
+<script type="text/javascript" charset="utf-8" src="http://192.168.3.68:8132/livereload.js"></script></body>
 </html>

@@ -14,21 +14,14 @@ module.exports = {
     },
 
     post: function (req, res) {
-
-        console.log(req.body);
-
         var data = req.body;
-
         dob.set(data);
-
-        res.send({msg:'ok'});
+        res.json(dob.get());
     },
 
     del: function (req, res) {
-        //let body = reg.body;
-        //tags.find(body).remove();
         var id = req.params.id;
         dob.remove(id);
-        res.send({msg:'ok'});
+        res.json(dob.get());
     }
 };

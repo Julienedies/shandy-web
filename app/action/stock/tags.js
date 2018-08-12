@@ -4,33 +4,41 @@
 
 const fs = require('fs');
 const path = require('path');
+const _ = require('underscore');
 
 const dob = require('../../libs/dob.js');
 
-const tags = dob('tags', {key: 'text'});
+const tags = dob('tags', {convert: function(){
+    var result = {};
+    var list = this.get();
+    list.map(function(item){
+        let type = item.type;
+        let arr = result[type] = result[type] || [];
+        arr.push(item);
+    });
+    return result;
+}});
 
 module.exports = {
 
-    get: function (req, res) {
+    tags: tags,
 
+    get: function (req, res) {
+        var type = req.params.type;
+        var data = type ? tags.get(type, 'type') : tags.convert();
+        res.json(data);
     },
 
     post: function (req, res) {
-
-        console.log(req.body);
-
         var data = req.body;
-
+        var type = data.type;
         tags.set(data);
-
-        res.send({msg:'ok'});
+        res.send(tags.convert());
     },
 
     del: function (req, res) {
-        //let body = reg.body;
-        //tags.find(body).remove();
         var id = req.params.id;
         tags.find(id, 'id').remove();
-        res.send({msg:'ok'});
+        res.send(tags.convert());
     }
 };

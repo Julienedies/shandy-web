@@ -7,6 +7,8 @@ brick.set('ic-show-img-url', 'href');
 
 brick.set('ic-select-cla', 'is-warning');
 
+brick.set('cla.error', 'is-danger');
+
 brick.debug('log');
 
 //brick.set('debug', true);
@@ -15,6 +17,26 @@ brick.reg('main_ctrl', function(){
 
     var scope = this;
     var $elm = scope.$elm;
+
+    scope.tags_convert = function (data) {
+        var arr = [];
+        for (let i in data) {
+            arr = arr.concat(data[i]);
+        }
+        return arr;
+    };
+
+    scope.tag_add = function(e, type){
+        scope.emit('tag.add', {type: type});
+    };
+
+    scope.tag_edit = function(e, id){
+        scope.emit('tag.edit', id);
+    };
+
+    scope.tag_remove_done = function(res){
+        $(this).closest('li').remove();
+    };
 
     scope.before = function(f){
         console.info('ic-form-submit-before => ', f);

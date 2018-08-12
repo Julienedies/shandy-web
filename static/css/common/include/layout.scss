@@ -3,9 +3,23 @@
 .tr{
     display: flex;
     flex-wrap: wrap;
+    @extend .flex-middle;
+    @extend .flex-start;
 }
 .td{
 
+}
+.table_3{
+    >*{
+        @extend .tr;
+        >*{
+            padding-bottom: 5px;
+            &:first-child{
+                font-weight: bold;
+                min-width:5em;
+            }
+        }
+    }
 }
 
 .table_0{

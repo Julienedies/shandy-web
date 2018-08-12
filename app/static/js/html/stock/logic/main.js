@@ -2,7 +2,12 @@
  * Created by j on 18/7/28.
  */
 
-brick.reg('logic_ctrl', function(){
+
+/**
+ * Created by j on 18/8/5.
+ */
+
+brick.reg('logics_ctrl', function(){
 
     var scope = this;
     var $elm = scope.$elm;
@@ -29,34 +34,30 @@ brick.reg('logic_ctrl', function(){
         $elm.find('#get_logic').click();
     });
 
-});
+});;
+/**
+ * Created by j on 18/8/5.
+ */
 
-//
 brick.reg('set_logic_ctrl', function(){
 
     var scope = this;
     var $elm = this.$elm;
-    var logic;
 
     scope.done = function(){
-        $elm.hide();
         scope.emit('logic.edit.done');
+        $elm.icPopup(false);
     };
 
     scope.reset = function(){
         scope.render({});
     };
 
-    scope.close = function(){
-        $elm.hide();
-    };
-
     scope.on('logic.edit', function(e, msg){
-        console.info(e, msg);
-        logic = msg;
-        $elm.show();
-        msg && scope.render(msg[0] || msg);
+        let logic = msg || {};
+        scope.render(logic[0] || logic);
+        $elm.icPopup(true);
     });
 
 
-});
+});;
