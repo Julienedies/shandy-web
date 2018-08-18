@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>聚合xx</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<link rel="stylesheet" href="/public/static/css/basic/0.7/basic.css" />
+<link rel="stylesheet" href="/public/static/css/js/vendor/brick/0.8/css/brick.mobile.css" />
+<link rel="stylesheet" href="/public/static/css/vendor/fontawesome/css/all.css" />
+<link rel="stylesheet" href="/public/static/css/vendor/bulma/css/bulma.css" />
+<link rel="stylesheet" href="/public/static/css/common/common.css" />
+
+
+    <link rel="stylesheet" href="/public/static/css/html/stock/c/style.css" />
+</head>
+<body>
+
+<div class="column is-12"  ic-ctrl="main_ctrl">
+
+    <div ic-tpl="ajax">
+            <button class="button"
+                    ic-ajax
+                    ic-submit-method="get"
+                    ic-submit-action="/stock/c/{{model.code}}"
+                    ic-submit-on-done="done">ajax初始化</button>
+    </div>
+
+    <section class="columns" ic-tpl="base">
+        <ul class="column is-4" ic-for="k,o in model">
+            <li class="" ic-for="i,v in o">
+                <span class="title is-6">{{i}} : </span>
+                <span>{{v}}</span>
+            </li>
+        </ul>
+    </section>
+
+</div>
+
+<script src="/public/static/js/vendor/underscore-1.8.2.js"></script>
+<script src="/public/static/js/vendor/jquery-2.1.3.js"></script>
+<script src="/public/static/js/vendor/brick/0.8/brick.mobile.js"></script>
+<script src="/public/static/js/common.js"></script>
+<script src="/public/static/js/html/stock/c/main.js"></script>
+<script type="text/javascript" charset="utf-8" src="http://192.168.3.70:8132/livereload.js"></script></body>
+</html>

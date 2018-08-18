@@ -1,20 +1,23 @@
 {
   "name": "gushenwei",
   "version": "0.1.1",
-  "description": "",
-  "repository": "",
-  "main": "",
-  "dependencies": {
-  },
-  "devDependencies": {
-  },
-  "scripts": {
-    "init":"npm i -g fis && npm i -g fis-postpackager-simple && npm i -g fis-postprocessor-require-async && npm i -g fis-postpackager-autoload &&  npm i -g fis-preprocessor-smarty-fix && npm i -g fis-postpackager-jchm && npm i -g fis-parser-less && npm i -g fis-parser-sass && npm i -g zoo"
-  },
+  "description": "gushenwei",
+  "repository": "https://github.com/gushenwei/gushenwei.github.io.git",
   "main": "app/app.js",
+  "license": "Apache-2.0",
   "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "cheerio-httpcli": "^0.7.3",
     "express": "4.10.1",
+    "iconv-lite": "^0.4.23",
+    "phantom": "^6.0.3",
+    "puppeteer-core": "^1.7.0",
+    "request": "^2.88.0",
     "serve-index": "1.5.0",
     "yog-devtools": "0.0.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "init": "npm i -g fis && npm i -g fis-postpackager-simple && npm i -g fis-postprocessor-require-async && npm i -g fis-postpackager-autoload &&  npm i -g fis-preprocessor-smarty-fix && npm i -g fis-postpackager-jchm && npm i -g fis-parser-less && npm i -g fis-parser-sass && npm i -g zoo"
   }
 }

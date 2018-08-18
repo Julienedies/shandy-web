@@ -16,5 +16,6 @@ node_modules/
 
 #开发用
 /server.js
+/test.js
 
 
