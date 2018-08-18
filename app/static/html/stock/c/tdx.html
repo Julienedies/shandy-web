@@ -34,16 +34,14 @@
                 <td>{{model['全名']}}</td>
             </tr>
             <tr>
-                <td colspan="4">
-                    <div>{{model['概念']}}</div>
+                <td colspan="2">
+                    <div>{{model['概念'].replace(/[，]/img, '、  ')}}</div>
                     <div>{{model['概念y']}}</div>
                 </td>
+                <td colspan="2">{{model['产品']}}</td>
             </tr>
             <tr>
-                <td colspan="4">业务: &nbsp; {{model['业务']}}</td>
-            </tr>
-            <tr>
-                <td colspan="4">产品: &nbsp; {{model['产品']}}</td>
+                <td colspan="4">{{model['业务']}}</td>
             </tr>
         </table>
     </section>
