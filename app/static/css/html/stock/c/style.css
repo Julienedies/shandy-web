@@ -1,0 +1,22 @@
+html, body {
+  background: #000000;
+  color: #fff;
+  padding: 0;
+  font-size: 16px;
+  line-height: 1.8;
+  font-family: "Helvetica Neue",Helvetica,Arial,"Microsoft Yahei","Hiragino Sans GB","Heiti SC","WenQuanYi Micro Hei",sans-serif;
+  font-family: Helvetica,Pingfang SC,Hiragino Sans GB,Microsoft YaHei,"sans-serif";
+  font-family: SimSun,"Arial Narrow",HELVETICA;
+  font-family: Arial,Helvetica;
+}
+
+#stock {
+  width: 100%;
+  background: #000;
+  color: #eeee5a;
+  border-color: rgba(150, 150, 150, 0.3);
+}
+
+#stock td {
+  border-color: rgba(150, 150, 150, 0.3);
+}

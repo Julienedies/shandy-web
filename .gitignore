@@ -15,7 +15,10 @@ node_modules/
 *.log
 
 #开发用
+test/
+temp/
 /server.js
 /test.js
+stocks.json
 
 

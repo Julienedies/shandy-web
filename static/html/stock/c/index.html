@@ -18,9 +18,9 @@
                     ic-submit-on-done="done">ajax初始化</button>
     </div>
 
-    <section class="columns" ic-tpl="base">
-        <ul class="column is-4" ic-for="k,o in model">
-            <li class="" ic-for="i,v in o">
+    <section ic-tpl="base">
+        <ul>
+            <li ic-for="i,v in model">
                 <span class="title is-6">{{i}} : </span>
                 <span>{{v}}</span>
             </li>

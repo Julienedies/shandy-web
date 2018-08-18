@@ -11,8 +11,7 @@ client.set('headers', {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.34'
 });
 
-
-module.exports = function(code, html_id, callback){
+function fetch(code, html_id, callback){
 
     let html = require(`./${html_id}.js`);
 
@@ -24,4 +23,9 @@ module.exports = function(code, html_id, callback){
 
     });
 
-};
+}
+
+
+fetch.SOURCE = ['ths_new', 'ths_p', 'ycj'];
+
+module.exports = fetch;
