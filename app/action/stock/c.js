@@ -14,7 +14,6 @@ module.exports = {
         var code = req.params.code;
         let str = fs.readFileSync(`/Users/j/dev/stock-data/s/${code}.json`, 'utf-8');
         let data = JSON.parse(str);
-        data['概念y'] = data['概念y'].replace(/[-]\d+[%]/img, '、  ');
         res.json(data);
     },
 
