@@ -1,0 +1,31 @@
+<section class="column is-8 is-offset-2" ic-ctrl="notes_ctrl">
+
+    <div class="buttons">
+        <button class="button"
+                ic-ajax
+                ic-ajax-auto
+                ic-submit-method="get"
+                ic-submit-action="/note"
+                ic-submit-on-done="get_notes_on_done">笔记列表</button>
+        <button class="button" ic-click="note.add">新笔记</button>
+    </div>
+
+    <ul ic-tpl="notes">
+        <li ic-for="i,v in model" class="notification" data-id="{{v.id}}">
+            <div class="pre">{{v.text}}</div>
+            <div class="tar">
+                <span class="tag">{{v.type}}</span>
+                <a ic-click="note.edit:{{v.id}}">编辑</a>
+            </div>
+            <button class="delete is-medium"
+                    ic-ajax
+                    ic-submit-method="delete"
+                    ic-submit-action="/note/{{v.id}}"
+                    ic-submit-before="ajax_before_confirm:确认删除?"
+                    ic-submit-on-done="note.removed"></button>
+        </li>
+    </ul>
+
+</section>
+
+

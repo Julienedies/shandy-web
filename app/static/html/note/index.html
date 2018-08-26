@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>note</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<link rel="stylesheet" href="/public/static/css/basic/0.7/basic.css" />
+<link rel="stylesheet" href="/public/static/css/js/vendor/brick/0.8/css/brick.mobile.css" />
+<link rel="stylesheet" href="/public/static/css/vendor/fontawesome/css/all.css" />
+<link rel="stylesheet" href="/public/static/css/vendor/bulma/css/bulma.css" />
+<link rel="stylesheet" href="/public/static/css/common/common.css" />
+
+
+    <link rel="stylesheet" href="/public/static/css/html/note/style.css" />
+</head>
+<body id="notes" ic-ctrl="main_ctrl">
+
+<div ic-ctrl="set_note_ctrl" ic-popup="set_note">
+
+    <div class="column is-10">
+
+        <div class="table_0" ic-form="set_note" ic-tpl ic-tpl-init="{}">
+            <div>
+                <h6>笔记</h6>
+                <div>
+                    <textarea rows="7" class="textarea is-medium" ic-form-field="text" ic-field-rule="required">{{model.text}}</textarea>
+                    <input type="hidden" name="id" ic-form-field  value="{{model.id}}" />
+                </div>
+            </div>
+            <div>
+                <h6>类型</h6>
+                <div class="control">
+                    <input type="text" class="input is-medium"  ic-form-field="type" ic-field-rule="required" value="{{model.type}}" />
+                </div>
+            </div>
+            <div>
+                <div></div>
+                <div class="buttons">
+                    <button class="button is-primary"
+                            ic-form-submit
+                            ic-submit-action="/note"
+                            ic-submit-before
+                            ic-submit-on-done="done"
+                            >保存</button>
+                    <button class="button" ic-click="reset" style="margin-left:4em;"> 重置 </button>
+                    <button class="button" ic-popup-close style="margin-left:4em;"> 关闭 </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<section class="column is-8 is-offset-2" ic-ctrl="notes_ctrl">
+
+    <div class="buttons">
+        <button class="button"
+                ic-ajax
+                ic-ajax-auto
+                ic-submit-method="get"
+                ic-submit-action="/note"
+                ic-submit-on-done="get_notes_on_done">笔记列表</button>
+        <button class="button" ic-click="note.add">新笔记</button>
+    </div>
+
+    <ul ic-tpl="notes">
+        <li ic-for="i,v in model" class="notification" data-id="{{v.id}}">
+            <div class="pre">{{v.text}}</div>
+            <div class="tar">
+                <span class="tag">{{v.type}}</span>
+                <a ic-click="note.edit:{{v.id}}">编辑</a>
+            </div>
+            <button class="delete is-medium"
+                    ic-ajax
+                    ic-submit-method="delete"
+                    ic-submit-action="/note/{{v.id}}"
+                    ic-submit-before="ajax_before_confirm:确认删除?"
+                    ic-submit-on-done="note.removed"></button>
+        </li>
+    </ul>
+
+</section>
+
+
+
+
+<script src="/public/static/js/vendor/underscore-1.8.2.js"></script>
+<script src="/public/static/js/vendor/jquery-2.1.3.js"></script>
+<script src="/public/static/js/vendor/brick/0.8/brick.mobile.js"></script>
+<script src="/public/static/js/common.js"></script>
+<script src="/public/static/js/html/note/main.js"></script>
+<script type="text/javascript" charset="utf-8" src="http://10.211.55.2:8132/livereload.js"></script></body>
+</html>
