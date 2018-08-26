@@ -5,10 +5,22 @@
 const fs = require('fs');
 const path = require('path');
 
+const request = require('request');
+
 const fetch = require('../../libs/fetch/fetch.js');
 
 
 module.exports = {
+
+    news: function(req, res){
+
+
+
+    },
+
+    basic: function(req, res){
+
+    },
 
     get: function(req, res){
         var code = req.params.code;

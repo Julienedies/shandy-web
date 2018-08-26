@@ -2,9 +2,9 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>聚合</title>
+    <title>聚合-嵌入通达信</title>
     <link rel="import" href="../include/head.html?__inline" />
-    <link rel="stylesheet" href="style.scss" />
+    <link rel="stylesheet" href="tdx.scss" />
 </head>
 <body>
 
@@ -14,7 +14,7 @@
             <button class="button"
                     ic-ajax
                     ic-submit-method="get"
-                    ic-submit-action="/stock/c/{{model.code}}"
+                    ic-submit-action="/stock/mashup/{{model.code}}"
                     ic-submit-on-done="done">ajax初始化</button>
     </div>
 
@@ -42,6 +42,6 @@
 </div>
 
 <link rel="import" href="../include/scripts.html?__inline" />
-<script src="main.js"></script>
+<script src="tdx.js"></script>
 </body>
 </html>

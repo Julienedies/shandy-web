@@ -49,9 +49,19 @@ module.exports = {
             action: 'index'
         },
         {
-            url: '/stock/c/:code',
+            url: '/stock/mashup/:code',
             method: 'get',
-            action: 'stock/c.get'
+            action: 'stock/mashup.get'
+        },
+        {
+            url: '/stock/mashup/basic/:code',
+            method: 'get',
+            action: 'stock/mashup.basic'
+        },
+        {
+            url: '/stock/mashup/news/:code',
+            method: 'get',
+            action: 'stock/mashup.news'
         },
         {
             url: '/stock/plan',
@@ -107,6 +117,21 @@ module.exports = {
             url: '/stock/logic/:id',
             method: 'delete',
             action: 'stock/logic.del'
+        },
+        {
+            url: '/note',
+            method: 'get',
+            action: 'note.get'
+        },
+        {
+            url: '/note',
+            method: 'post',
+            action: 'note.post'
+        },
+        {
+            url: '/note/:id',
+            method: 'delete',
+            action: 'note.del'
         }
     ]
 

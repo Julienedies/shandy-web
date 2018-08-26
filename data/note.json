@@ -1,0 +1,1 @@
+[{"id":"3098069","text":"取消已经暂存的文件\ngit reset HEAD benchmarks.rb\n\n取消对文件的修改\ngit checkout -- benchmarks.rb","type":"git"},{"id":"4219649","text":"取消已经暂存的文件\ngit reset HEAD benchmarks.rb\n\n取消对文件的修改\ngit checkout -- benchmarks.rb","type":"git"},{"id":"0842135","text":"shasum -a 256 /Users/j/Downloads/expressvpn_6.7.2.5163.exe ","type":"cmd"}]

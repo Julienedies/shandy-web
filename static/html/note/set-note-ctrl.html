@@ -1,0 +1,37 @@
+<div ic-ctrl="set_note_ctrl" ic-popup="set_note">
+
+    <div class="column is-10">
+
+        <div class="table_0" ic-form="set_note" ic-tpl ic-tpl-init="{}">
+            <div>
+                <h6>笔记</h6>
+                <div>
+                    <textarea rows="7" class="textarea is-medium" ic-form-field="text" ic-field-rule="required">{{model.text}}</textarea>
+                    <input type="hidden" name="id" ic-form-field  value="{{model.id}}" />
+                </div>
+            </div>
+            <div>
+                <h6>类型</h6>
+                <div class="control">
+                    <input type="text" class="input is-medium"  ic-form-field="type" ic-field-rule="required" value="{{model.type}}" />
+                </div>
+            </div>
+            <div>
+                <div></div>
+                <div class="buttons">
+                    <button class="button is-primary"
+                            ic-form-submit
+                            ic-submit-action="/note"
+                            ic-submit-before
+                            ic-submit-on-done="done"
+                            >保存</button>
+                    <button class="button" ic-click="reset" style="margin-left:4em;"> 重置 </button>
+                    <button class="button" ic-popup-close style="margin-left:4em;"> 关闭 </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
