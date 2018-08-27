@@ -33,7 +33,7 @@ console.log(app.get('env'));
 
 // 控制台打印日志
 app.use(function(req, res, next){
-    console.log('%s %s', req.method, req.url);
+    //console.log('%s %s', req.method, req.url);
     next();
 });
 

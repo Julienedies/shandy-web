@@ -20,8 +20,8 @@ brick.reg('notes_ctrl', function(){
         edit : function(e, id){
             scope.emit('note.edit', list.get(id));
         },
-        removed : function(){
-            $(this).closest('li').remove();
+        removed : function(data){
+            scope.get_notes_on_done(data);
         }
     };
 

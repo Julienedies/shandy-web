@@ -1,7 +1,7 @@
 /*!
  * https://github.com/julienedies/brick.git
  * https://github.com/Julienedies/brick/wiki
- * "8/11/2018, 1:57:41 PM"
+ * "8/27/2018, 8:28:48 PM"
  * "V 0.8"
  */
 ;
@@ -1186,7 +1186,7 @@ directives.reg('ic-tpl', {
         });
     };
 
-    $.fn.icParseProperty = function (name, isLiteral) {
+    $.fn.icParseProperty = $.fn.icPp = function (name, isLiteral) {
         //console.info('icParseProperty => ', name);
         var match;
         // js直接量  <div ic-tpl-init="{}">  object {}
@@ -1207,7 +1207,7 @@ directives.reg('ic-tpl', {
             return match[1];
         }
 
-        if(isLiteral) return name;  //按直接量解析
+        if(isLiteral) return name;  //按直接量解析, 不通过scope链进行查找
 
         var params = name.split(':');
         name = params.shift();
@@ -1250,7 +1250,7 @@ directives.reg('ic-tpl', {
 
     };
 
-    $.fn.icParseProperty2 = function (name, isLiteral) {
+    $.fn.icParseProperty2 = $.fn.icPp2 = function (name, isLiteral) {
         name = this.attr(name);
         if (name === undefined || name == '') return name;
         return this.icParseProperty(name, isLiteral);
@@ -3015,7 +3015,7 @@ directives.reg('ic-form', function ($elm, attrs) {
     var submitType = (function () {
         //函数调用
         if (/[\w_.]+\(\)\;?$/i.test(action)) {
-            action = $submit.icParseProperty(action.replace(/[();]/g, ''), true);
+            action = $submit.icParseProperty(action.replace(/[();]/g, ''));
             return 1;
         }
         //普通提交
@@ -3036,6 +3036,7 @@ directives.reg('ic-form', function ($elm, attrs) {
 
 brick.directives.reg('ic-select', function($elm){
 
+var on_change = $elm.icPp2('ic-select-on-change');
 var cla = $elm.attr('ic-select-cla') || brick.get('ic-select-cla') || 'selected';
 var name = $elm.attr('ic-select');
 var s_item = $elm.attr('ic-select-item') || '[ic-select-item]';
@@ -3059,7 +3060,9 @@ var callback = type == 'checkbox' ?
         });
         $elm.attr('ic-val', JSON.stringify(values));
         $elm.data('ic-val', values);
-        $elm.trigger('ic-select.change', {name:name, value: values});
+        var msg = {name:name, value: values};
+        $elm.trigger('ic-select.change', msg);
+        on_change && on_change.apply($elm, [msg]);
     }
     :
     function(){
@@ -3067,7 +3070,9 @@ var callback = type == 'checkbox' ?
         var $th = $(this).addClass(cla);
         var val = $th.attr('ic-val');
         $elm.attr('ic-val', val);
-        $elm.trigger('ic-select.change', {name:name, value: val});
+        var msg = {name:name, value: val};
+        $elm.trigger('ic-select.change', msg);
+        on_change && on_change.apply($elm, [msg]);
     };
 
     $elm.on('click', s_item, callback);
@@ -3484,7 +3489,7 @@ brick.directives.reg({
 
         $body.on('click', '[ic-popup-target]', function (e) {
                 var name = $(this).attr('ic-popup-target');
-                var $popup = $('[ic-popup-target=?]'.replace('?', name));
+                var $popup = $('[ic-popup=?]'.replace('?', name));
                 on_show($popup);
                 //$body.scrollTop() + $body.height()
             })

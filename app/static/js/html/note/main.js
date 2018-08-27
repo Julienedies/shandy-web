@@ -25,8 +25,8 @@ brick.reg('notes_ctrl', function(){
         edit : function(e, id){
             scope.emit('note.edit', list.get(id));
         },
-        removed : function(){
-            $(this).closest('li').remove();
+        removed : function(data){
+            scope.get_notes_on_done(data);
         }
     };
 
@@ -58,6 +58,11 @@ brick.reg('set_note_ctrl', function(){
         scope.render(note[0] || note);
         $elm.icPopup(true);
     });
+
+
+    scope.on_select_change = function(msg){
+        $elm.find('[ic-form-field="type"]').val(msg.value);
+    };
 
 
 });;

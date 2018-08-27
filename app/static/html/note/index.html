@@ -20,6 +20,8 @@
     <div class="column is-10">
 
         <div class="table_0" ic-form="set_note" ic-tpl ic-tpl-init="{}">
+
+            <!-- tr -->
             <div>
                 <h6>笔记</h6>
                 <div>
@@ -27,12 +29,28 @@
                     <input type="hidden" name="id" ic-form-field  value="{{model.id}}" />
                 </div>
             </div>
+
+            <!-- tr -->
             <div>
                 <h6>类型</h6>
                 <div class="control">
-                    <input type="text" class="input is-medium"  ic-form-field="type" ic-field-rule="required" value="{{model.type}}" />
+                    <input type="text" class="input is-medium" ic-form-field="type" ic-field-rule="required" value="{{model.type}}" />
                 </div>
             </div>
+
+            <!-- tr -->
+            <div>
+                <h6>类型</h6>
+                <div>
+                    <div class="tags" ic-select="type" ic-select-on-change="on_select_change">
+                    <span ic-for="i,v in ['git', 'unix']" class="tag is-medium" ic-val="{{v}}">
+                        {{v}}
+                    </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- tr -->
             <div>
                 <div></div>
                 <div class="buttons">
@@ -46,6 +64,7 @@
                     <button class="button" ic-popup-close style="margin-left:4em;"> 关闭 </button>
                 </div>
             </div>
+
         </div>
 
     </div>
@@ -69,6 +88,7 @@
         <li ic-for="i,v in model" class="notification" data-id="{{v.id}}">
             <div class="pre">{{v.text}}</div>
             <div class="tar">
+                <span>{{v.id}}</span>
                 <span class="tag">{{v.type}}</span>
                 <a ic-click="note.edit:{{v.id}}">编辑</a>
             </div>
@@ -91,5 +111,5 @@
 <script src="/public/static/js/vendor/brick/0.8/brick.mobile.js"></script>
 <script src="/public/static/js/common.js"></script>
 <script src="/public/static/js/html/note/main.js"></script>
-<script type="text/javascript" charset="utf-8" src="http://10.211.55.2:8132/livereload.js"></script></body>
+</body>
 </html>

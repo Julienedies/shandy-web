@@ -23,4 +23,9 @@ brick.reg('set_note_ctrl', function(){
     });
 
 
+    scope.on_select_change = function(msg){
+        $elm.find('[ic-form-field="type"]').val(msg.value);
+    };
+
+
 });

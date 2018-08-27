@@ -13,7 +13,6 @@ const EventEmitter = require('events').EventEmitter;
  * var conf = { broadcast:true, //是否广播事件
  *              eventPrefix:'holdModel', //广播事件前缀
  *              key:'hold.id',  //记录id
- *              isMap: true  // 要管理的数据类型,数组或字典,默认为数组
  *              beforeSave:function(record,index){}
  *             };
  * var list = new recordManager(conf);
@@ -21,7 +20,7 @@ const EventEmitter = require('events').EventEmitter;
 function RecordManager(conf) {
     // 配置
     conf && conf.constructor === Object && Object.assign(this, conf);
-    this._pool = this.isMap ? {} : [];
+    this._pool = [];
 }
 
 var proto = {
@@ -29,17 +28,17 @@ var proto = {
      * 默认每条记录的主键为id；
      */
     key: 'id',
-    isMap: false,
     /**
-     * @param data {Array or Object}  要管理的数据对象
+     * @param arr {Array}  要管理的数据对象
      * @return {this}
      */
-    init: function (data) {
-        if (typeof data !== 'object') throw 'must be Array or Object on init';
-        for(let i in data){
-            this.beforeSave(data[i], i);
-        }
-        this._pool = data;
+    init: function (arr) {
+        if (!Array.isArray(arr)) throw 'must be Array on init';
+        var that = this;
+        arr.forEach(function (record, i) {
+            that.beforeSave(record, i);
+        });
+        this._pool = arr;
         return this;
     },
     /**
@@ -68,7 +67,6 @@ var proto = {
 
         for (var j in pool) {
             var record = pool[j];
-            //console.log(value === this._queryKeyValue(record, query), value, this._queryKeyValue(record, query))
             if (value == this._queryKeyValue(record, query)) {
                 r.push(record);
             }
@@ -85,47 +83,44 @@ var proto = {
      * new recoredManager().init([{x:1,y:2}]).find(2,'x').set({y:3});               // result false
      */
     set: function (data, query) {
+        var that = this;
         var pool = this._pool;
         var find = this._find || this.get(data[this.key]);
         var result = [];
         if (!find.length) {
             return this.add(data);
         }
-        for (var i in find) {
 
-            var record = find[i];
+        find.forEach(function (record) {
 
-            if (query && this._queryKeyValue(record, query) === this._queryKeyValue(data, query))  continue;
+            if (query && that._queryKeyValue(record, query) === that._queryKeyValue(data, query))  return;
 
-            var id = this._queryKeyValue(record);
+            var id = that._queryKeyValue(record);
 
-            var index = this._getIndex(id);
+            var index = that._getIndex(id);
 
             record = pool[index];
 
-            //result.push($.extend(true, record, data));
             result.push(Object.assign(record, data));
 
-            this.beforeSave(record);
+            that.beforeSave(record);
 
-            this.emit('change', {change: record});
-        }
+        });
 
+        that.emit('change', {change: result});
         this.end();
-
-        return result.length ? result : false;
+        return result;
     },
 
     /**
      * 添加一条记录
-     * @param record
+     * @param {object} record
      */
     add: function (record) {
-        console.log('add record:', record);
         this.beforeSave(record);
         var pool = this._pool;
         var id = this._queryKeyValue(record);
-        pool.unshift ? pool.unshift(record) : (pool[id] = record);
+        pool.unshift(record);
         this.emit('change');
         return this;
     },
@@ -138,16 +133,18 @@ var proto = {
      * new recoredManager().init([{x:1,y:2},{x:1,y:5}]).find(1,'x').remove();  // result this._pool == {}; return [{x:1,y:2},{x:1,y:5}];
      * new recoredManager().init([{x:1,y:2},{x:1,y:5}]).remove(1,'x');  // result this._pool == {}; return [{x:1,y:2},{x:1,y:5}];
      */
-    remove: function (vaulue, key) {
+    remove: function (value, key) {
+        var that = this;
         var pool = this._pool;
-        var find = this._find || this.get(vaulue, key);
-        if(find.length){
-            for (var i in find) {
-                var record = find[i];
-                var id = this._queryKeyValue(record);
-                var index = this._getIndex(id);
-                (pool.splice && index !== undefined) ? pool.splice(index, 1) : delete pool[id];
-            }
+        var find = this._find || this.get(value, key);
+        console.info('pool => ', pool.length);
+        console.log('find => ', find.length);
+        if (find.length) {
+            find.forEach(function (record) {
+                console.info('remove => ', record);
+                var index = that._getIndex(record);
+                index !== undefined && pool.splice(index, 1);
+            });
             this.emit('change');
         }
         this.end();
@@ -158,9 +155,9 @@ var proto = {
      * @returns {proto}
      */
     clear: function () {
-        this._pool = this.isMap ? {} : [];
+        this._pool = [];
         this.end();
-        this.emit('change', {e:'clear'});
+        this.emit('change', {e: 'clear'});
         return this;
     },
     /**
@@ -199,7 +196,7 @@ var proto = {
     beforeSave: function (record, index) {
         let id = record.id;
         // 如果没有主键,生成一个随机主键
-        if(typeof id == 'undefined' || id == ''){
+        if (typeof id == 'undefined' || id == '') {
             record.id = Math.random().toFixed(7).replace('0.', '');
         }
         return record;
@@ -240,7 +237,6 @@ var proto = {
     },
 
     _getIndex: function (record, query) {
-
         var pool = this._pool;
 
         var v = typeof record === 'object' ? this._queryKeyValue(record, query) : record;

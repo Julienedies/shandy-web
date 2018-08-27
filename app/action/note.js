@@ -21,7 +21,7 @@ module.exports = {
 
     del: function (req, res) {
         var id = req.params.id;
-        dob.remove(id);
+        var result = dob.remove(id);
         res.json(dob.get());
     }
 };
