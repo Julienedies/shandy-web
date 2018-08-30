@@ -14,7 +14,6 @@
         <li ic-for="i,v in model" class="notification" data-id="{{v.id}}">
             <div class="pre">{{v.text}}</div>
             <div class="tar">
-                <span>{{v.id}}</span>
                 <span class="tag">{{v.type}}</span>
                 <a ic-click="note.edit:{{v.id}}">编辑</a>
             </div>

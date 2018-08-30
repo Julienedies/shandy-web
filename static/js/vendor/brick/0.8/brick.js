@@ -1,7 +1,7 @@
 /*!
  * https://github.com/julienedies/brick.git
  * https://github.com/Julienedies/brick/wiki
- * "8/27/2018, 8:28:48 PM"
+ * "8/29/2018, 9:14:55 PM"
  * "V 0.8"
  */
 ;
@@ -476,7 +476,7 @@ var controllers = (function () {
             scope._parent = parent && parent._name;
             scope.$elm = $elm;
             ctrl.scope = scope; // 如果有多个控制器实例，则该名下控制器的作用域对象引用的会是最后一个实例化控制器的作用域对象
-            //$elm.data('ic-ctrl-scope', scope);
+            $elm.data('ic-ctrl-scope', scope);  // 用于区别多个同名控制器下的正确继承
 
             depend = services.get(depend) || [];
             depend = depend.constructor !== Array ? [depend] : depend;
@@ -1051,13 +1051,15 @@ var brick = root.brick = {
 
 directives.reg('ic-ctrl', function ($elm, attrs) {
 
+    if($elm.data('ic-ctrl-scope')) return; // 每个dom对象只执行一次 controller factory
+
     var ctrlName = $elm.attr('ic-ctrl');
 
     if(ctrlName){
         var $parent = $elm.parent().closest('[ic-ctrl]');
         var parentName = $parent.size() ? $parent.attr('ic-ctrl') : '';
-        controllers.exec(ctrlName, controllers.get(parentName), $elm);
-        //controllers.exec(ctrlName, $parent.data('ic-ctrl-scope'), $elm);
+        //controllers.exec(ctrlName, controllers.get(parentName), $elm);  // 在多个同名控制器的情况下,不能正确的按照dom结构进行继承
+        controllers.exec(ctrlName, $parent.data('ic-ctrl-scope'), $elm);
     }
 
 });
