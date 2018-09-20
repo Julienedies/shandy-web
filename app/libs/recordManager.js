@@ -65,8 +65,8 @@ var proto = {
             value = value[query];
         }
 
-        for (var j in pool) {
-            var record = pool[j];
+        for (let i in pool) {
+            let record = pool[i];
             if (value == this._queryKeyValue(record, query)) {
                 r.push(record);
             }
@@ -85,9 +85,10 @@ var proto = {
     set: function (data, query) {
         var that = this;
         var pool = this._pool;
-        var find = this._find || this.get(data[this.key]);
+        var id = data[this.key];
+        var find = this._find || id && this.get(id);
         var result = [];
-        if (!find.length) {
+        if (!id || !find.length) {
             return this.add(data);
         }
 

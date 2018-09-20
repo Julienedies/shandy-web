@@ -280,6 +280,10 @@ body {
   }
 }
 
+.icon > .far {
+  opacity: 0.3;
+}
+
 label.radio {
   font-size: 1.2em;
   vertical-align: -0.5em;

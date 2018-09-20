@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>logic</title>
+    <title>news</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 <link rel="stylesheet" href="/public/static/css/basic/0.7/basic.css" />
 <link rel="stylesheet" href="/public/static/css/js/vendor/brick/0.8/css/brick.mobile.css" />
@@ -11,8 +11,9 @@
 <link rel="stylesheet" href="/public/static/css/common/common.css" />
 
 
+    <link rel="stylesheet" href="/public/static/css/html/stock/news/style.css" />
 </head>
-<body>
+<body ic-ctrl="main_ctrl">
 <div class="tabs is-medium is-boxed" id="nav-tabs">
     <ul>
         <li class="is-active"><a href="/public/static/html/stock/zold/index.html">stock</a></li>
@@ -34,53 +35,34 @@
 
 
 
-<div ic-ctrl="set_logic_ctrl" ic-popup="set_logic">
+<section  class="column is-10 is-offset-1" ic-ctrl="news_ctrl">
 
-    <div class="column is-10">
-
-        <div class="table_0" ic-form="set_logic" ic-tpl ic-tpl-init="{}">
-            <div>
-                <h6>逻辑</h6>
-                <div>
-                    <textarea rows="7" class="textarea is-medium" ic-form-field="text" ic-field-rule="required">{{model.text}}</textarea>
-                    <input type="hidden" name="id" ic-form-field  value="{{model.id}}" />
-                </div>
-            </div>
-            <div>
-                <h6>类型</h6>
-                <div>
-                    <div class="tags" ic-select="logic_type" ic-val="市场" ic-form-field="type">
-                    <span ic-for="i,v in ['市场', '控制', '操作']" ic-class="tag is-large" ic-val="{{v}}" ic-has-selected="v==(model.type||'市场')">
-                        {{v}}
-                    </span>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div></div>
-                <div class="buttons">
-                    <button class="button is-primary"
-                            ic-form-submit
-                            ic-submit-action="/stock/logic"
-                            ic-submit-before
-                            ic-submit-on-done="done"
-                            >保存</button>
-                    <button class="button" ic-click="reset" style="margin-left:4em;"> 重置 </button>
-                    <button class="button" ic-popup-close style="margin-left:4em;"> 关闭 </button>
-                </div>
-            </div>
-        </div>
-
+    <div class="buttons tags">
+        <button class="button"
+                ic-ajax="news"
+                ic-ajax-auto
+                ic-submit-method="get"
+                ic-submit-action="/stock/news"
+                ic-submit-on-done="done">news</button>
     </div>
 
-</div>
+    <ul ic-tpl="news">
+        <li ic-for="i, v in model" class="notification">
+            <div>{{v.text}} - {{v.date}}</div>
+            <button class="delete is-medium"
+                    ic-ajax
+                    ic-submit-method="delete"
+                    ic-submit-action="/stock/news/{{v.id}}"
+                    ic-submit-on-done="removed"></button>
+        </li>
+    </ul>
 
-
+</section>
 
 <script src="/public/static/js/vendor/underscore-1.8.2.js"></script>
 <script src="/public/static/js/vendor/jquery-2.1.3.js"></script>
 <script src="/public/static/js/vendor/brick/0.8/brick.mobile.js"></script>
 <script src="/public/static/js/common.js"></script>
-<script src="/public/static/js/html/stock/logic/main.js"></script>
+<script src="/public/static/js/html/stock/news/main.js"></script>
 </body>
 </html>
