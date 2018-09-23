@@ -13,6 +13,7 @@ brick.reg('c_ctrl', function(){
 
     $.ajax({url:`/stock/c/${code}`, dataType:'json'}).done(function(data){
         c = data;
+        $('title').text(data['名称']);
         if(edit) {
             scope.set_c(data);
         }else{
