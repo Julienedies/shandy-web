@@ -1,7 +1,7 @@
 /*!
  * https://github.com/julienedies/brick.git
  * https://github.com/Julienedies/brick/wiki
- * "9/20/2018, 9:32:37 PM"
+ * "9/23/2018, 12:26:14 PM"
  * "V 0.8"
  */
 ;
@@ -3927,7 +3927,7 @@ brick.directives.reg('ic-dom-remove', {
 // bootstrap
 $(function () {
     setTimeout(function () {
-        if(!brick.get('debug')) cc(false, 'log');
+        //if(!brick.get('debug')) cc(false, 'log');
         if(brick.get('bootstrap.auto') === false) return;
         brick.bootstrap(document.body);
     }, 30);

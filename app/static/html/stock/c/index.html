@@ -33,10 +33,10 @@
 
         <div class="table_0" ic-form="set_c" ic-tpl="set_c">
 
-            <div ic-for="i,k in ['行业', '业务', '产品', '概念', '概念y', '概念z', '备注']" ic-for-init="v=model[k]">
+            <div ic-for="i,k in ['行业', '业务', '产品', '概念', '概念y', '概念z', '备注']">
                 <h6>{{k}}</h6>
-                <div class="field">
-                    <textarea rows="{{(v.length<28 && v.length>0) ? 1:2}}" class="textarea is-medium" ic-form-field="{{k}}">{{v}}</textarea>
+                <div class="field" ic-init="v=model[k]">
+                    <textarea rows="{{(v && v.length<28 && v.length>0) ? 1:2}}" class="textarea is-medium" ic-form-field="{{k}}">{{v}}</textarea>
                 </div>
             </div>
 

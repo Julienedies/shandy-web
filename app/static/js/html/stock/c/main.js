@@ -1,6 +1,7 @@
 /*!
  * Created by j on 18/9/20.
  */
+
 brick.reg('c_ctrl', function(){
 
     var scope = this;
@@ -21,7 +22,7 @@ brick.reg('c_ctrl', function(){
         }
     });
 
-    scope.set_c = function(data){
+    scope.set_c = function(e){
         scope.$elm.hide();
         scope.emit('set_c', c);
     };
@@ -36,6 +37,9 @@ brick.reg('c_ctrl', function(){
 brick.reg('set_c_ctrl', function(){
     var scope = this;
     this.done = function(data){
+        if(window.screen.screenLeft == 1700) {
+            return window.close();
+        }
         scope.$elm.hide();
         scope.emit('set_c_done', data);
     };
