@@ -271,7 +271,7 @@ body {
   font-size: 1.4em;
   line-height: 1.8;
   color: #202020;
-  font: 18px/1.8 "Helvetica Neue",Helvetica,Arial,"Microsoft Yahei","Hiragino Sans GB","Heiti SC","WenQuanYi Micro Hei",sans-serif;
+  font: 18px/1.8 "Helvetica Neue", Helvetica, Arial, "Microsoft Yahei", "Hiragino Sans GB", "Heiti SC", "WenQuanYi Micro Hei", sans-serif;
 }
 
 @media screen and (max-width: 800px) {
@@ -303,4 +303,8 @@ label.radio {
 
 .pointer {
   cursor: pointer;
+}
+
+.notification {
+  background: #f5edd0;
 }

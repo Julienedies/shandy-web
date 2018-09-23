@@ -9,32 +9,30 @@
 @import url('include/components.css?__inline');
 @import url('include/icon.css?__inline');
 @import url('include/layout.css?__inline');*/
-
 @import "../base/include/import";
 @import "include/layout";
 @import "include/components";
 
-
-#nav-tabs{
-  font-size:1.2em;
+#nav-tabs {
+  font-size: 1.2em;
   margin-bottom: 0.5rem;
-  .is-active{
+  .is-active {
     color: #333333;
     font-weight: bolder;
-    a{
-      color:inherit;
+    a {
+      color: inherit;
     }
   }
 }
 
-body{
-  padding:10px 15px 15px 15px;
-  font-size:1.4em;
+body {
+  padding: 10px 15px 15px 15px;
+  font-size: 1.4em;
   line-height: 1.8;
   color: #202020;
-  font: 18px/1.8 "Helvetica Neue",Helvetica,Arial,"Microsoft Yahei","Hiragino Sans GB","Heiti SC","WenQuanYi Micro Hei",sans-serif;
+  font: 18px/1.8 "Helvetica Neue", Helvetica, Arial, "Microsoft Yahei", "Hiragino Sans GB", "Heiti SC", "WenQuanYi Micro Hei", sans-serif;
   @media screen and (max-width: 800px) {
-    font-size:22px;
+    font-size: 22px;
   }
   &::-webkit-scrollbar {
     //width: 0 !important;
@@ -42,29 +40,33 @@ body{
   }
 }
 
-.icon > .far{
+.icon > .far {
   opacity: 0.3;
 }
 
-
-label.radio{
-  font-size:1.2em;
+label.radio {
+  font-size: 1.2em;
   vertical-align: -0.5em;
 }
 
-
-.none{
-  display: none!important;
+.none {
+  display: none !important;
 }
 
-.pre{
+.pre {
   white-space: pre-wrap;
 }
 
-.tar{
-  text-align:right;
+.tar {
+  text-align: right;
 }
 
-.pointer{
+.pointer {
   cursor: pointer;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// bulma 重写
+.notification {
+  background: #f5edd0; //fff1e5
 }

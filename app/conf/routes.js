@@ -49,6 +49,16 @@ module.exports = {
             action: 'index'
         },
         {
+            url: '/stock/c/:code',
+            method: 'get',
+            action: 'stock/c.get'
+        },
+        {
+            url: '/stock/c/:code',
+            method: 'post',
+            action: 'stock/c.post'
+        },
+        {
             url: '/stock/mashup/:code',
             method: 'get',
             action: 'stock/mashup.get'
