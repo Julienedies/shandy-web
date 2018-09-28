@@ -1,7 +1,7 @@
 /*!
  * https://github.com/julienedies/brick.git
  * https://github.com/Julienedies/brick/wiki
- * "9/23/2018, 12:26:14 PM"
+ * "9/28/2018, 11:39:25 PM"
  * "V 0.8"
  */
 ;

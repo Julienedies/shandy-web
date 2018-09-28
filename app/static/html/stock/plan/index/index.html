@@ -40,9 +40,9 @@
 
 <section ic-ctrl="set_plan_ctrl" ic-popup="set_plan">
 
-    <div ic-form="plan" ic-tpl ic-tpl-init="{plan:{}, tags:{}}">
+    <div ic-tpl ic-tpl-init="{plan:{}, tags:{}}">
 
-        <div class="table_0" ic-init="plan=model.plan; tags=model.tags">
+        <div class="table_0" ic-form="plan" ic-init="plan=model.plan; tags=model.tags">
             <!-- tr -->
             <div>
                 <h6>股票名称</h6>
@@ -209,7 +209,7 @@
                 <h6>多空博弈</h6>
                 <div class="field">
                     <div class="control">
-                        <textarea class="textarea is-medium" rows="2" ic-form-field="多空博弈" ic-field-rule="required">{{plan['多空博弈']}}</textarea>
+                        <textarea class="textarea is-medium" rows="2" ic-form-field="多空博弈">{{plan['多空博弈']}}</textarea>
                     </div>
                     <p class="help is-danger">持币者的买入意愿? 持股者的卖出意愿? 谁的力量更大?</p>
                 </div>
@@ -301,9 +301,9 @@
 
 <div class="popup" ic-ctrl="set_tag_ctrl" ic-popup="set_tag">
 
-    <div class="column is-10">
+    <div class="column is-10" ic-tpl ic-tpl-init="{}" ic-init="model=model[0]||model">
 
-        <div class="table_0" ic-form="set_tag" ic-tpl ic-tpl-init="{}" ic-init="model=model[0]||model">
+        <div class="table_0" ic-form="set_tag">
 
             <div>
                 <h6>标签类型</h6>

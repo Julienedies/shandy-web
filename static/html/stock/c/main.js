@@ -37,7 +37,7 @@ brick.reg('c_ctrl', function(){
 brick.reg('set_c_ctrl', function(){
     var scope = this;
     this.done = function(data){
-        if(window.screen.screenLeft == 1700) {
+        if(window.screen.screenLeft >= 1700 || window.innerWidth == 1200) {
             return window.close();
         }
         scope.$elm.hide();
