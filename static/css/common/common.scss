@@ -40,6 +40,12 @@ body {
   }
 }
 
+.textarea{
+  min-height:1rem;
+  overflow-y: visible;
+
+}
+
 .icon > .far {
   opacity: 0.3;
 }

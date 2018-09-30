@@ -11,7 +11,7 @@
 <section ic-ctrl="c_ctrl">
 
     <ul class="table_0" ic-tpl="c">
-        <li  ic-for="i,v in model">
+        <li ic-for="i,v in model">
             <h4>{{i}}</h4>
             <div>{{v}}</div>
         </li>
@@ -26,10 +26,10 @@
 
         <div class="table_0" ic-form="set_c" ic-tpl="set_c">
 
-            <div ic-for="i,k in ['行业', '业务', '产品', '概念', '概念y', '概念z', '备注']">
+            <div ic-for="i,k in ['行业', '业务', '产品', '概念', '概念y', '概念z', '备注', '链接']">
                 <h6>{{k}}</h6>
                 <div class="field" ic-init="v=model[k]">
-                    <textarea rows="{{(v && v.length<28 && v.length>0) ? 1:2}}" class="textarea" ic-form-field="{{k}}">{{v}}</textarea>
+                    <textarea rows="{{Math.ceil((v && v.length/40) || 2)}}" class="textarea" ic-form-field="{{k}}">{{v}}</textarea>
                 </div>
             </div>
 
