@@ -1,1 +1,1 @@
-[{"id":"3563317","text":"为项目重新设置git remote url\ngit remote set-url origin git@github.com:gushenwei/ac.git\n","type":"git"},{"id":"3837353","text":"shasum -a 256 /Users/j/Downloads/expressvpn_6.7.2.5163.exe","type":"unix"}]
+[{"id":"6466836","text":"取消对文件的修改\ngit checkout -- a.js\n\n取消已经暂存的文件\ngit reset HEAD a.js","type":"git"},{"id":"3563317","text":"为项目重新设置git remote url\ngit remote set-url origin git@github.com:gushenwei/ac.git\n","type":"git"},{"id":"3837353","text":"shasum -a 256 /Users/j/Downloads/expressvpn_6.7.2.5163.exe","type":"unix"}]
