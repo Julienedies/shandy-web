@@ -202,6 +202,9 @@ var proto = {
         }
         return record;
     },
+    create_id: function(){
+
+    },
     /**
      * 查询键值
      * @param record
