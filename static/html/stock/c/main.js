@@ -28,7 +28,8 @@ brick.reg('c_ctrl', function(){
     };
 
     function set_c_done(e, data){
-        scope.$elm.show().find('[ic-tpl=c]').icRender(data);
+        scope.render('c', data);
+        scope.$elm.show();
     }
 
     scope.on('set_c_done', set_c_done);
@@ -44,6 +45,7 @@ brick.reg('set_c_ctrl', function(){
         scope.emit('set_c_done', data);
     };
     scope.on('set_c', function(e, data){
-        scope.$elm.show().find('[ic-tpl=set_c]').icRender(data);
+        scope.render('set_c', data);
+        scope.$elm.show();
     });
 });

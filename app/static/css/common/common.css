@@ -196,7 +196,7 @@
   display: flex;
   flex-wrap: wrap;
   border-top: solid 1px #bdbdbe;
-  margin: 20px 0;
+  margin: 15px 0;
 }
 
 .table_1 dt, .table_2 dt, .table_1 dd, .table_2 dd {
@@ -315,5 +315,7 @@ label.radio {
 }
 
 .notification {
+  margin-bottom: 0.8rem !important;
+  padding-bottom: 0.5rem;
   background: #f5edd0;
 }
