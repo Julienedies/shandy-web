@@ -1,7 +1,7 @@
 /*!
  * https://github.com/julienedies/brick.git
  * https://github.com/Julienedies/brick/wiki
- * "10/6/2018, 7:22:16 PM"
+ * "10/9/2018, 3:09:17 PM"
  * "V 0.8"
  */
 ;
@@ -3348,18 +3348,24 @@ directives.reg('ic-type-ahead', function ($elm, attrs) {
  * Created by j on 18/2/16.
  */
 
-var ic_show_img_html = "<div id=\"ic-show-img-box-wrap\">\n\n    <div id=\"ic-show-img-box\">\n        <img/>\n    </div>\n\n    <div id=\"ic-show-img-handle\">\n        <div id=\"ic-show-img-autoplay\">自动播放</div>\n        <div id=\"ic-show-img-sn\"></div>\n        <div id=\"ic-show-img-close\">关闭</div>\n    </div>\n\n</div>";
+var ic_show_img_html = "<div id=\"ic-show-img-box-wrap\">\n\n    <div id=\"ic-show-img-box\">\n        <img/>\n    </div>\n\n    <div id=\"ic-show-img-info\"></div>\n    <div id=\"ic-show-img-handle\">\n        <div id=\"ic-show-img-autoplay\">自动播放</div>\n        <div id=\"ic-show-img-sn\"></div>\n        <div id=\"ic-show-img-close\">关闭</div>\n    </div>\n\n</div>";
 
 var icShowImg = {
+    _show: function(src, index){
+        icShowImg.$img.attr('src', src);
+        icShowImg.$sn.text(index);
+        icShowImg.$info.text($);
+    },
     show: function (arg) {
+        this.infos = arg.infos;
         var urls = this.urls = arg.urls;
         var src = arg.src;
         var index = this.index = src ? urls.indexOf(src) : 0;
         src = src || urls[index];
 
-        icShowImg.$img.attr('src', src);
-        icShowImg.$sn.text(icShowImg.index);
+        this._show(src, index);
         icShowImg.$elm.fadeIn();
+
         $(document.body).on('mousewheel', icShowImg.on_mousewheel);
 
         this.timer = null;
@@ -3372,6 +3378,7 @@ var icShowImg = {
         var $elm = $('#ic-show-img-box-wrap');
         $elm = this.$elm = options.$imgBox || $elm.length ? $elm : $(ic_show_img_html).appendTo($(document.body));
         this.$img = this.$elm.find('#ic-show-img-box > img');
+        this.$info = this.$elm.find('#ic-show-img-info');
         this.$autoplay = this.$elm.find('#ic-show-img-autoplay');
         this.$sn = this.$elm.find('#ic-show-img-sn');
 
@@ -3399,8 +3406,7 @@ var icShowImg = {
         if (icShowImg.index > max) {
             icShowImg.index = 0;
         }
-        icShowImg.$sn.text(icShowImg.index);
-        icShowImg.$img.attr('src', icShowImg.urls[icShowImg.index]);
+        this._show(icShowImg.urls[icShowImg.index], icShowImg.index);
         return false;
     }, 100),
 
@@ -3428,6 +3434,9 @@ $.fn.icShowImg = function (options) {
         var item = options.item || 'img';
         var $imgs = options.$imgs || $that.find(item);
         var url = options.url || 'src';
+        var infos = options.infos || $imgs.map(function (i) {
+                return $(this).attr('ic-show-img-info');
+            }).get();
         var urls = options.urls || $imgs.map(function (i) {
                 return $(this).attr('ic-show-img-item', i).attr(url);
             }).get();
@@ -3435,6 +3444,7 @@ $.fn.icShowImg = function (options) {
         $that.on('click', item, function (e) {
             icShowImg.init(options).show({
                 urls: urls,
+                infos: infos,
                 src: $(this).attr(url)
             });
             return false;
