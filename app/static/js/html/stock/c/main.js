@@ -28,24 +28,46 @@ brick.reg('c_ctrl', function(){
     };
 
     function set_c_done(e, data){
-        scope.render('c', data);
+        data && scope.render('c', data);
         scope.$elm.show();
     }
 
     scope.on('set_c_done', set_c_done);
 });
 
+
 brick.reg('set_c_ctrl', function(){
+
     var scope = this;
-    this.done = function(data){
-        if(window.screen.screenLeft >= 1700 || window.innerWidth == 1200) {
-            return window.close();
-        }
-        scope.$elm.hide();
-        scope.emit('set_c_done', data);
-    };
+
+    if(window.screen.screenLeft >= 1700 || window.innerWidth == 1200) {
+
+        scope.done = function(data){
+            window.close();
+        };
+
+        scope.close = function(e){
+            window.close();
+        };
+
+    } else {
+
+        scope.done = function(data){
+            scope.$elm.hide();
+            scope.emit('set_c_done', data);
+        };
+
+        scope.close = function(e){
+            scope.$elm.hide();
+            scope.emit('set_c_done');
+        };
+
+    }
+
+
     scope.on('set_c', function(e, data){
         scope.render('set_c', data);
         scope.$elm.show();
     });
+
 });

@@ -19,12 +19,15 @@
 
     <ul class="table_0" ic-tpl="c">
         <li ic-for="i,v in model">
-            <h4>{{i}}</h4>
-            <div>{{v}}</div>
+            <h4>{{i}} :</h4>
+            <div ic-if-start="i=='链接'">
+                <a ic-href="{{v}}" target="_blank">{{v}}</a>
+            </div>
+            <div ic-else>{{v}}</div>
         </li>
     </ul>
     <div class="buttons is-right">
-        <button class="button is-primary" ic-click="set_c" >修改</button>
+        <button class="button is-primary" ic-click="set_c">修改</button>
     </div>
 
 </section>
@@ -48,6 +51,10 @@
                             ic-submit-action="/stock/c/{{model.code}}"
                             ic-submit-on-done="done"
                             >保存</button>
+
+                    <button class="button is-primary"
+                            ic-click="close"
+                            >关闭</button>
                 </div>
             </div>
         </div>
