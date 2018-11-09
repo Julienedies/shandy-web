@@ -1,3 +1,5 @@
+@import "../../../css/basic/0.7/basic.base";
+
 .table_1 .table_1{
   margin: 0;
   border-top:none;
@@ -10,6 +12,10 @@
   > dt{
     color:#fff;
     background: #446ca1;
+    padding-right:1em;
+    word-break: break-all;
+    word-wrap:break-word;
+    overflow: hidden;
   }
   > dd{
     padding:0;
