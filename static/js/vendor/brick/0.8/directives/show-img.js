@@ -8,16 +8,15 @@ var icShowImg = {
     _show: function(src, index){
         icShowImg.$img.attr('src', src);
         icShowImg.$sn.text(index);
-        icShowImg.$info.text($);
+        icShowImg.on_show(index, src, icShowImg.$info);
     },
     show: function (arg) {
-        this.infos = arg.infos;
         var urls = this.urls = arg.urls;
         var src = arg.src;
         var index = this.index = src ? urls.indexOf(src) : 0;
         src = src || urls[index];
 
-        this._show(src, index);
+        icShowImg._show(src, index);
         icShowImg.$elm.fadeIn();
 
         $(document.body).on('mousewheel', icShowImg.on_mousewheel);
@@ -28,6 +27,7 @@ var icShowImg = {
     },
 
     init: function (options) {
+        this.on_show = options.on_show || function(){};
         if (this.$elm) return icShowImg;
         var $elm = $('#ic-show-img-box-wrap');
         $elm = this.$elm = options.$imgBox || $elm.length ? $elm : $(ic_show_img_html).appendTo($(document.body));
@@ -60,7 +60,7 @@ var icShowImg = {
         if (icShowImg.index > max) {
             icShowImg.index = 0;
         }
-        this._show(icShowImg.urls[icShowImg.index], icShowImg.index);
+        icShowImg._show(icShowImg.urls[icShowImg.index], icShowImg.index);
         return false;
     }, 100),
 
@@ -85,12 +85,11 @@ $.fn.icShowImg = function (options) {
         var $that = $(this);
         var $imgBox = options.$imgBox;
 
+        console.info(options.on_show);
+
         var item = options.item || 'img';
         var $imgs = options.$imgs || $that.find(item);
         var url = options.url || 'src';
-        var infos = options.infos || $imgs.map(function (i) {
-                return $(this).attr('ic-show-img-info');
-            }).get();
         var urls = options.urls || $imgs.map(function (i) {
                 return $(this).attr('ic-show-img-item', i).attr(url);
             }).get();
@@ -98,7 +97,6 @@ $.fn.icShowImg = function (options) {
         $that.on('click', item, function (e) {
             icShowImg.init(options).show({
                 urls: urls,
-                infos: infos,
                 src: $(this).attr(url)
             });
             return false;
@@ -113,6 +111,7 @@ brick.directives.reg('ic-show-img', function ($elm) {
     var s_item = 'ic-show-img-item'; // img item 选择符
     var s_urls = 'ic-show-img-sources';  // scope 数据源 图像url数据
     var s_interval = 'ic-show-img-interval';  // 间隔自动播放
+    var s_on_show = 'ic-show-img-on-show';  // 回调函数
 
     var $imgBox = $($elm.attr(s_box));
     var item = $elm.attr(s_item) || brick.get(s_item) || 'img';
@@ -122,6 +121,7 @@ brick.directives.reg('ic-show-img', function ($elm) {
         item: item,
         $imgs: $elm.find(item),
         urls: $elm.icPp2(s_urls),
+        on_show: $elm.icPp2(s_on_show),
         interval: $elm.icPp2(s_interval, true),
         url: $elm.attr('ic-show-img-url') || brick.get('ic-show-img-url') || 'src'
     });
