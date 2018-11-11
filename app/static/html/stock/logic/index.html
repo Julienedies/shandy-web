@@ -95,7 +95,12 @@
             <div class="pre">{{v.text}}</div>
             <div class="tar">
                 <span class="tag">{{v.type}}</span>
-                <a ic-click="logic.edit:{{v.id}}">编辑</a>
+                <a ic-click="logic.edit:{{v.id}}">编辑 </a>
+                <a class=""
+                        ic-ajax
+                        ic-submit-method="get"
+                        ic-submit-action="/stock/logic/focus/{{v.id}}"
+                        ic-submit-on-done="get_logic_on_done"> 关注</a>
             </div>
             <button class="delete is-medium"
                     ic-ajax
@@ -116,5 +121,5 @@
 <script src="/public/static/js/vendor/brick/0.8/brick.mobile.js"></script>
 <script src="/public/static/js/common.js"></script>
 <script src="/public/static/js/html/stock/logic/main.js"></script>
-<script type="text/javascript" charset="utf-8" src="http://192.168.3.105:8132/livereload.js"></script></body>
+</body>
 </html>

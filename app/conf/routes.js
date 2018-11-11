@@ -129,6 +129,11 @@ module.exports = {
             action: 'stock/logic.del'
         },
         {
+            url: '/stock/logic/focus/:id',
+            method: 'get',
+            action: '/stock/logic.focus'
+        },
+        {
             url: '/stock/news',
             method: 'get',
             action: '/stock/news.get'
@@ -157,6 +162,21 @@ module.exports = {
             url: '/note/:id',
             method: 'delete',
             action: 'note.del'
+        },
+        {
+            url: '/txt',
+            method: 'get',
+            action: 'txt.get'
+        },
+        {
+            url: '/txt',
+            method: 'post',
+            action: 'txt.post'
+        },
+        {
+            url: '/txt/:id',
+            method: 'delete',
+            action: 'txt.del'
         }
     ]
 

@@ -71,13 +71,22 @@
   align-items: flex-start;
 }
 
-.table_1 .table_1 {
+.table_1 > dd.is-table {
+  padding: 0;
+  border-bottom: none;
+}
+
+.table_1.is-td {
   margin: 0;
   border-top: none;
 }
 
-.table_1 .table_1 > dt, .table_1 .table_1 > dd {
+.table_1.is-td dt, .table_1.is-td dd {
   border-left: none;
+}
+
+.table_1.is-td dd {
+  border-right: none;
 }
 
 .table_1.a > dt {
@@ -89,7 +98,7 @@
   overflow: hidden;
 }
 
-.table_1.a > dd {
+.table_1.a > dt > dd {
   padding: 0;
   border: none;
 }

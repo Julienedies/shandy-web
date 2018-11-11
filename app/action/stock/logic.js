@@ -23,5 +23,11 @@ module.exports = {
         var id = req.params.id;
         dob.remove(id);
         res.json(dob.get());
+    },
+
+    focus: function(req, res){
+        var id = req.params.id;
+        dob.insert(id);
+        res.json(dob.get());
     }
 };

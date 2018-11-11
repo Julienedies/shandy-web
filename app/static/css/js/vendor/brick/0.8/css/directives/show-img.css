@@ -1,3 +1,7 @@
+[ic-show-img-item] {
+  cursor: pointer;
+}
+
 #ic-show-img-box-wrap {
   position: fixed;
   width: 100%;
@@ -16,8 +20,10 @@
 
 #ic-show-img-box-wrap #ic-show-img-info {
   position: absolute;
-  bottom: 2em;
-  padding-left: 30%;
+  bottom: 3em;
+  left: 0;
+  right: 0;
+  text-align: center;
   color: #fff;
   background-color: rgba(0, 0, 0, 0.6);
 }

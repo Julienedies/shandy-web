@@ -16,7 +16,12 @@
             <div class="pre">{{v.text}}</div>
             <div class="tar">
                 <span class="tag">{{v.type}}</span>
-                <a ic-click="logic.edit:{{v.id}}">编辑</a>
+                <a ic-click="logic.edit:{{v.id}}">编辑 </a>
+                <a class=""
+                        ic-ajax
+                        ic-submit-method="get"
+                        ic-submit-action="/stock/logic/focus/{{v.id}}"
+                        ic-submit-on-done="get_logic_on_done"> 关注</a>
             </div>
             <button class="delete is-medium"
                     ic-ajax
