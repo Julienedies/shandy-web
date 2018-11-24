@@ -1,8 +1,8 @@
 {
-  "name": "gushenwei",
+  "name": "julienedies",
   "version": "0.1.1",
-  "description": "gushenwei",
-  "repository": "https://github.com/gushenwei/gushenwei.github.io.git",
+  "description": "julienedies",
+  "repository": "https://github.com/julienedies/julienedies.github.io.git",
   "main": "app/app.js",
   "license": "Apache-2.0",
   "dependencies": {
