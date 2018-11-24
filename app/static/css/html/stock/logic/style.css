@@ -1,3 +1,7 @@
+a.no {
+  text-decoration: none !important;
+}
+
 #logic_list [ic-ctrl="set_logic_ctrl"] {
   position: fixed;
   top: 0;
