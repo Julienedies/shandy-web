@@ -60,4 +60,9 @@ brick.reg('set_logic_ctrl', function(){
     });
 
 
+    scope.on_select_change = function(msg){
+        $elm.find('[ic-form-field="type"]').val(msg.value);
+    };
+
+
 });;

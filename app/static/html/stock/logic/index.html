@@ -40,6 +40,8 @@
     <div class="column is-10" ic-tpl ic-tpl-init="{}">
 
         <div class="table_0" ic-form="set_logic">
+
+            <!-- tr -->
             <div>
                 <h6>逻辑</h6>
                 <div>
@@ -47,16 +49,28 @@
                     <input type="hidden" name="id" ic-form-field  value="{{model.id}}" />
                 </div>
             </div>
+
+            <!-- tr -->
+            <div>
+                <h6>类型</h6>
+                <div class="control">
+                    <input type="text" class="input is-medium" ic-form-field="type" ic-field-rule="required" value="{{model.type}}" />
+                </div>
+            </div>
+
+            <!-- tr -->
             <div>
                 <h6>类型</h6>
                 <div>
-                    <div class="tags" ic-select="logic_type" ic-val="市场" ic-form-field="type">
-                    <span ic-for="i,v in ['市场', '控制', '操作']" ic-class="tag is-large" ic-val="{{v}}" ic-has-selected="v==(model.type||'市场')">
-                        {{v}}
-                    </span>
+                    <div class="tags" ic-select="logic_type" ic-select-on-change="on_select_change">
+                        <span ic-for="i,v in ['市场', '控制', '操作']" ic-class="tag is-large" ic-val="{{v}}">
+                            {{v}}
+                        </span>
                     </div>
                 </div>
             </div>
+
+            <!-- tr -->
             <div>
                 <div></div>
                 <div class="buttons">
@@ -70,6 +84,7 @@
                     <button class="button" ic-popup-close style="margin-left:4em;"> 关闭 </button>
                 </div>
             </div>
+
         </div>
 
     </div>

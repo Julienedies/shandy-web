@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<link rel="stylesheet" href="/public/static/css/basic/0.7/basic.css" />
+<link rel="stylesheet" href="/public/static/css/js/vendor/brick/0.8/css/brick.mobile.css" />
+<link rel="stylesheet" href="/public/static/css/vendor/fontawesome/css/all.css" />
+<link rel="stylesheet" href="/public/static/css/vendor/bulma/css/bulma.css" />
+<link rel="stylesheet" href="/public/static/css/common/common.css" />
+
+
+    <link rel="stylesheet" href="/public/static/css/html/stock/concept/style.css" />
+</head>
+<body class="column is-10 is-offset-1">
+<div ic-ctrl="main_ctrl">
+    <table class="" ic-tpl="list">
+        <caption>{{model.length}}</caption>
+        <tr ic-for="i,v in model">
+            <td>
+                <i style="opacity: 0.2;">{{i}} . </i>
+                <a href="/public/static/html/stock/c/index.html?code={{v.code}}&edit=1" target="_blank">{{v.name}}</a>
+            </td>
+            <td>{{v.text}}</td>
+        </tr>
+    </table>
+</div>
+
+
+<script src="/public/static/js/vendor/underscore-1.8.2.js"></script>
+<script src="/public/static/js/vendor/jquery-2.1.3.js"></script>
+<script src="/public/static/js/vendor/brick/0.8/brick.mobile.js"></script>
+<script src="/public/static/js/common.js"></script>
+<script src="/public/static/js/html/stock/concept/main.js"></script>
+</body>
+</html>

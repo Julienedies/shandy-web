@@ -24,7 +24,7 @@ module.exports = {
 
     get: function(req, res){
         var code = req.params.code;
-        let str = fs.readFileSync(`/Users/j/dev/stock-data/s/${code}.json`, 'utf-8');
+        let str = fs.readFileSync(`/Users/j/dev/csd/s/${code}.json`, 'utf-8');
         let data = JSON.parse(str);
         res.json(data);
     },

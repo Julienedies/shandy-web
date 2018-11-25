@@ -20,6 +20,8 @@ global.FILTER_DIR = path.join(USER_DIR, './filter/');
 global.VIEW_DIR = path.join(USER_DIR, './view/');
 global.STATIC_DIR = path.join(USER_DIR, './static/');
 
+global.CSD_DIR = path.join(__dirname, '../../csd/');
+
 // 全局配置
 require(CONF_DIR + 'global.js');
 
