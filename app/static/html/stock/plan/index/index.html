@@ -190,7 +190,7 @@
                     <div class="control">
                         <div class="select is-fullwidth">
                             <select ic-form-field="预期收益">
-                                <option>请选择</option>
+                                <option></option>
                                 <option value="1%" ic-has-selected="plan['预期收益']=='1%'">1%</option>
                                 <option value="3%" ic-has-selected="plan['预期收益']=='3%'">3%</option>
                                 <option value="5%" ic-has-selected="plan['预期收益']=='5%'">5%</option>
@@ -276,9 +276,9 @@
 
     <ul ic-tpl="plans">
         <li ic-for="j,plan in model" class="notification">
-            <h5 class="title is-5">{{plan['股票名称']}} : </h5>
+            <h6 class="title is-5">{{plan['股票名称']}} : </h6>
             <div class="table_3">
-                <div ic-for="i,k in ['选股条件','主线风口', '行情性质','风险','预期收益','K线节点','计划预案']">
+                <div ic-for="i,k in ['选股条件','主线风口', '行情性质','风险','预期收益','K线节点','计划预案']" ic-if="plan[k]">
                     <h6>{{k}} : </h6>
                     <div class="pre">{{plan[k]}}</div>
                 </div>

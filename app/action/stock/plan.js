@@ -18,10 +18,10 @@ module.exports = {
         res.json(data());
     },
 
-    // 创建一个平仓计划
+    // 创建一个计划
     post: function (req, res) {
         var obj = req.body;
-        plans.set(obj);
+        obj['股票名称'] && plans.set(obj);  // 临时处理 jhandy 下无法通过get方法获取计划数据, 使用空post替代get获取数据
         res.json(data());
     },
 
