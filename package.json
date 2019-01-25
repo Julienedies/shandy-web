@@ -1,8 +1,8 @@
 {
-  "name": "julienedies",
+  "name": "shandy-web",
   "version": "0.1.1",
-  "description": "julienedies",
-  "repository": "https://github.com/julienedies/julienedies.github.io.git",
+  "description": "node server app",
+  "repository": "https://github.com/julienedies/shandy-web.git",
   "main": "app/app.js",
   "license": "Apache-2.0",
   "dependencies": {
